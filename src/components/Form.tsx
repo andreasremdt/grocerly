@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 
 import styles from "./Form.module.css";
 import { Grocery } from "../types";
@@ -11,26 +11,32 @@ function Form({ onSubmit }: FormProps) {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    onSubmit({
-      id: Date.now(),
-      name,
-      amount: parseInt(amount, 10),
-      unit,
-      checked: false,
-    });
+    if (name.length) {
+      onSubmit({
+        id: Date.now(),
+        name,
+        amount: parseInt(amount, 10),
+        unit,
+        checked: false,
+      });
 
-    setName("");
-    setAmount("");
-    setUnit("");
+      setName("");
+      setAmount("");
+      setUnit("");
+
+      inputRef.current?.focus();
+    }
   };
 
   return (
     <form noValidate autoCorrect="off" onSubmit={handleSubmit} className={styles.wrapper}>
       <input
+        ref={inputRef}
         className={styles.input}
         type="text"
         value={name}
@@ -45,11 +51,11 @@ function Form({ onSubmit }: FormProps) {
         onChange={(evt) => setAmount(evt.target.value)}
       />
       <select className={styles.input} value={unit} onChange={(evt) => setUnit(evt.target.value)}>
+        <option value=""></option>
         <option value="g">g (gram)</option>
         <option value="kg">kg (kilogram)</option>
         <option value="ml">ml (mililitres)</option>
         <option value="l">l (litres)</option>
-        <option value="pieces">pieces</option>
       </select>
       <button type="submit" className={styles.button}>
         Add
