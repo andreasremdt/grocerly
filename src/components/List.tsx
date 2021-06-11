@@ -1,14 +1,12 @@
 import GroceryItem from "./GroceryItem";
+import { Grocery } from "../types";
 
 type ListProps = {
-  groceries: {
-    name: string;
-    unit: string;
-    amount: number;
-  }[];
+  onDelete: (payload: Grocery) => void;
+  groceries: Grocery[];
 };
 
-function List({ groceries }: ListProps) {
+function List({ groceries, onDelete }: ListProps) {
   return (
     <main>
       <ul>

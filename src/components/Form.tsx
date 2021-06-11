@@ -1,4 +1,10 @@
-function Form() {
+import { Grocery } from "../types";
+
+type FormProps = {
+  onSubmit: (payload: Grocery) => void;
+};
+
+function Form({ onSubmit }: FormProps) {
   return (
     <form>
       <input type="text" required />

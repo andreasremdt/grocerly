@@ -1,4 +1,8 @@
-function Header() {
+type HeaderProps = {
+  onDeleteAll: () => void;
+};
+
+function Header({ onDeleteAll }: HeaderProps) {
   return (
     <header>
       <h1>Grocery List</h1>

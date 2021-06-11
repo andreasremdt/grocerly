@@ -1,9 +1,7 @@
+import { Grocery } from "../types";
+
 type GroceryProps = {
-  grocery: {
-    name: string;
-    unit: string;
-    amount: number;
-  };
+  grocery: Grocery;
 };
 
 function GroceryItem({ grocery }: GroceryProps) {
