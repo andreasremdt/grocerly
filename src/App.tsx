@@ -1,5 +1,15 @@
+import Header from "./components/Header";
+import List from "./components/List";
+import Form from "./components/Form";
+
 function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <>
+      <Header />
+      <List groceries={[]} />
+      <Form />
+    </>
+  );
 }
 
 export default App;
