@@ -1,0 +1,27 @@
+.wrapper {
+  box-shadow: 0 3px 15px -5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: white;
+  height: 3rem;
+  padding: 0 1rem;
+}
+
+.title {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  margin: unset;
+}
+
+.button {
+  background-color: transparent;
+  padding: unset;
+  border: unset;
+  position: absolute;
+  right: 1rem;
+  cursor: pointer;
+}

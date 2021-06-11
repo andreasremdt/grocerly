@@ -1,4 +1,5 @@
-import GroceryItem from "./GroceryItem";
+import Item from "./Item";
+import styles from "./List.module.css";
 import { Grocery } from "../types";
 
 type ListProps = {
@@ -9,10 +10,10 @@ type ListProps = {
 
 function List({ groceries, onDelete, onToggle }: ListProps) {
   return (
-    <main>
-      <ul>
-        {groceries.map((grocery) => (
-          <GroceryItem key={grocery.name} onDelete={onDelete} onToggle={onToggle} item={grocery} />
+    <main className={styles.wrapper}>
+      <ul className={styles.list}>
+        {groceries.map((item) => (
+          <Item key={item.id} onDelete={onDelete} onToggle={onToggle} item={item} />
         ))}
       </ul>
     </main>

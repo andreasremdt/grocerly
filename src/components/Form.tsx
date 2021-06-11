@@ -1,4 +1,6 @@
 import { FormEvent, useState } from "react";
+
+import styles from "./Form.module.css";
 import { Grocery } from "../types";
 
 type FormProps = {
@@ -27,17 +29,31 @@ function Form({ onSubmit }: FormProps) {
   };
 
   return (
-    <form noValidate autoCorrect="off" onSubmit={handleSubmit}>
-      <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} />
-      <input type="number" value={amount} onChange={(evt) => setAmount(evt.target.value)} />
-      <select value={unit} onChange={(evt) => setUnit(evt.target.value)}>
+    <form noValidate autoCorrect="off" onSubmit={handleSubmit} className={styles.wrapper}>
+      <input
+        className={styles.input}
+        type="text"
+        value={name}
+        placeholder="e.g. eggs, milk, spinach"
+        onChange={(evt) => setName(evt.target.value)}
+      />
+      <input
+        className={styles.input}
+        type="number"
+        placeholder="Quantity"
+        value={amount}
+        onChange={(evt) => setAmount(evt.target.value)}
+      />
+      <select className={styles.input} value={unit} onChange={(evt) => setUnit(evt.target.value)}>
         <option value="g">g (gram)</option>
         <option value="kg">kg (kilogram)</option>
         <option value="ml">ml (mililitres)</option>
         <option value="l">l (litres)</option>
         <option value="pieces">pieces</option>
       </select>
-      <button type="submit">Add</button>
+      <button type="submit" className={styles.button}>
+        Add
+      </button>
     </form>
   );
 }
