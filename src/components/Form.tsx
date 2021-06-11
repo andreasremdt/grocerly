@@ -34,7 +34,7 @@ function Form({ onSubmit }: FormProps) {
   };
 
   return (
-    <form noValidate autoCorrect="off" onSubmit={handleSubmit} className={styles.wrapper}>
+    <form noValidate autoCapitalize="off" onSubmit={handleSubmit} className={styles.wrapper}>
       <input
         ref={inputRef}
         className={styles.input}

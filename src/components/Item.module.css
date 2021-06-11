@@ -12,6 +12,7 @@
   background-color: transparent;
   border: unset;
   padding: unset;
+  cursor: pointer;
 }
 
 .amount {
