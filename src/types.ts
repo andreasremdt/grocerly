@@ -1,5 +1,5 @@
 export type Grocery = {
-  id: string;
+  id: number;
   name: string;
   unit: string;
   amount: number;

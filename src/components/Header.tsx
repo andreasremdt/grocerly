@@ -6,7 +6,9 @@ function Header({ onDeleteAll }: HeaderProps) {
   return (
     <header>
       <h1>Grocery List</h1>
-      <button type="button">&times;</button>
+      <button type="button" onClick={onDeleteAll}>
+        &times;
+      </button>
     </header>
   );
 }

@@ -13,11 +13,12 @@ function App() {
   const handleSubmit = (payload: Grocery) => dispatch({ type: "ADD_ITEM", payload });
   const handleDeleteAll = () => dispatch({ type: "DELETE_ALL" });
   const handleDelete = (payload: Grocery) => dispatch({ type: "DELETE_ITEM", payload });
+  const handleToggle = (payload: Grocery) => dispatch({ type: "TOGGLE_CHECK_ITEM", payload });
 
   return (
     <>
       <Header onDeleteAll={handleDeleteAll} />
-      <List groceries={groceries} onDelete={handleDelete} />
+      <List groceries={groceries} onDelete={handleDelete} onToggle={handleToggle} />
       <Form onSubmit={handleSubmit} />
     </>
   );

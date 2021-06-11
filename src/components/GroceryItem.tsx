@@ -1,16 +1,23 @@
 import { Grocery } from "../types";
 
 type GroceryProps = {
-  grocery: Grocery;
+  item: Grocery;
+  onDelete: (payload: Grocery) => void;
+  onToggle: (payload: Grocery) => void;
 };
 
-function GroceryItem({ grocery }: GroceryProps) {
+function GroceryItem({ item, onDelete, onToggle }: GroceryProps) {
   return (
-    <li>
-      {grocery.amount}
-      {grocery.unit}
-      {grocery.name}
-      <button type="button">&times;</button>
+    <li
+      style={{ textDecoration: item.checked ? "line-through" : "none" }}
+      onClick={() => onToggle(item)}
+    >
+      {item.amount || ""}
+      {item.unit}
+      {item.name}
+      <button type="button" onClick={() => onDelete(item)}>
+        &times;
+      </button>
     </li>
   );
 }
