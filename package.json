@@ -6,7 +6,7 @@
     "email": "me@andreasremdt.com",
     "url": "https://andreasremdt.com"
   },
-  "description": "Simple and intuitive shopping app to helo you manage your groceries.",
+  "description": "Simple and intuitive shopping app to help you manage your groceries.",
   "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
