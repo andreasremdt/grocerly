@@ -10,6 +10,8 @@ html {
 
 body {
   margin: unset;
+  font-size: 14px;
+  line-height: 1.5;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -8,3 +8,12 @@
   padding: unset;
   list-style: none;
 }
+
+.empty {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
