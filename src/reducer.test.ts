@@ -26,6 +26,13 @@ test("adds a new item", () => {
   expect(state).toMatchObject([item]);
 });
 
+test("sums up the same item's amount", () => {
+  const [item] = getItems(1);
+  const state = reducer(getItems(), { type: "ADD_ITEM", payload: item });
+
+  expect(state[0].amount).toEqual(2);
+});
+
 test("removes an item", () => {
   const items = getItems();
   const state = reducer(items, { type: "DELETE_ITEM", payload: items[0] });
