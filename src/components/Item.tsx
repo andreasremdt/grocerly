@@ -11,7 +11,7 @@ function Item({ item, onDelete, onToggle }: ItemProps) {
   return (
     <li
       style={{ textDecoration: item.checked ? "line-through" : "none" }}
-      onClick={() => onToggle(item)}
+      onDoubleClick={() => onToggle(item)}
       className={styles.wrapper}
     >
       <span className={styles.amount}>

@@ -35,7 +35,6 @@ test("calls the `onDelete` function", () => {
   const { getByTitle } = render(<Item onDelete={spy} onToggle={jest.fn()} item={item} />);
 
   fireEvent.click(getByTitle(/delete item/i));
-
   expect(spy).toHaveBeenCalledWith(item);
 });
 
@@ -45,6 +44,7 @@ test("calls the `onToggle` function", () => {
   const { container } = render(<Item onDelete={jest.fn()} onToggle={spy} item={item} />);
 
   fireEvent.click(container.firstElementChild!);
-
+  expect(spy).not.toHaveBeenCalled();
+  fireEvent.dblClick(container.firstElementChild!);
   expect(spy).toHaveBeenCalledWith(item);
 });
