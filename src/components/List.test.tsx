@@ -4,7 +4,7 @@ import List from "./List";
 
 test("displays an empty state if no items exist", () => {
   const { getByText, getByAltText } = render(
-    <List onDelete={jest.fn()} onToggle={jest.fn()} groceries={[]} />
+    <List onDelete={jest.fn()} onSelect={jest.fn()} onToggle={jest.fn()} groceries={[]} />
   );
 
   expect(getByText(/nothing here, yet/i)).toBeInTheDocument();
@@ -30,7 +30,7 @@ test("displays a list of items", () => {
   ];
 
   const { getByText } = render(
-    <List onDelete={jest.fn()} onToggle={jest.fn()} groceries={groceries} />
+    <List onDelete={jest.fn()} onSelect={jest.fn()} onToggle={jest.fn()} groceries={groceries} />
   );
 
   expect(getByText(/milk/i)).toBeInTheDocument();

@@ -5,13 +5,32 @@ type ItemProps = {
   item: Grocery;
   onDelete: (payload: Grocery) => void;
   onToggle: (payload: Grocery) => void;
+  onSelect: (payload: Grocery) => void;
 };
 
-function Item({ item, onDelete, onToggle }: ItemProps) {
+function Item({ item, onDelete, onToggle, onSelect }: ItemProps) {
+  let timer: number;
+
+  const handleTouchStart = () => {
+    timer = window.setTimeout(() => {
+      window.navigator.vibrate(100);
+
+      onToggle(item);
+    }, 500);
+  };
+
+  const handleTouchEnd = () => {
+    if (timer) clearTimeout(timer);
+  };
+
   return (
     <li
       style={{ textDecoration: item.checked ? "line-through" : "none" }}
-      onDoubleClick={() => onToggle(item)}
+      onDoubleClick={() => onSelect(item)}
+      onMouseDown={handleTouchStart}
+      onTouchStart={handleTouchStart}
+      onMouseUp={handleTouchEnd}
+      onTouchEnd={handleTouchEnd}
       className={styles.wrapper}
     >
       <span className={styles.amount}>

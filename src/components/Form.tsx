@@ -1,29 +1,49 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 import styles from "./Form.module.css";
 import { Grocery } from "../types";
 
 type FormProps = {
+  editing: Grocery | null;
   onSubmit: (payload: Grocery) => void;
+  onUpdate: (payload: Grocery) => void;
 };
 
-function Form({ onSubmit }: FormProps) {
+function Form({ onSubmit, onUpdate, editing }: FormProps) {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (editing) {
+      setName(editing.name);
+      setAmount("" + editing.amount);
+      setUnit(editing.unit);
+    }
+  }, [editing]);
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
     if (name.length) {
-      onSubmit({
-        id: Date.now(),
-        name,
-        amount: parseInt(amount, 10),
-        unit,
-        checked: false,
-      });
+      if (editing) {
+        onUpdate({
+          id: editing.id,
+          name,
+          amount: parseInt(amount, 10),
+          unit,
+          checked: editing.checked,
+        });
+      } else {
+        onSubmit({
+          id: Date.now(),
+          name,
+          amount: parseInt(amount, 10),
+          unit,
+          checked: false,
+        });
+      }
 
       setName("");
       setAmount("");

@@ -6,15 +6,22 @@ type ListProps = {
   groceries: Grocery[];
   onDelete: (payload: Grocery) => void;
   onToggle: (payload: Grocery) => void;
+  onSelect: (payload: Grocery) => void;
 };
 
-function List({ groceries, onDelete, onToggle }: ListProps) {
+function List({ groceries, onDelete, onSelect, onToggle }: ListProps) {
   return (
     <main className={styles.wrapper}>
       {groceries.length ? (
         <ul className={styles.list}>
           {groceries.map((item) => (
-            <Item key={item.id} onDelete={onDelete} onToggle={onToggle} item={item} />
+            <Item
+              key={item.id}
+              onDelete={onDelete}
+              onToggle={onToggle}
+              onSelect={onSelect}
+              item={item}
+            />
           ))}
         </ul>
       ) : (

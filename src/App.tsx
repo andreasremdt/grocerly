@@ -8,30 +8,44 @@ import reducer from "./reducer";
 import { Grocery } from "./types";
 
 function App() {
-  const [groceries, dispatch] = useReducer(reducer, [], () => {
-    const data = localStorage.getItem("data");
+  const [state, dispatch] = useReducer(
+    reducer,
+    {
+      groceries: [],
+      editing: null,
+    },
+    () => {
+      const data = localStorage.getItem("data");
 
-    if (data) {
-      return JSON.parse(data);
+      if (data) {
+        return { editing: null, groceries: JSON.parse(data) };
+      }
+
+      return { editing: null, groceries: [] };
     }
-
-    return [];
-  });
+  );
 
   const handleSubmit = (payload: Grocery) => dispatch({ type: "ADD_ITEM", payload });
   const handleDeleteAll = () => dispatch({ type: "DELETE_ALL" });
   const handleDelete = (payload: Grocery) => dispatch({ type: "DELETE_ITEM", payload });
   const handleToggle = (payload: Grocery) => dispatch({ type: "TOGGLE_CHECK_ITEM", payload });
+  const handleSelect = (payload: Grocery) => dispatch({ type: "SELECT_ITEM", payload });
+  const handleUpdate = (payload: Grocery) => dispatch({ type: "UPDATE_ITEM", payload });
 
   useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(groceries));
-  }, [groceries]);
+    localStorage.setItem("data", JSON.stringify(state.groceries));
+  }, [state.groceries]);
 
   return (
     <>
       <Header onDeleteAll={handleDeleteAll} />
-      <List groceries={groceries} onDelete={handleDelete} onToggle={handleToggle} />
-      <Form onSubmit={handleSubmit} />
+      <List
+        groceries={state.groceries}
+        onDelete={handleDelete}
+        onToggle={handleToggle}
+        onSelect={handleSelect}
+      />
+      <Form onSubmit={handleSubmit} onUpdate={handleUpdate} editing={state.editing} />
     </>
   );
 }

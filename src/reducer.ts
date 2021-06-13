@@ -1,43 +1,59 @@
-import { Grocery } from "./types";
+import { GroceryState, GroceryActions } from "./types";
 
-type GroceryActions =
-  | { type: "ADD_ITEM"; payload: Grocery }
-  | { type: "DELETE_ITEM"; payload: Grocery }
-  | { type: "TOGGLE_CHECK_ITEM"; payload: Grocery }
-  | { type: "DELETE_ALL" };
-
-function reducer(groceries: Grocery[], action: GroceryActions): Grocery[] {
+function reducer(state: GroceryState, action: GroceryActions): GroceryState {
   switch (action.type) {
     case "ADD_ITEM":
-      const existing = groceries.find(
+      const existing = state.groceries.find(
         (grocery) => grocery.name === action.payload.name && grocery.unit === action.payload.unit
       );
 
       if (existing) {
-        return groceries.map((grocery) => {
-          if (existing.id === grocery.id) {
-            return { ...grocery, amount: grocery.amount + action.payload.amount };
+        return {
+          ...state,
+          groceries: state.groceries.map((grocery) => {
+            if (existing.id === grocery.id) {
+              return { ...grocery, amount: grocery.amount + action.payload.amount };
+            }
+
+            return grocery;
+          }),
+        };
+      }
+
+      return { ...state, groceries: [...state.groceries, action.payload] };
+    case "UPDATE_ITEM":
+      return {
+        editing: null,
+        groceries: state.groceries.map((grocery) => {
+          if (grocery.id === action.payload.id) {
+            return action.payload;
           }
 
           return grocery;
-        });
-      }
-
-      return [...groceries, action.payload];
+        }),
+      };
     case "DELETE_ITEM":
-      return groceries.filter((grocery) => grocery.id !== action.payload.id);
+      return {
+        ...state,
+        groceries: state.groceries.filter((grocery) => grocery.id !== action.payload.id),
+      };
     case "DELETE_ALL":
-      return [];
+      return { ...state, groceries: [] };
+    case "SELECT_ITEM":
+      return { ...state, editing: action.payload };
     case "TOGGLE_CHECK_ITEM":
-      return groceries.map((grocery) => {
-        if (grocery.id === action.payload.id) {
-          return { ...grocery, checked: !grocery.checked };
-        }
+      return {
+        ...state,
+        groceries: state.groceries.map((grocery) => {
+          if (grocery.id === action.payload.id) {
+            return { ...grocery, checked: !grocery.checked };
+          }
 
-        return grocery;
-      });
+          return grocery;
+        }),
+      };
     default:
-      return groceries;
+      return state;
   }
 }
 
