@@ -50,7 +50,12 @@ function Form({ onSubmit }: FormProps) {
         value={amount}
         onChange={(evt) => setAmount(evt.target.value)}
       />
-      <select className={styles.input} value={unit} onChange={(evt) => setUnit(evt.target.value)}>
+      <select
+        data-testid="unit"
+        className={styles.input}
+        value={unit}
+        onChange={(evt) => setUnit(evt.target.value)}
+      >
         <option value=""></option>
         <option value="g">g (gram)</option>
         <option value="kg">kg (kilogram)</option>

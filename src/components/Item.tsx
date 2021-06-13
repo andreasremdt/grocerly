@@ -1,13 +1,13 @@
 import styles from "./Item.module.css";
 import { Grocery } from "../types";
 
-type GroceryProps = {
+type ItemProps = {
   item: Grocery;
   onDelete: (payload: Grocery) => void;
   onToggle: (payload: Grocery) => void;
 };
 
-function GroceryItem({ item, onDelete, onToggle }: GroceryProps) {
+function Item({ item, onDelete, onToggle }: ItemProps) {
   return (
     <li
       style={{ textDecoration: item.checked ? "line-through" : "none" }}
@@ -19,7 +19,12 @@ function GroceryItem({ item, onDelete, onToggle }: GroceryProps) {
         {item.unit}
       </span>
       <span className={styles.name}>{item.name}</span>
-      <button type="button" onClick={() => onDelete(item)} className={styles.button}>
+      <button
+        type="button"
+        title="Delete item"
+        onClick={() => onDelete(item)}
+        className={styles.button}
+      >
         <svg
           width="18"
           height="18"
@@ -38,4 +43,4 @@ function GroceryItem({ item, onDelete, onToggle }: GroceryProps) {
   );
 }
 
-export default GroceryItem;
+export default Item;
