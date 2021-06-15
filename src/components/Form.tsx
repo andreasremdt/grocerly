@@ -1,13 +1,16 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 
 import styles from "./Form.module.css";
 import { Grocery } from "../types";
+import RadioButton from "./RadioButton";
 
 type FormProps = {
   editing: Grocery | null;
   onSubmit: (payload: Grocery) => void;
   onUpdate: (payload: Grocery) => void;
 };
+
+const UNITS = ["mg", "g", "kg", "ml", "l"];
 
 function Form({ onSubmit, onUpdate, editing }: FormProps) {
   const [name, setName] = useState("");
@@ -20,6 +23,10 @@ function Form({ onSubmit, onUpdate, editing }: FormProps) {
       setName(editing.name);
       setAmount("" + editing.amount);
       setUnit(editing.unit);
+    } else {
+      setName("");
+      setAmount("");
+      setUnit("");
     }
   }, [editing]);
 
@@ -32,7 +39,7 @@ function Form({ onSubmit, onUpdate, editing }: FormProps) {
           id: editing.id,
           name,
           amount: parseInt(amount, 10),
-          unit,
+          unit: amount ? unit : "",
           checked: editing.checked,
         });
       } else {
@@ -40,7 +47,7 @@ function Form({ onSubmit, onUpdate, editing }: FormProps) {
           id: Date.now(),
           name,
           amount: parseInt(amount, 10),
-          unit,
+          unit: amount ? unit : "",
           checked: false,
         });
       }
@@ -70,18 +77,17 @@ function Form({ onSubmit, onUpdate, editing }: FormProps) {
         value={amount}
         onChange={(evt) => setAmount(evt.target.value)}
       />
-      <select
-        data-testid="unit"
-        className={styles.input}
-        value={unit}
-        onChange={(evt) => setUnit(evt.target.value)}
-      >
-        <option value=""></option>
-        <option value="g">g (gram)</option>
-        <option value="kg">kg (kilogram)</option>
-        <option value="ml">ml (mililitres)</option>
-        <option value="l">l (litres)</option>
-      </select>
+      <div className={styles.units}>
+        {UNITS.map((value) => (
+          <RadioButton
+            key={value}
+            value={value}
+            checked={value === unit}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setUnit(event.target.value)}
+            onClick={() => setUnit("")}
+          />
+        ))}
+      </div>
       <button type="submit" className={styles.button}>
         Add
       </button>

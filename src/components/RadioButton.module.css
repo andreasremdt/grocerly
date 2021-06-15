@@ -1,0 +1,28 @@
+.label {
+  flex: 1;
+}
+
+.display {
+  background-color: #f9fafb;
+  border-radius: 3px;
+  display: block;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  padding: 0 1rem;
+}
+
+.input {
+  opacity: 0;
+  position: absolute;
+  top: -9999px;
+}
+
+.input:checked + .display {
+  background-color: black;
+  color: white;
+}
