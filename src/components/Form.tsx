@@ -21,7 +21,7 @@ function Form({ onSubmit, onUpdate, editing }: FormProps) {
   useEffect(() => {
     if (editing) {
       setName(editing.name);
-      setAmount("" + editing.amount);
+      setAmount(editing.amount);
       setUnit(editing.unit);
     } else {
       setName("");
@@ -38,16 +38,16 @@ function Form({ onSubmit, onUpdate, editing }: FormProps) {
         onUpdate({
           id: editing.id,
           name,
-          amount: parseInt(amount, 10),
-          unit: amount ? unit : "",
+          amount,
+          unit: amount.length ? unit : "",
           checked: editing.checked,
         });
       } else {
         onSubmit({
           id: Date.now(),
           name,
-          amount: parseInt(amount, 10),
-          unit: amount ? unit : "",
+          amount,
+          unit: amount.length ? unit : "",
           checked: false,
         });
       }

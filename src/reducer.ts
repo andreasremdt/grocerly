@@ -12,7 +12,10 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
           ...state,
           groceries: state.groceries.map((grocery) => {
             if (existing.id === grocery.id) {
-              return { ...grocery, amount: grocery.amount + action.payload.amount };
+              return {
+                ...grocery,
+                amount: String(Number(grocery.amount) + Number(action.payload.amount)),
+              };
             }
 
             return grocery;

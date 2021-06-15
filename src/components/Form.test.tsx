@@ -40,7 +40,7 @@ test("returns a new grocery object with only the name", () => {
   expect(submitSpy).toHaveBeenCalledWith({
     id: 1487076708000,
     name: "bread",
-    amount: NaN,
+    amount: "",
     unit: "",
     checked: false,
   });
@@ -62,7 +62,7 @@ test("all grocery inputs are submitted", () => {
   expect(spy).toHaveBeenCalledWith({
     id: 1487076708000,
     name: "milk",
-    amount: 100,
+    amount: "100",
     unit: "ml",
     checked: false,
   });
@@ -76,7 +76,7 @@ test("an existing item can be updated", () => {
   const editing = {
     id: 1,
     name: "milk",
-    amount: 100,
+    amount: "100",
     unit: "l",
     checked: false,
   };
@@ -98,7 +98,7 @@ test("an existing item can be updated", () => {
   expect(updateSpy).toHaveBeenCalledWith({
     id: 1,
     name: "bread",
-    amount: 150,
+    amount: "150",
     unit: "l",
     checked: false,
   });
@@ -119,7 +119,7 @@ test("when no amount is specified, the unit is not submitted", () => {
   expect(spy).toHaveBeenCalledWith({
     id: 1487076708000,
     name: "milk",
-    amount: NaN,
+    amount: "",
     unit: "",
     checked: false,
   });

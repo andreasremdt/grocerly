@@ -2,7 +2,7 @@ export type Grocery = {
   id: number;
   name: string;
   unit: string;
-  amount: number;
+  amount: string;
   checked: boolean;
 };
 

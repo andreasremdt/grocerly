@@ -6,14 +6,14 @@ const getItems = (amount: number = 2) => {
     {
       id: Date.now(),
       name: "milk",
-      amount: 1,
+      amount: "1",
       unit: "l",
       checked: false,
     },
     {
       id: Date.now() + 1,
       name: "bread",
-      amount: NaN,
+      amount: "",
       unit: "",
       checked: true,
     },
@@ -35,7 +35,7 @@ test("sums up the same item's amount", () => {
   const [item] = getItems(1);
   const state = reducer(getState(getItems()), { type: "ADD_ITEM", payload: item });
 
-  expect(state.groceries[0].amount).toEqual(2);
+  expect(state.groceries[0].amount).toEqual("2");
 });
 
 test("removes an item and clears the currently editing", () => {
@@ -82,7 +82,7 @@ test("updates an existing item", () => {
   expect(state.groceries[0]).toMatchObject({
     id: items[0].id,
     name: "water",
-    amount: 1,
+    amount: "1",
     unit: "ml",
     checked: false,
   });
