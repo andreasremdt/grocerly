@@ -38,11 +38,12 @@ test("sums up the same item's amount", () => {
   expect(state.groceries[0].amount).toEqual(2);
 });
 
-test("removes an item", () => {
+test("removes an item and clears the currently editing", () => {
   const items = getItems();
-  const state = reducer(getState(items), { type: "DELETE_ITEM", payload: items[0] });
+  const state = reducer(getState(items, items[0]), { type: "DELETE_ITEM", payload: items[0] });
 
   expect(state.groceries).toMatchObject([items[1]]);
+  expect(state.editing).toEqual(null);
 });
 
 it("clears all items", () => {

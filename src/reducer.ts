@@ -34,7 +34,7 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
       };
     case "DELETE_ITEM":
       return {
-        ...state,
+        editing: null,
         groceries: state.groceries.filter((grocery) => grocery.id !== action.payload.id),
       };
     case "DELETE_ALL":
