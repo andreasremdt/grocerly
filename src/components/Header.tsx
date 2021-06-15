@@ -2,12 +2,32 @@ import styles from "./Header.module.css";
 
 type HeaderProps = {
   onDeleteAll: () => void;
+  onToggleForm: () => void;
+  isFormVisible: boolean;
 };
 
-function Header({ onDeleteAll }: HeaderProps) {
+function Header({ onDeleteAll, onToggleForm, isFormVisible }: HeaderProps) {
   return (
     <header className={styles.wrapper}>
       <h1 className={styles.title}>Grocery List</h1>
+      <button type="button" onClick={onToggleForm} className={styles.button} title="Toggle form">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {isFormVisible ? (
+            <polyline points="18 15 12 9 6 15"></polyline>
+          ) : (
+            <polyline points="6 9 12 15 18 9"></polyline>
+          )}
+        </svg>
+      </button>
       <button
         type="button"
         onClick={onDeleteAll}

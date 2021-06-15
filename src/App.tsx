@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useState, useReducer } from "react";
 
 import Header from "./components/Header";
 import List from "./components/List";
@@ -8,6 +8,7 @@ import reducer from "./reducer";
 import { Grocery } from "./types";
 
 function App() {
+  const [isFormVisible, setIsFormVisible] = useState(true);
   const [state, dispatch] = useReducer(
     reducer,
     {
@@ -38,14 +39,20 @@ function App() {
 
   return (
     <>
-      <Header onDeleteAll={handleDeleteAll} />
+      <Header
+        onDeleteAll={handleDeleteAll}
+        onToggleForm={() => setIsFormVisible(!isFormVisible)}
+        isFormVisible={isFormVisible}
+      />
+      {isFormVisible && (
+        <Form onSubmit={handleSubmit} onUpdate={handleUpdate} editing={state.editing} />
+      )}
       <List
         groceries={state.groceries}
         onDelete={handleDelete}
         onToggle={handleToggle}
         onSelect={handleSelect}
       />
-      <Form onSubmit={handleSubmit} onUpdate={handleUpdate} editing={state.editing} />
     </>
   );
 }
