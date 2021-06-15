@@ -69,6 +69,7 @@ function Form({ onSubmit, onUpdate, editing }: FormProps) {
         value={name}
         placeholder="e.g. eggs, milk, spinach"
         onChange={(evt) => setName(evt.target.value)}
+        autoFocus
       />
       <input
         className={styles.input}

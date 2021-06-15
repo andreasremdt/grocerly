@@ -16,14 +16,14 @@ test("displays a list of items", () => {
     {
       id: Date.now(),
       name: "milk",
-      amount: 1,
+      amount: "1",
       unit: "l",
       checked: false,
     },
     {
       id: Date.now() + 1,
       name: "bread",
-      amount: NaN,
+      amount: "",
       unit: "",
       checked: false,
     },

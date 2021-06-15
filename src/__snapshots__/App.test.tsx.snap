@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the app structure is rendered correctly 1`] = `
+<div>
+  <header
+    class="wrapper"
+  >
+    <h1
+      class="title"
+    >
+      Grocery List
+    </h1>
+    <button
+      class="button"
+      title="Toggle form"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <polyline
+          points="18 15 12 9 6 15"
+        />
+      </svg>
+    </button>
+    <button
+      class="button"
+      title="Delete all items"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="20"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="20"
+      >
+        <polyline
+          points="3 6 5 6 21 6"
+        />
+        <path
+          d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+        />
+        <line
+          x1="10"
+          x2="10"
+          y1="11"
+          y2="17"
+        />
+        <line
+          x1="14"
+          x2="14"
+          y1="11"
+          y2="17"
+        />
+      </svg>
+    </button>
+  </header>
+  <form
+    autocapitalize="off"
+    class="wrapper"
+    novalidate=""
+  >
+    <input
+      class="input"
+      placeholder="e.g. eggs, milk, spinach"
+      type="text"
+      value=""
+    />
+    <input
+      class="input"
+      placeholder="Quantity"
+      type="number"
+      value=""
+    />
+    <div
+      class="units"
+    >
+      <label
+        class="label"
+      >
+        <input
+          class="input"
+          name="unit"
+          type="radio"
+          value="mg"
+        />
+        <span
+          class="display"
+        >
+          mg
+        </span>
+      </label>
+      <label
+        class="label"
+      >
+        <input
+          class="input"
+          name="unit"
+          type="radio"
+          value="g"
+        />
+        <span
+          class="display"
+        >
+          g
+        </span>
+      </label>
+      <label
+        class="label"
+      >
+        <input
+          class="input"
+          name="unit"
+          type="radio"
+          value="kg"
+        />
+        <span
+          class="display"
+        >
+          kg
+        </span>
+      </label>
+      <label
+        class="label"
+      >
+        <input
+          class="input"
+          name="unit"
+          type="radio"
+          value="ml"
+        />
+        <span
+          class="display"
+        >
+          ml
+        </span>
+      </label>
+      <label
+        class="label"
+      >
+        <input
+          class="input"
+          name="unit"
+          type="radio"
+          value="l"
+        />
+        <span
+          class="display"
+        >
+          l
+        </span>
+      </label>
+    </div>
+    <button
+      class="button"
+      type="submit"
+    >
+      Add
+    </button>
+  </form>
+  <main
+    class="wrapper"
+  >
+    <div
+      class="empty"
+    >
+      <img
+        alt=""
+        src="/shopping-cart.svg"
+        width="250"
+      />
+      <p>
+        Nothing here, yet.
+        <br />
+        Start adding items to your shopping list below.
+      </p>
+    </div>
+  </main>
+</div>
+`;

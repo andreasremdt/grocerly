@@ -5,7 +5,7 @@ import Item from "./Item";
 const getItem = () => ({
   id: Date.now(),
   name: "milk",
-  amount: 1,
+  amount: "1",
   unit: "l",
   checked: false,
 });
