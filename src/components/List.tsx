@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 
 import { GroceryContext } from "../GroceryContext";
 import Item from "./Item";
@@ -6,9 +6,22 @@ import styles from "./List.module.css";
 
 function List() {
   const { groceries } = useContext(GroceryContext);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const groceriesRef = useRef(groceries);
+
+  useEffect(() => {
+    if (groceries.length > groceriesRef.current.length) {
+      mainRef.current?.scrollTo({
+        top: mainRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+
+    groceriesRef.current = groceries;
+  }, [groceries]);
 
   return (
-    <main className={styles.wrapper}>
+    <main className={styles.wrapper} ref={mainRef}>
       {groceries.length ? (
         <ul className={styles.list}>
           {groceries.map((item) => (

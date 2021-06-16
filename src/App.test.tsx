@@ -28,6 +28,8 @@ test("toggles the form", () => {
 });
 
 test("items are persisted in local storage", () => {
+  Element.prototype.scrollTo = jest.fn();
+
   const { getByPlaceholderText, getByLabelText, getByText, getAllByTitle } = render(<App />);
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "tomatoes" } });
@@ -52,7 +54,9 @@ test("items are persisted in local storage", () => {
 });
 
 test("adds, updates, and removes items", () => {
+  Element.prototype.scrollTo = jest.fn();
   jest.useFakeTimers("modern");
+
   const { getByPlaceholderText, getByLabelText, getByText, queryByText, getByTitle } = render(
     <App />
   );
@@ -70,6 +74,7 @@ test("adds, updates, and removes items", () => {
   expect((getByPlaceholderText(/eggs/i) as HTMLInputElement).value).toEqual("");
   expect((getByPlaceholderText(/quantity/i) as HTMLInputElement).value).toEqual("");
   expect((getByLabelText(/ml/i) as HTMLInputElement).checked).toBeFalsy();
+  expect(Element.prototype.scrollTo).toHaveBeenCalledTimes(1);
 
   act(() => {
     fireEvent.touchStart(getByText(/milk/i).parentElement!);
@@ -97,4 +102,5 @@ test("adds, updates, and removes items", () => {
 
   fireEvent.click(getByTitle(/delete item/i));
   expect(getByText(/nothing here, yet/i)).toBeInTheDocument();
+  expect(Element.prototype.scrollTo).toHaveBeenCalledTimes(1);
 });
