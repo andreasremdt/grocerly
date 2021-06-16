@@ -17,6 +17,25 @@ test("displays an empty state if no items exist", () => {
   expect(getByAltText("")).toBeInTheDocument();
 });
 
+test("the table header displays quantity and name", () => {
+  const groceries = [
+    {
+      id: Date.now(),
+      name: "milk",
+      amount: "1",
+      unit: "l",
+      checked: false,
+    },
+  ];
+
+  const { getByText } = renderWithContext(<List />, {
+    groceries,
+  });
+
+  expect(getByText(/quantity/i)).toBeInTheDocument();
+  expect(getByText(/name/i)).toBeInTheDocument();
+});
+
 test("displays a list of items", () => {
   const groceries = [
     {

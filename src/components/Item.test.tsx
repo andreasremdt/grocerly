@@ -12,19 +12,30 @@ const getItem = () => ({
   checked: false,
 });
 
+const table = document.createElement("table");
+const tbody = document.createElement("tbody");
+table.appendChild(tbody);
+document.body.appendChild(table);
+
 const renderWithContext = (ui: ReactNode, props: any) => {
-  return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
+  return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>, {
+    container: tbody,
+  });
 };
 
 test("displays the correct item data", () => {
-  const { getByText } = render(<Item item={getItem()} />);
+  const { getByText } = render(<Item item={getItem()} />, {
+    container: tbody,
+  });
 
   expect(getByText(/1l/i)).toBeInTheDocument();
   expect(getByText(/milk/i)).toBeInTheDocument();
 });
 
 test("an item is striked-through when checked", () => {
-  const { container, rerender } = render(<Item item={getItem()} />);
+  const { container, rerender } = render(<Item item={getItem()} />, {
+    container: tbody,
+  });
 
   expect(container.firstElementChild).toHaveStyle("text-decoration: none");
   rerender(<Item item={{ ...getItem(), checked: true }} />);

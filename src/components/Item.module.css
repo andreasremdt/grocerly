@@ -1,12 +1,20 @@
-.wrapper {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 0;
-  user-select: none;
+.row > td {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #ddd;
 }
 
-.wrapper:not(:last-child) {
-  border-bottom: 1px solid #ddd;
+.row:last-child td {
+  border-bottom: unset;
+}
+
+.row > td:first-child {
+  width: 4.5rem;
+  font-weight: bold;
+}
+
+.row > td:last-child {
+  width: 2rem;
+  text-align: right;
 }
 
 .button {
@@ -14,13 +22,5 @@
   border: unset;
   padding: unset;
   cursor: pointer;
-}
-
-.amount {
-  width: 4rem;
-  font-weight: 700;
-}
-
-.name {
-  margin-right: auto;
+  vertical-align: middle;
 }
