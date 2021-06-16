@@ -1,12 +1,16 @@
+import { useContext } from "react";
+
+import { GroceryContext } from "../GroceryContext";
 import styles from "./Header.module.css";
 
 type HeaderProps = {
-  onDeleteAll: () => void;
   onToggleForm: () => void;
   isFormVisible: boolean;
 };
 
-function Header({ onDeleteAll, onToggleForm, isFormVisible }: HeaderProps) {
+function Header({ onToggleForm, isFormVisible }: HeaderProps) {
+  const { dispatch } = useContext(GroceryContext);
+
   return (
     <header className={styles.wrapper}>
       <h1 className={styles.title}>Grocery List</h1>
@@ -30,7 +34,7 @@ function Header({ onDeleteAll, onToggleForm, isFormVisible }: HeaderProps) {
       </button>
       <button
         type="button"
-        onClick={onDeleteAll}
+        onClick={() => dispatch({ type: "DELETE_ALL" })}
         className={styles.button}
         title="Delete all items"
       >

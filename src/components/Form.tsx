@@ -1,18 +1,13 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react";
 
-import styles from "./Form.module.css";
-import { Grocery } from "../types";
+import { GroceryContext } from "../GroceryContext";
 import RadioButton from "./RadioButton";
-
-type FormProps = {
-  editing: Grocery | null;
-  onSubmit: (payload: Grocery) => void;
-  onUpdate: (payload: Grocery) => void;
-};
+import styles from "./Form.module.css";
 
 const UNITS = ["mg", "g", "kg", "ml", "l"];
 
-function Form({ onSubmit, onUpdate, editing }: FormProps) {
+function Form() {
+  const { editing, dispatch } = useContext(GroceryContext);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
@@ -35,20 +30,26 @@ function Form({ onSubmit, onUpdate, editing }: FormProps) {
 
     if (name.length) {
       if (editing) {
-        onUpdate({
-          id: editing.id,
-          name,
-          amount,
-          unit: amount.length ? unit : "",
-          checked: editing.checked,
+        dispatch({
+          type: "UPDATE_ITEM",
+          payload: {
+            id: editing.id,
+            name,
+            amount,
+            unit: amount.length ? unit : "",
+            checked: editing.checked,
+          },
         });
       } else {
-        onSubmit({
-          id: Date.now(),
-          name,
-          amount,
-          unit: amount.length ? unit : "",
-          checked: false,
+        dispatch({
+          type: "ADD_ITEM",
+          payload: {
+            id: Date.now(),
+            name,
+            amount,
+            unit: amount.length ? unit : "",
+            checked: false,
+          },
         });
       }
 

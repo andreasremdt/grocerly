@@ -1,11 +1,17 @@
 import { render } from "@testing-library/react";
+import { ReactNode } from "react";
 
+import { GroceryContext } from "../GroceryContext";
 import List from "./List";
 
+const renderWithContext = (ui: ReactNode, props: any) => {
+  return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
+};
+
 test("displays an empty state if no items exist", () => {
-  const { getByText, getByAltText } = render(
-    <List onDelete={jest.fn()} onSelect={jest.fn()} onToggle={jest.fn()} groceries={[]} />
-  );
+  const { getByText, getByAltText } = renderWithContext(<List />, {
+    groceries: [],
+  });
 
   expect(getByText(/nothing here, yet/i)).toBeInTheDocument();
   expect(getByAltText("")).toBeInTheDocument();
@@ -29,9 +35,9 @@ test("displays a list of items", () => {
     },
   ];
 
-  const { getByText } = render(
-    <List onDelete={jest.fn()} onSelect={jest.fn()} onToggle={jest.fn()} groceries={groceries} />
-  );
+  const { getByText } = renderWithContext(<List />, {
+    groceries,
+  });
 
   expect(getByText(/milk/i)).toBeInTheDocument();
   expect(getByText(/bread/i)).toBeInTheDocument();

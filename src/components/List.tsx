@@ -1,27 +1,18 @@
+import { useContext } from "react";
+
+import { GroceryContext } from "../GroceryContext";
 import Item from "./Item";
 import styles from "./List.module.css";
-import { Grocery } from "../types";
 
-type ListProps = {
-  groceries: Grocery[];
-  onDelete: (payload: Grocery) => void;
-  onToggle: (payload: Grocery) => void;
-  onSelect: (payload: Grocery) => void;
-};
+function List() {
+  const { groceries } = useContext(GroceryContext);
 
-function List({ groceries, onDelete, onSelect, onToggle }: ListProps) {
   return (
     <main className={styles.wrapper}>
       {groceries.length ? (
         <ul className={styles.list}>
           {groceries.map((item) => (
-            <Item
-              key={item.id}
-              onDelete={onDelete}
-              onToggle={onToggle}
-              onSelect={onSelect}
-              item={item}
-            />
+            <Item key={item.id} item={item} />
           ))}
         </ul>
       ) : (

@@ -1,21 +1,22 @@
+import { useContext } from "react";
+
+import { GroceryContext } from "../GroceryContext";
 import styles from "./Item.module.css";
 import { Grocery } from "../types";
 
 type ItemProps = {
   item: Grocery;
-  onDelete: (payload: Grocery) => void;
-  onToggle: (payload: Grocery) => void;
-  onSelect: (payload: Grocery) => void;
 };
 
-function Item({ item, onDelete, onToggle, onSelect }: ItemProps) {
+function Item({ item }: ItemProps) {
+  const { dispatch } = useContext(GroceryContext);
   let timer: number;
 
   const handleTouchStart = () => {
     timer = window.setTimeout(() => {
       window.navigator.vibrate(100);
 
-      onToggle(item);
+      dispatch({ type: "TOGGLE_CHECK_ITEM", payload: item });
     }, 500);
   };
 
@@ -26,7 +27,7 @@ function Item({ item, onDelete, onToggle, onSelect }: ItemProps) {
   return (
     <li
       style={{ textDecoration: item.checked ? "line-through" : "none" }}
-      onDoubleClick={() => onSelect(item)}
+      onDoubleClick={() => dispatch({ type: "SELECT_ITEM", payload: item })}
       onMouseDown={handleTouchStart}
       onTouchStart={handleTouchStart}
       onMouseUp={handleTouchEnd}
@@ -41,7 +42,7 @@ function Item({ item, onDelete, onToggle, onSelect }: ItemProps) {
       <button
         type="button"
         title="Delete item"
-        onClick={() => onDelete(item)}
+        onClick={() => dispatch({ type: "DELETE_ITEM", payload: item })}
         className={styles.button}
       >
         <svg
