@@ -9,15 +9,27 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 };
 
 test("displays the app name", () => {
-  const { getByText } = render(<Header onToggleForm={jest.fn()} isFormVisible={true} />);
+  const { getByText } = render(
+    <Header
+      onToggleForm={jest.fn()}
+      onSettingsToggle={jest.fn()}
+      isFormVisible={true}
+      isSettingsVisible={false}
+    />
+  );
 
   expect(getByText(/grocery list/i)).toBeInTheDocument();
 });
 
-test("calls the `onDeleteAll` function to delete all items", () => {
+test("calls dispatch to delete all items", () => {
   const spy = jest.fn();
   const { getByTitle } = renderWithContext(
-    <Header onToggleForm={jest.fn()} isFormVisible={true} />,
+    <Header
+      onToggleForm={jest.fn()}
+      onSettingsToggle={jest.fn()}
+      isFormVisible={true}
+      isSettingsVisible={false}
+    />,
     {
       dispatch: spy,
     }
@@ -29,8 +41,30 @@ test("calls the `onDeleteAll` function to delete all items", () => {
 
 test("calls the `onToggleAll` function to toggle the form", () => {
   const spy = jest.fn();
-  const { getByTitle } = render(<Header onToggleForm={spy} isFormVisible={true} />);
+  const { getByTitle } = render(
+    <Header
+      onToggleForm={spy}
+      onSettingsToggle={jest.fn()}
+      isFormVisible={true}
+      isSettingsVisible={false}
+    />
+  );
 
   fireEvent.click(getByTitle(/toggle form/i));
+  expect(spy).toHaveBeenCalled();
+});
+
+test("calls the `onSettingsToggle` function", () => {
+  const spy = jest.fn();
+  const { getByTitle } = render(
+    <Header
+      onToggleForm={jest.fn()}
+      onSettingsToggle={spy}
+      isFormVisible={true}
+      isSettingsVisible={false}
+    />
+  );
+
+  fireEvent.click(getByTitle(/toggle settings/i));
   expect(spy).toHaveBeenCalled();
 });

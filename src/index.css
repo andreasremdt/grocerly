@@ -1,3 +1,16 @@
+:root {
+  --gray: #374151;
+  --red: #b91c1c;
+  --orange: #c2410c;
+  --yellow: #a16207;
+  --green: #15803d;
+  --teal: #0f766e;
+  --cyan: #0e7490;
+  --blue: #1d4ed8;
+  --purple: #7e22ce;
+  --pink: #be185d;
+}
+
 #root,
 body,
 html {
@@ -18,6 +31,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   max-width: 40rem;
   margin: auto;
+  color: #1f2937;
 }
 
 #root {

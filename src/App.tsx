@@ -4,14 +4,22 @@ import GroceryContextProvider from "./GroceryContext";
 import Header from "./components/Header";
 import List from "./components/List";
 import Form from "./components/Form";
+import Settings from "./components/Settings";
 
 function App() {
   const [isFormVisible, setIsFormVisible] = useState(true);
+  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
   return (
     <GroceryContextProvider>
-      <Header onToggleForm={() => setIsFormVisible(!isFormVisible)} isFormVisible={isFormVisible} />
+      <Header
+        onSettingsToggle={() => setIsSettingsVisible(!isSettingsVisible)}
+        onToggleForm={() => setIsFormVisible(!isFormVisible)}
+        isFormVisible={isFormVisible}
+        isSettingsVisible={isSettingsVisible}
+      />
       {isFormVisible && <Form />}
+      {isSettingsVisible && <Settings />}
       <List />
     </GroceryContextProvider>
   );

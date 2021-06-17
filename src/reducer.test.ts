@@ -20,8 +20,12 @@ const getItems = (amount: number = 2) => {
   ].slice(0, amount);
 };
 
-const getState = (groceries: Grocery[] = [], editing: Grocery | null = null) => {
-  return { editing, groceries };
+const getState = (
+  groceries: Grocery[] = [],
+  editing: Grocery | null = null,
+  color: string = "gray"
+) => {
+  return { editing, groceries, color };
 };
 
 test("adds a new item", () => {
@@ -86,4 +90,10 @@ test("updates an existing item", () => {
     unit: "ml",
     checked: false,
   });
+});
+
+test("updates the theme color", () => {
+  const state = reducer(getState(), { type: "CHANGE_COLOR", payload: "orange" });
+
+  expect(state.color).toEqual("orange");
 });

@@ -21,4 +21,9 @@
   border: unset;
   cursor: pointer;
   margin-left: 1rem;
+  color: #9ca3af;
+}
+
+.button.active {
+  color: var(--primary-color);
 }

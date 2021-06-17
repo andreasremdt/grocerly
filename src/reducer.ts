@@ -26,6 +26,7 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
       return { ...state, groceries: [...state.groceries, action.payload] };
     case "UPDATE_ITEM":
       return {
+        ...state,
         editing: null,
         groceries: state.groceries.map((grocery) => {
           if (grocery.id === action.payload.id) {
@@ -37,6 +38,7 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
       };
     case "DELETE_ITEM":
       return {
+        ...state,
         editing: null,
         groceries: state.groceries.filter((grocery) => grocery.id !== action.payload.id),
       };
@@ -54,6 +56,11 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
 
           return grocery;
         }),
+      };
+    case "CHANGE_COLOR":
+      return {
+        ...state,
+        color: action.payload,
       };
     default:
       return state;

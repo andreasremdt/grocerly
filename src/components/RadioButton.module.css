@@ -3,7 +3,7 @@
 }
 
 .display {
-  background-color: #f9fafb;
+  background-color: #f3f4f6;
   border-radius: 3px;
   display: block;
   height: 38px;
@@ -23,6 +23,6 @@
 }
 
 .input:checked + .display {
-  background-color: black;
+  background-color: var(--primary-color);
   color: white;
 }

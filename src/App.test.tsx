@@ -15,6 +15,25 @@ test("the app structure is rendered correctly", () => {
   expect(container).toMatchSnapshot();
 });
 
+test("toggles the settings page and switches colors", () => {
+  const { getByTitle, getByText, queryByText, getByLabelText, rerender } = render(<App />);
+
+  expect(queryByText(/theme color/i)).not.toBeInTheDocument();
+  fireEvent.click(getByTitle(/toggle settings/i));
+  expect(getByText(/theme color/i)).toBeInTheDocument();
+  fireEvent.click(getByLabelText(/orange/i));
+  expect(document.body.style.getPropertyValue("--primary-color")).toEqual("var(--orange)");
+  expect(localStorage.getItem("color")).toEqual("orange");
+  fireEvent.click(getByLabelText(/blue/i));
+  expect(document.body.style.getPropertyValue("--primary-color")).toEqual("var(--blue)");
+  expect(localStorage.getItem("color")).toEqual("blue");
+
+  rerender(<App />);
+
+  expect(document.body.style.getPropertyValue("--primary-color")).toEqual("var(--blue)");
+  expect((getByLabelText(/blue/i) as HTMLInputElement).checked).toEqual(true);
+});
+
 test("toggles the form", () => {
   const { getByRole, getByTitle, queryByRole, getByPlaceholderText } = render(<App />);
 
