@@ -34,6 +34,17 @@ test("toggles the settings page and switches colors", () => {
   expect((getByLabelText(/blue/i) as HTMLInputElement).checked).toEqual(true);
 });
 
+test("switches the language", () => {
+  const { getByTestId, getByTitle, getByText, queryByText } = render(<App />);
+
+  expect(localStorage.getItem("language")).toEqual("en");
+  fireEvent.click(getByTitle(/toggle settings/i));
+  fireEvent.change(getByTestId("language-select"), { target: { value: "de" } });
+  expect(queryByText(/nothing here, yet/i)).not.toBeInTheDocument();
+  expect(getByText(/diese liste ist noch leer./i)).toBeInTheDocument();
+  expect(localStorage.getItem("language")).toEqual("de");
+});
+
 test("toggles the form", () => {
   const { getByRole, getByTitle, queryByRole, getByPlaceholderText } = render(<App />);
 

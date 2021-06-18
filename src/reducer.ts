@@ -62,6 +62,11 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
         ...state,
         color: action.payload,
       };
+    case "CHANGE_LANGUAGE":
+      return {
+        ...state,
+        language: action.payload,
+      };
     default:
       return state;
   }

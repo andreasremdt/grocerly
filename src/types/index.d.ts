@@ -10,6 +10,7 @@ export type GroceryState = {
   groceries: Grocery[];
   editing: Grocery | null;
   color: string;
+  language: string;
 };
 
 export type GroceryActions =
@@ -19,4 +20,5 @@ export type GroceryActions =
   | { type: "SELECT_ITEM"; payload: Grocery }
   | { type: "UPDATE_ITEM"; payload: Grocery }
   | { type: "DELETE_ALL" }
-  | { type: "CHANGE_COLOR"; payload: string };
+  | { type: "CHANGE_COLOR"; payload: string }
+  | { type: "CHANGE_LANGUAGE"; payload: string };

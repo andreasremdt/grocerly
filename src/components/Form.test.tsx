@@ -9,7 +9,12 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 };
 
 test("renders all form elements", () => {
-  const { getByLabelText, getAllByRole, getByText, getByPlaceholderText } = render(<Form />);
+  const { getByLabelText, getAllByRole, getByText, getByPlaceholderText } = renderWithContext(
+    <Form />,
+    {
+      language: "en",
+    }
+  );
 
   expect(getByPlaceholderText(/eggs, milk/i)).toBeInTheDocument();
   expect(getByPlaceholderText(/quantity/i)).toBeInTheDocument();
@@ -23,6 +28,7 @@ test("it does nothing if no name is provided", () => {
   const spy = jest.fn();
   const { getByText } = renderWithContext(<Form />, {
     dispatch: spy,
+    language: "en",
   });
 
   fireEvent.click(getByText(/add/i));
@@ -36,6 +42,7 @@ test("returns a new grocery object with only the name", () => {
   const spy = jest.fn();
   const { getByText, getByPlaceholderText } = renderWithContext(<Form />, {
     dispatch: spy,
+    language: "en",
   });
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
@@ -59,6 +66,7 @@ test("all grocery inputs are submitted", () => {
   const spy = jest.fn();
   const { getByText, getByPlaceholderText, getByLabelText } = renderWithContext(<Form />, {
     dispatch: spy,
+    language: "en",
   });
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
@@ -94,6 +102,7 @@ test("an existing item can be updated", () => {
   const { getByText, getByPlaceholderText, getAllByLabelText } = renderWithContext(<Form />, {
     editing,
     dispatch: spy,
+    language: "en",
   });
 
   expect(getByPlaceholderText(/eggs/i)).toHaveValue("milk");
@@ -122,6 +131,7 @@ test("when no amount is specified, the unit is not submitted", () => {
   const spy = jest.fn();
   const { getByText, getByPlaceholderText, getByLabelText } = renderWithContext(<Form />, {
     dispatch: spy,
+    language: "en",
   });
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "milk" } });

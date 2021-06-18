@@ -2,10 +2,11 @@ import { useContext, useEffect, useRef } from "react";
 
 import { GroceryContext } from "../GroceryContext";
 import Item from "./Item";
+import __ from "../utils/translate";
 import styles from "./List.module.css";
 
 function List() {
-  const { groceries } = useContext(GroceryContext);
+  const { groceries, language } = useContext(GroceryContext);
   const mainRef = useRef<HTMLDivElement>(null);
   const groceriesRef = useRef(groceries);
 
@@ -26,8 +27,8 @@ function List() {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Quantity</th>
-              <th>Name</th>
+              <th>{__("list.quantity", language)}</th>
+              <th>{__("list.name", language)}</th>
             </tr>
           </thead>
           <tbody>
@@ -42,9 +43,9 @@ function List() {
             <use xlinkHref="/shopping-cart.svg#img"></use>
           </svg>
           <p>
-            Nothing here, yet.
+            {__("emptyState.title", language)}
             <br />
-            Start adding items to your shopping list below.
+            {__("emptyState.subtitle", language)}
           </p>
         </div>
       )}

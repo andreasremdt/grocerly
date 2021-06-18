@@ -1,9 +1,10 @@
 import { CSSProperties, useContext } from "react";
 
 import { GroceryContext } from "../GroceryContext";
+import __, { availableLanguages } from "../utils/translate";
 import styles from "./Settings.module.css";
 
-const COLORS = [
+export const COLORS = [
   "gray",
   "red",
   "orange",
@@ -17,13 +18,13 @@ const COLORS = [
 ];
 
 function Settings() {
-  const { dispatch, color: themeColor } = useContext(GroceryContext);
+  const { dispatch, color: themeColor, language } = useContext(GroceryContext);
 
   return (
     <div className={styles.wrapper}>
       <form>
         <fieldset className={styles.fieldset}>
-          <legend className={styles.legend}>Theme color</legend>
+          <legend>{__("settings.themeColor", language)}</legend>
 
           <div className={styles.colors}>
             {COLORS.map((color) => (
@@ -45,6 +46,23 @@ function Settings() {
               </label>
             ))}
           </div>
+        </fieldset>
+
+        <fieldset className={styles.fieldset}>
+          <legend>{__("settings.language", language)}</legend>
+
+          <select
+            className={styles.select}
+            data-testid="language-select"
+            value={language}
+            onChange={(event) => dispatch({ type: "CHANGE_LANGUAGE", payload: event.target.value })}
+          >
+            {availableLanguages.map((language) => (
+              <option key={language} value={language}>
+                {language}
+              </option>
+            ))}
+          </select>
         </fieldset>
       </form>
     </div>

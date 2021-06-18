@@ -8,7 +8,7 @@ exports[`the app structure is rendered correctly 1`] = `
     <h1
       class="title"
     >
-      Grocery List
+      Grocerly
     </h1>
     <button
       class="button active"

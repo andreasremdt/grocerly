@@ -23,9 +23,10 @@ const getItems = (amount: number = 2) => {
 const getState = (
   groceries: Grocery[] = [],
   editing: Grocery | null = null,
-  color: string = "gray"
+  color: string = "gray",
+  language: string = "en"
 ) => {
-  return { editing, groceries, color };
+  return { editing, groceries, color, language };
 };
 
 test("adds a new item", () => {
@@ -92,8 +93,14 @@ test("updates an existing item", () => {
   });
 });
 
-test("updates the theme color", () => {
+test("changes the theme color", () => {
   const state = reducer(getState(), { type: "CHANGE_COLOR", payload: "orange" });
 
   expect(state.color).toEqual("orange");
+});
+
+test("changes the language", () => {
+  const state = reducer(getState(), { type: "CHANGE_LANGUAGE", payload: "de" });
+
+  expect(state.language).toEqual("de");
 });

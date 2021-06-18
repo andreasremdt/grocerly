@@ -18,7 +18,7 @@ test("displays the app name", () => {
     />
   );
 
-  expect(getByText(/grocery list/i)).toBeInTheDocument();
+  expect(getByText(/grocerly/i)).toBeInTheDocument();
 });
 
 test("calls dispatch to delete all items", () => {
@@ -32,6 +32,7 @@ test("calls dispatch to delete all items", () => {
     />,
     {
       dispatch: spy,
+      language: "en",
     }
   );
 
@@ -41,13 +42,16 @@ test("calls dispatch to delete all items", () => {
 
 test("calls the `onToggleAll` function to toggle the form", () => {
   const spy = jest.fn();
-  const { getByTitle } = render(
+  const { getByTitle } = renderWithContext(
     <Header
       onToggleForm={spy}
       onSettingsToggle={jest.fn()}
       isFormVisible={true}
       isSettingsVisible={false}
-    />
+    />,
+    {
+      language: "en",
+    }
   );
 
   fireEvent.click(getByTitle(/toggle form/i));
@@ -56,13 +60,16 @@ test("calls the `onToggleAll` function to toggle the form", () => {
 
 test("calls the `onSettingsToggle` function", () => {
   const spy = jest.fn();
-  const { getByTitle } = render(
+  const { getByTitle } = renderWithContext(
     <Header
       onToggleForm={jest.fn()}
       onSettingsToggle={spy}
       isFormVisible={true}
       isSettingsVisible={false}
-    />
+    />,
+    {
+      language: "en",
+    }
   );
 
   fireEvent.click(getByTitle(/toggle settings/i));

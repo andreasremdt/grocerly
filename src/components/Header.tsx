@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import { GroceryContext } from "../GroceryContext";
+import __ from "../utils/translate";
 import styles from "./Header.module.css";
 
 type HeaderProps = {
@@ -11,16 +12,16 @@ type HeaderProps = {
 };
 
 function Header({ onToggleForm, onSettingsToggle, isFormVisible, isSettingsVisible }: HeaderProps) {
-  const { dispatch } = useContext(GroceryContext);
+  const { dispatch, language } = useContext(GroceryContext);
 
   return (
     <header className={styles.wrapper}>
-      <h1 className={styles.title}>Grocery List</h1>
+      <h1 className={styles.title}>Grocerly</h1>
       <button
         type="button"
         onClick={onToggleForm}
         className={[styles.button, isFormVisible ? styles.active : ""].join(" ")}
-        title="Toggle form"
+        title={__("header.toggleForm", language)}
       >
         <svg
           width="24"
@@ -43,7 +44,7 @@ function Header({ onToggleForm, onSettingsToggle, isFormVisible, isSettingsVisib
         type="button"
         onClick={() => dispatch({ type: "DELETE_ALL" })}
         className={styles.button}
-        title="Delete all items"
+        title={__("header.deleteAll", language)}
       >
         <svg
           width="20"
@@ -65,7 +66,7 @@ function Header({ onToggleForm, onSettingsToggle, isFormVisible, isSettingsVisib
         type="button"
         onClick={onSettingsToggle}
         className={[styles.button, isSettingsVisible ? styles.active : ""].join(" ")}
-        title="Toggle settings"
+        title={__("header.toggleSettings", language)}
       >
         <svg
           width="20"

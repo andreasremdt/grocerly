@@ -10,11 +10,9 @@
 .fieldset {
   border: 1px solid #e5e7eb;
   border-radius: 3px;
-  padding: 1rem 0.5rem;
-}
-
-.legend {
-  padding: 0 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: #f9fafb;
 }
 
 .colors {
@@ -38,5 +36,22 @@
 }
 
 .radio:checked + .label {
-  box-shadow: 0 0 0 1px white, 0 0 0 3px var(--primary-color);
+  box-shadow: 0 0 0 1px #f9fafb, 0 0 0 3px var(--primary-color);
+}
+
+.select {
+  border: 1px solid #e5e7eb;
+  border-radius: 3px;
+  height: 38px;
+  padding: 0 0.5rem;
+  background-color: white;
+  font-family: inherit;
+  color: inherit;
+  width: 100%;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
 }

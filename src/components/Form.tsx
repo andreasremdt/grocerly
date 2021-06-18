@@ -2,12 +2,13 @@ import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from 
 
 import { GroceryContext } from "../GroceryContext";
 import RadioButton from "./RadioButton";
+import __ from "../utils/translate";
 import styles from "./Form.module.css";
 
 const UNITS = ["mg", "g", "kg", "ml", "l"];
 
 function Form() {
-  const { editing, dispatch } = useContext(GroceryContext);
+  const { editing, dispatch, language } = useContext(GroceryContext);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
@@ -68,14 +69,14 @@ function Form() {
         className={styles.input}
         type="text"
         value={name}
-        placeholder="e.g. eggs, milk, spinach"
+        placeholder={__("form.name", language)}
         onChange={(evt) => setName(evt.target.value)}
         autoFocus
       />
       <input
         className={styles.input}
         type="number"
-        placeholder="Quantity"
+        placeholder={__("form.quantity", language)}
         value={amount}
         onChange={(evt) => setAmount(evt.target.value)}
       />
@@ -91,7 +92,7 @@ function Form() {
         ))}
       </div>
       <button type="submit" className={styles.button}>
-        Add
+        {__("form.add", language)}
       </button>
     </form>
   );

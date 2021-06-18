@@ -11,6 +11,7 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 test("displays an empty state if no items exist", () => {
   const { getByText, container } = renderWithContext(<List />, {
     groceries: [],
+    language: "en",
   });
 
   expect(getByText(/nothing here, yet/i)).toBeInTheDocument();
@@ -30,6 +31,7 @@ test("the table header displays quantity and name", () => {
 
   const { getByText } = renderWithContext(<List />, {
     groceries,
+    language: "en",
   });
 
   expect(getByText(/quantity/i)).toBeInTheDocument();

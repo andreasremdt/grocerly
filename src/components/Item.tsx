@@ -1,15 +1,16 @@
 import { useContext } from "react";
 
 import { GroceryContext } from "../GroceryContext";
-import styles from "./Item.module.css";
 import { Grocery } from "../types";
+import __ from "../utils/translate";
+import styles from "./Item.module.css";
 
 type ItemProps = {
   item: Grocery;
 };
 
 function Item({ item }: ItemProps) {
-  const { dispatch } = useContext(GroceryContext);
+  const { dispatch, language } = useContext(GroceryContext);
   let timer: number;
 
   const handleTouchStart = () => {
@@ -42,7 +43,7 @@ function Item({ item }: ItemProps) {
       <td>
         <button
           type="button"
-          title="Delete item"
+          title={__("list.delete", language)}
           onClick={() => dispatch({ type: "DELETE_ITEM", payload: item })}
           className={styles.button}
         >

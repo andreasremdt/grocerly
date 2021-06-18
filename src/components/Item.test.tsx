@@ -47,6 +47,7 @@ test("calls the `onDelete` function", () => {
   const item = getItem();
   const { getByTitle } = renderWithContext(<Item item={item} />, {
     dispatch: spy,
+    language: "en",
   });
 
   fireEvent.click(getByTitle(/delete item/i));

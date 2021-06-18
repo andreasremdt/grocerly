@@ -1,12 +1,9 @@
 import { createContext, Dispatch, ReactNode, useReducer, useEffect } from "react";
 
 import reducer from "./reducer";
-import { Grocery, GroceryActions } from "./types";
+import { GroceryActions, GroceryState } from "./types";
 
-type GroceryContextState = {
-  groceries: Grocery[];
-  editing: Grocery | null;
-  color: string;
+type GroceryContextState = GroceryState & {
   dispatch: Dispatch<GroceryActions>;
 };
 
@@ -16,6 +13,7 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(
     reducer,
     {
+      language: "en",
       color: "gray",
       groceries: [],
       editing: null,
@@ -23,8 +21,14 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
     () => {
       const data = localStorage.getItem("data");
       const color = localStorage.getItem("color");
+      const language = localStorage.getItem("language");
 
-      return { editing: null, groceries: data ? JSON.parse(data) : [], color: color || "gray" };
+      return {
+        editing: null,
+        groceries: data ? JSON.parse(data) : [],
+        color: color || "gray",
+        language: language || "en",
+      };
     }
   );
 
@@ -37,6 +41,12 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
 
     document.body.style.setProperty("--primary-color", `var(--${state.color})`);
   }, [state.color]);
+
+  useEffect(() => {
+    localStorage.setItem("language", state.language);
+
+    document.head.lang = state.language;
+  }, [state.language]);
 
   return (
     <GroceryContext.Provider value={{ ...state, dispatch }}>{children}</GroceryContext.Provider>
