@@ -38,7 +38,9 @@ function List() {
         </table>
       ) : (
         <div className={styles.empty}>
-          <img src="/shopping-cart.svg" width="250" alt="" />
+          <svg>
+            <use xlinkHref="/shopping-cart.svg#img"></use>
+          </svg>
           <p>
             Nothing here, yet.
             <br />

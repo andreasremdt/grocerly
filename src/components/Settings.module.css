@@ -38,5 +38,5 @@
 }
 
 .radio:checked + .label {
-  box-shadow: 0 0 0 1px white, 0 0 0 3px #1f2937;
+  box-shadow: 0 0 0 1px white, 0 0 0 3px var(--primary-color);
 }
