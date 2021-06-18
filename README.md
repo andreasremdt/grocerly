@@ -1,5 +1,8 @@
 # Grocerly
 
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/andreasremdt/grocerly/Test%20application/master)
+![GitHub](https://img.shields.io/github/license/andreasremdt/grocerly)
+
 Simplify your shopping with this mobile app. Instead of carrying a notebook or piece of paper with your groceries during your shopping spree, install this PWA onto your smartphone and start managing your items digitally.
 
 ## Features
