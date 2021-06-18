@@ -200,11 +200,11 @@ exports[`the app structure is rendered correctly 1`] = `
     <div
       class="empty"
     >
-      <img
-        alt=""
-        src="/shopping-cart.svg"
-        width="250"
-      />
+      <svg>
+        <use
+          xlink:href="/shopping-cart.svg#img"
+        />
+      </svg>
       <p>
         Nothing here, yet.
         <br />

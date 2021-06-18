@@ -9,12 +9,12 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 };
 
 test("displays an empty state if no items exist", () => {
-  const { getByText, getByAltText } = renderWithContext(<List />, {
+  const { getByText, container } = renderWithContext(<List />, {
     groceries: [],
   });
 
   expect(getByText(/nothing here, yet/i)).toBeInTheDocument();
-  expect(getByAltText("")).toBeInTheDocument();
+  expect(container.querySelector("svg")).toBeInTheDocument();
 });
 
 test("the table header displays quantity and name", () => {
