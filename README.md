@@ -1,10 +1,37 @@
-# Getting Started with Create React App
+# Grocerly
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Simplify your shopping with this mobile app. Instead of carrying a notebook or piece of paper with your groceries during your shopping spree, install this PWA onto your smartphone and start managing your items digitally.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Mobile-friendly, intuitive interface with customizable colors
+- Efficiently add, update, and delete items from the shopping list
+- Smartly merges identical items into one by adding their amount
+- Choose between different units like litres, grams, etc.
+- Offline support, you don't need an internet connection to use this app
+- No registration, user accounts, or other hidden features
+
+## Installation
+
+Visit https://grocerly.netlify.app on your mobile phone and install it via your browser of choice.
+
+### Chrome
+
+Open the page menu and tap "Add to Home Screen". Confirm the dialog and provide a custom name if you want to. Once you complete the setup, the app icon should appear on your desktop.
+
+### Firefox
+
+Inside the URL bar, you'll see the "Add to Home Screen" icon left to the tabs button. Press it and confirm the action. After that, the app icon should appear on your desktop.
+
+## Support
+
+Did you find any bugs, or do you have any improvement suggestions? Feel free to open an issue in the [issue board](https://github.com/andreasremdt/grocerly/issues). Any feedback or contribution is welcome.
+
+<hr />
+
+## Development
+
+This project was bootstrapped with [create-react-app](https://create-react-app.dev/). In the project directory, you can run:
 
 ### `yarn start`
 
@@ -38,9 +65,3 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
