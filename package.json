@@ -16,7 +16,7 @@
     "web-vitals": "^2.0.1"
   },
   "devDependencies": {
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.1.9",
