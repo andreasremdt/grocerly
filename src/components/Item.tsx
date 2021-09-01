@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { MouseEvent, useContext, useRef } from "react";
 
 import { GroceryContext } from "../GroceryContext";
 import { Grocery } from "../types";
@@ -11,28 +11,28 @@ type ItemProps = {
 
 function Item({ item }: ItemProps) {
   const { dispatch, language } = useContext(GroceryContext);
-  let timer: number;
+  const timerRef = useRef<number>();
 
-  const handleTouchStart = () => {
-    timer = window.setTimeout(() => {
-      window.navigator.vibrate(100);
-
-      dispatch({ type: "TOGGLE_CHECK_ITEM", payload: item });
-    }, 500);
+  const handleClick = (evt: MouseEvent) => {
+    if (evt.detail === 1) {
+      timerRef.current = window.setTimeout(() => {
+        window.navigator.vibrate(50);
+        dispatch({ type: "TOGGLE_CHECK_ITEM", payload: item });
+      }, 300);
+    }
   };
 
-  const handleTouchEnd = () => {
-    if (timer) clearTimeout(timer);
+  const handleDoubleClick = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    dispatch({ type: "SELECT_ITEM", payload: item });
   };
 
   return (
     <tr
       style={{ textDecoration: item.checked ? "line-through" : "none" }}
-      onDoubleClick={() => dispatch({ type: "SELECT_ITEM", payload: item })}
-      onMouseDown={handleTouchStart}
-      onTouchStart={handleTouchStart}
-      onMouseUp={handleTouchEnd}
-      onTouchEnd={handleTouchEnd}
+      onDoubleClick={handleDoubleClick}
+      onClick={handleClick}
       className={styles.row}
     >
       <td>

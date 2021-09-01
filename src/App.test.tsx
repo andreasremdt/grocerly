@@ -107,14 +107,18 @@ test("adds, updates, and removes items", () => {
   expect(Element.prototype.scrollTo).toHaveBeenCalledTimes(1);
 
   act(() => {
-    fireEvent.touchStart(getByText(/milk/i).parentElement!);
+    fireEvent.click(getByText(/milk/i).parentElement!, {
+      detail: 1,
+    });
     jest.runAllTimers();
   });
 
   expect(getByText(/milk/i).parentElement!).toHaveStyle("text-decoration: line-through");
 
   act(() => {
-    fireEvent.touchStart(getByText(/milk/i).parentElement!);
+    fireEvent.click(getByText(/milk/i).parentElement!, {
+      detail: 1,
+    });
     jest.runAllTimers();
   });
 

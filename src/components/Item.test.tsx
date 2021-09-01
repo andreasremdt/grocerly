@@ -42,7 +42,7 @@ test("an item is striked-through when checked", () => {
   expect(container.firstElementChild).toHaveStyle("text-decoration: line-through");
 });
 
-test("calls the `onDelete` function", () => {
+test("deletes an item when clicking the delete button", () => {
   const spy = jest.fn();
   const item = getItem();
   const { getByTitle } = renderWithContext(<Item item={item} />, {
@@ -54,7 +54,7 @@ test("calls the `onDelete` function", () => {
   expect(spy).toHaveBeenCalledWith({ type: "DELETE_ITEM", payload: item });
 });
 
-test("calls the `onSelect` function to edit an item", () => {
+test("edits an item with a doubleclick", () => {
   const spy = jest.fn();
   const item = getItem();
   const { container } = renderWithContext(<Item item={item} />, {
@@ -67,7 +67,7 @@ test("calls the `onSelect` function to edit an item", () => {
   expect(spy).toHaveBeenCalledWith({ type: "SELECT_ITEM", payload: item });
 });
 
-test("calls the `onToggle` function to check/uncheck an item", () => {
+test("toggles an item on or off with a single click", () => {
   jest.useFakeTimers("modern");
   window.navigator.vibrate = jest.fn();
 
@@ -77,9 +77,12 @@ test("calls the `onToggle` function to check/uncheck an item", () => {
     dispatch: spy,
   });
 
-  fireEvent.touchStart(container.firstElementChild!);
+  fireEvent.click(container.firstElementChild!, {
+    detail: 1,
+  });
+
   expect(spy).not.toHaveBeenCalled();
   jest.runAllTimers();
   expect(spy).toHaveBeenCalledWith({ type: "TOGGLE_CHECK_ITEM", payload: item });
-  expect(window.navigator.vibrate).toHaveBeenCalledWith(100);
+  expect(window.navigator.vibrate).toHaveBeenCalledWith(50);
 });
