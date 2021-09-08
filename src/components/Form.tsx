@@ -64,21 +64,38 @@ function Form() {
 
   return (
     <form noValidate autoCapitalize="off" onSubmit={handleSubmit} className={styles.wrapper}>
+      <div className={styles["amount-controls"]}>
+        <button
+          type="button"
+          className={styles["amount-button"]}
+          onClick={() => setAmount(String(Number(amount) - 1))}
+          disabled={Number(amount) === 0}
+        >
+          -
+        </button>
+        <input
+          className={[styles.input, styles["amount-input"]].join(" ")}
+          type="number"
+          placeholder={__("form.quantity", language)}
+          value={amount}
+          onChange={(evt) => setAmount(evt.target.value)}
+        />
+        <button
+          type="button"
+          className={styles["amount-button"]}
+          onClick={() => setAmount(String(Number(amount) + 1))}
+        >
+          +
+        </button>
+      </div>
       <input
         ref={inputRef}
-        className={styles.input}
+        className={[styles.input, styles["name-input"]].join(" ")}
         type="text"
         value={name}
         placeholder={__("form.name", language)}
         onChange={(evt) => setName(evt.target.value)}
         autoFocus
-      />
-      <input
-        className={styles.input}
-        type="number"
-        placeholder={__("form.quantity", language)}
-        value={amount}
-        onChange={(evt) => setAmount(evt.target.value)}
       />
       <div className={styles.units}>
         {UNITS.map((value) => (

@@ -96,16 +96,33 @@ exports[`the app structure is rendered correctly 1`] = `
     class="wrapper"
     novalidate=""
   >
+    <div
+      class="amount-controls"
+    >
+      <button
+        class="amount-button"
+        disabled=""
+        type="button"
+      >
+        -
+      </button>
+      <input
+        class="input amount-input"
+        placeholder="Quantity"
+        type="number"
+        value=""
+      />
+      <button
+        class="amount-button"
+        type="button"
+      >
+        +
+      </button>
+    </div>
     <input
-      class="input"
+      class="input name-input"
       placeholder="e.g. eggs, milk, spinach"
       type="text"
-      value=""
-    />
-    <input
-      class="input"
-      placeholder="Quantity"
-      type="number"
       value=""
     />
     <div

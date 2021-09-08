@@ -149,3 +149,26 @@ test("when no amount is specified, the unit is not submitted", () => {
     },
   });
 });
+
+test("the amount can be controlled via buttons", () => {
+  const { getByText, getByPlaceholderText } = renderWithContext(<Form />, {
+    dispatch: jest.fn(),
+    language: "en",
+  });
+
+  expect(getByPlaceholderText(/quantity/i)).not.toHaveValue();
+  fireEvent.click(getByText("+"));
+  expect(getByPlaceholderText(/quantity/i)).toHaveValue(1);
+  fireEvent.click(getByText("+"));
+  expect(getByPlaceholderText(/quantity/i)).toHaveValue(2);
+  fireEvent.click(getByText("-"));
+  expect(getByPlaceholderText(/quantity/i)).toHaveValue(1);
+  fireEvent.click(getByText("-"));
+  fireEvent.click(getByText("-"));
+  expect(getByText("-")).toBeDisabled();
+  expect(getByPlaceholderText(/quantity/i)).toHaveValue(0);
+
+  fireEvent.change(getByPlaceholderText(/quantity/i), { target: { value: "100" } });
+  fireEvent.click(getByText("-"));
+  expect(getByPlaceholderText(/quantity/i)).toHaveValue(99);
+});
