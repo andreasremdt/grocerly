@@ -43,7 +43,7 @@ function List() {
             <use xlinkHref="/shopping-cart.svg#img"></use>
           </svg>
           <p>
-            {__("emptyState.title", language)}
+            <b>{__("emptyState.title", language)}</b>
             <br />
             {__("emptyState.subtitle", language)}
           </p>

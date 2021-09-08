@@ -1,6 +1,6 @@
 .wrapper {
   flex: 1;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem var(--padding);
   overflow-x: auto;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .table th {
-  font-size: 11px;
+  font-size: 80%;
   text-transform: uppercase;
   font-weight: 400;
   color: #999;
