@@ -1,4 +1,5 @@
 const translation = {
+  es: "Español",
   emptyState: {
     title: "Nada aquí, todavía.",
     subtitle: "Comience a agregar artículos a su lista de compras arriba.",
@@ -10,7 +11,7 @@ const translation = {
   },
   form: {
     name: "p.ej. huevos, leche o espinacas",
-    quantity: "Cantidad",
+    quantity: "Cant.",
     add: "Agregar",
   },
   settings: {

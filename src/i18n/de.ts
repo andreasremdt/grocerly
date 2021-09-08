@@ -1,4 +1,5 @@
 const translation = {
+  de: "Deutsch",
   emptyState: {
     title: "Diese Liste ist noch leer.",
     subtitle: "Füge Sachen über das oben stehende Formular hinzu.",
@@ -10,7 +11,7 @@ const translation = {
   },
   form: {
     name: "z.B. Eier, Milch oder Spinat",
-    quantity: "Anzahl",
+    quantity: "Anz.",
     add: "Ok",
   },
   settings: {

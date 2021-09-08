@@ -59,7 +59,7 @@ function Settings() {
           >
             {availableLanguages.map((language) => (
               <option key={language} value={language}>
-                {language}
+                {__(language, language)}
               </option>
             ))}
           </select>
