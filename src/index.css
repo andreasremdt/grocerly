@@ -1,14 +1,25 @@
 :root {
-  --gray: #374151;
-  --red: #b91c1c;
-  --orange: #c2410c;
-  --yellow: #a16207;
-  --green: #15803d;
-  --teal: #0f766e;
-  --cyan: #0e7490;
-  --blue: #1d4ed8;
-  --purple: #7e22ce;
-  --pink: #be185d;
+  --gray-light: hsl(210, 40%, 98%);
+  --gray: hsl(215, 20%, 65%);
+  --gray-dark: hsl(215, 16%, 47%);
+  --red: hsl(0, 91%, 71%);
+  --red-dark: hsl(0, 84%, 60%);
+  --orange: hsl(27, 96%, 61%);
+  --orange-dark: hsl(25, 95%, 53%);
+  --yellow: hsl(48, 96%, 53%);
+  --yellow-dark: hsl(45, 93%, 47%);
+  --green: hsl(142, 69%, 58%);
+  --green-dark: hsl(142, 71%, 45%);
+  --teal: hsl(172, 66%, 50%);
+  --teal-dark: hsl(173, 80%, 40%);
+  --cyan: hsl(188, 86%, 53%);
+  --cyan-dark: hsl(189, 94%, 43%);
+  --blue: hsl(213, 94%, 68%);
+  --blue-dark: hsl(217, 91%, 60%);
+  --purple: hsl(270, 95%, 75%);
+  --purple-dark: hsl(271, 91%, 65%);
+  --pink: hsl(329, 86%, 70%);
+  --pink-dark: hsl(330, 81%, 60%);
 
   --padding-normal: 1rem;
   --padding-small: 0.5rem;
@@ -50,8 +61,8 @@ body {
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #1f2937;
-  background-color: #f9fafb;
+  color: hsl(215, 25%, 27%);
+  background-color: var(--gray-light);
 }
 
 #root {

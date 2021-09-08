@@ -63,7 +63,7 @@ test("items are persisted in local storage", () => {
   const { getByPlaceholderText, getByLabelText, getByText, getAllByTitle } = render(<App />);
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "tomatoes" } });
-  fireEvent.change(getByPlaceholderText(/quantity/i), { target: { value: "3" } });
+  fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: "3" } });
   fireEvent.click(getByText(/^add$/i));
 
   expect(JSON.parse(localStorage.getItem("data")!)[0]).toMatchObject(
@@ -74,7 +74,7 @@ test("items are persisted in local storage", () => {
   );
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "water" } });
-  fireEvent.change(getByPlaceholderText(/quantity/i), { target: { value: "1" } });
+  fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: "1" } });
   fireEvent.click(getByLabelText(/^l$/i));
   fireEvent.click(getByText(/^add$/i));
 
@@ -94,7 +94,7 @@ test("adds, updates, and removes items", () => {
   expect(getByText(/nothing here, yet/i)).toBeInTheDocument();
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
-  fireEvent.change(getByPlaceholderText(/quantity/i), { target: { value: "100" } });
+  fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: "100" } });
   fireEvent.click(getByLabelText(/ml/i));
   fireEvent.click(getByText(/^add$/i));
 
@@ -102,7 +102,7 @@ test("adds, updates, and removes items", () => {
   expect(getByText(/milk/i)).toBeInTheDocument();
   expect(getByPlaceholderText(/eggs/i)).toHaveFocus();
   expect((getByPlaceholderText(/eggs/i) as HTMLInputElement).value).toEqual("");
-  expect((getByPlaceholderText(/quantity/i) as HTMLInputElement).value).toEqual("");
+  expect((getByPlaceholderText(/qt/i) as HTMLInputElement).value).toEqual("");
   expect((getByLabelText(/ml/i) as HTMLInputElement).checked).toBeFalsy();
   expect(Element.prototype.scrollTo).toHaveBeenCalledTimes(1);
 
@@ -125,7 +125,7 @@ test("adds, updates, and removes items", () => {
   expect(getByText(/milk/i).parentElement!).toHaveStyle("text-decoration: none");
   fireEvent.dblClick(getByText(/milk/i).parentElement!);
   expect((getByPlaceholderText(/eggs/i) as HTMLInputElement).value).toEqual("milk");
-  expect((getByPlaceholderText(/quantity/i) as HTMLInputElement).value).toEqual("100");
+  expect((getByPlaceholderText(/qt/i) as HTMLInputElement).value).toEqual("100");
   expect((getByLabelText(/ml/i) as HTMLInputElement).checked).toBeTruthy();
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
   fireEvent.click(getByText(/^add$/i));

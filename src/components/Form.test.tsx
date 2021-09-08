@@ -17,7 +17,7 @@ test("renders all form elements", () => {
   );
 
   expect(getByPlaceholderText(/eggs, milk/i)).toBeInTheDocument();
-  expect(getByPlaceholderText(/quantity/i)).toBeInTheDocument();
+  expect(getByPlaceholderText(/qt/i)).toBeInTheDocument();
   expect(getByLabelText(/kg/i)).toBeInTheDocument();
   expect(getByLabelText(/ml/i)).toBeInTheDocument();
   expect(getAllByRole("radio").length).toEqual(5);
@@ -70,7 +70,7 @@ test("all grocery inputs are submitted", () => {
   });
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
-  fireEvent.change(getByPlaceholderText(/quantity/i), { target: { value: 100 } });
+  fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: 100 } });
   fireEvent.click(getByLabelText(/ml/i));
   fireEvent.click(getByText(/add/i));
 
@@ -87,7 +87,7 @@ test("all grocery inputs are submitted", () => {
 
   expect(getByPlaceholderText(/eggs/i)).toHaveFocus();
   expect(getByPlaceholderText(/eggs/i)).toHaveValue("");
-  expect(getByPlaceholderText(/quantity/i)).toHaveValue(null);
+  expect(getByPlaceholderText(/qt/i)).toHaveValue(null);
 });
 
 test("an existing item can be updated", () => {
@@ -106,11 +106,11 @@ test("an existing item can be updated", () => {
   });
 
   expect(getByPlaceholderText(/eggs/i)).toHaveValue("milk");
-  expect(getByPlaceholderText(/quantity/i)).toHaveValue(100);
+  expect(getByPlaceholderText(/qt/i)).toHaveValue(100);
   expect((getAllByLabelText(/l/i)[1] as HTMLInputElement).checked).toEqual(true);
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
-  fireEvent.change(getByPlaceholderText(/quantity/i), { target: { value: 150 } });
+  fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: 150 } });
   fireEvent.click(getByText(/add/i));
 
   expect(spy).toHaveBeenCalledWith({
@@ -156,19 +156,19 @@ test("the amount can be controlled via buttons", () => {
     language: "en",
   });
 
-  expect(getByPlaceholderText(/quantity/i)).not.toHaveValue();
+  expect(getByPlaceholderText(/qt/i)).not.toHaveValue();
   fireEvent.click(getByText("+"));
-  expect(getByPlaceholderText(/quantity/i)).toHaveValue(1);
+  expect(getByPlaceholderText(/qt/i)).toHaveValue(1);
   fireEvent.click(getByText("+"));
-  expect(getByPlaceholderText(/quantity/i)).toHaveValue(2);
+  expect(getByPlaceholderText(/qt/i)).toHaveValue(2);
   fireEvent.click(getByText("-"));
-  expect(getByPlaceholderText(/quantity/i)).toHaveValue(1);
+  expect(getByPlaceholderText(/qt/i)).toHaveValue(1);
   fireEvent.click(getByText("-"));
   fireEvent.click(getByText("-"));
   expect(getByText("-")).toBeDisabled();
-  expect(getByPlaceholderText(/quantity/i)).toHaveValue(0);
+  expect(getByPlaceholderText(/qt/i)).toHaveValue(0);
 
-  fireEvent.change(getByPlaceholderText(/quantity/i), { target: { value: "100" } });
+  fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: "100" } });
   fireEvent.click(getByText("-"));
-  expect(getByPlaceholderText(/quantity/i)).toHaveValue(99);
+  expect(getByPlaceholderText(/qt/i)).toHaveValue(99);
 });

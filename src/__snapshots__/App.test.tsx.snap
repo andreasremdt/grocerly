@@ -108,7 +108,7 @@ exports[`the app structure is rendered correctly 1`] = `
       </button>
       <input
         class="input amount-input"
-        placeholder="Quantity"
+        placeholder="Qt."
         type="number"
         value=""
       />
@@ -223,7 +223,9 @@ exports[`the app structure is rendered correctly 1`] = `
         />
       </svg>
       <p>
-        Nothing here, yet.
+        <b>
+          Nothing here, yet.
+        </b>
         <br />
         Start adding items to your shopping list below.
       </p>

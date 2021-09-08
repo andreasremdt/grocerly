@@ -40,6 +40,7 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("color", state.color);
 
     document.body.style.setProperty("--primary-color", `var(--${state.color})`);
+    document.body.style.setProperty("--primary-color-dark", `var(--${state.color}-dark)`);
   }, [state.color]);
 
   useEffect(() => {

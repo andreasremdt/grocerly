@@ -8,11 +8,11 @@
 }
 
 .fieldset {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #f1f5f9;
   border-radius: 3px;
   padding: 1rem;
   margin: 0 0 1.5rem;
-  background: #f9fafb;
+  background-color: var(--gray-light);
 }
 
 .colors {
@@ -27,7 +27,7 @@
   border-radius: 3px;
   display: inline-block;
   background-color: var(--color);
-  text-indent: 9999px;
+  text-indent: -9999px;
 }
 
 .radio {
@@ -40,7 +40,7 @@
 }
 
 .select {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #f1f5f9;
   border-radius: 3px;
   height: 38px;
   padding: 0 0.5rem;
