@@ -107,7 +107,7 @@ exports[`the app structure is rendered correctly 1`] = `
         -
       </button>
       <input
-        class="input amount-input"
+        class="amount-input"
         placeholder="Qt."
         type="number"
         value=""
@@ -119,12 +119,6 @@ exports[`the app structure is rendered correctly 1`] = `
         +
       </button>
     </div>
-    <input
-      class="input name-input"
-      placeholder="e.g. eggs, milk, spinach"
-      type="text"
-      value=""
-    />
     <div
       class="units"
     >
@@ -204,11 +198,32 @@ exports[`the app structure is rendered correctly 1`] = `
         </span>
       </label>
     </div>
+    <input
+      class="name-input"
+      placeholder="e.g. eggs, milk, spinach"
+      type="text"
+      value=""
+    />
     <button
       class="button"
+      data-testid="submit"
+      disabled=""
       type="submit"
     >
-      Add
+      <svg
+        fill="none"
+        height="22"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="22"
+      >
+        <polyline
+          points="20 6 9 17 4 12"
+        />
+      </svg>
     </button>
   </form>
   <main

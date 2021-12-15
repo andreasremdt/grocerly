@@ -12,7 +12,6 @@ const translation = {
   form: {
     name: "z.B. Eier, Milch oder Spinat",
     quantity: "Anz.",
-    add: "Ok",
   },
   settings: {
     themeColor: "Farbwahl",

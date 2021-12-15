@@ -60,11 +60,11 @@ test("toggles the form", () => {
 test("items are persisted in local storage", () => {
   Element.prototype.scrollTo = jest.fn();
 
-  const { getByPlaceholderText, getByLabelText, getByText, getAllByTitle } = render(<App />);
+  const { getByPlaceholderText, getByLabelText, getByTestId, getAllByTitle } = render(<App />);
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "tomatoes" } });
   fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: "3" } });
-  fireEvent.click(getByText(/^add$/i));
+  fireEvent.click(getByTestId("submit"));
 
   expect(JSON.parse(localStorage.getItem("data")!)[0]).toMatchObject(
     expect.objectContaining({
@@ -76,7 +76,7 @@ test("items are persisted in local storage", () => {
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "water" } });
   fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: "1" } });
   fireEvent.click(getByLabelText(/^l$/i));
-  fireEvent.click(getByText(/^add$/i));
+  fireEvent.click(getByTestId("submit"));
 
   expect(JSON.parse(localStorage.getItem("data")!).length).toEqual(2);
   fireEvent.click(getAllByTitle(/delete item/i)[0]);
@@ -87,16 +87,15 @@ test("adds, updates, and removes items", () => {
   Element.prototype.scrollTo = jest.fn();
   jest.useFakeTimers("modern");
 
-  const { getByPlaceholderText, getByLabelText, getByText, queryByText, getByTitle } = render(
-    <App />
-  );
+  const { getByPlaceholderText, getByTestId, getByLabelText, getByText, queryByText, getByTitle } =
+    render(<App />);
 
   expect(getByText(/nothing here, yet/i)).toBeInTheDocument();
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
   fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: "100" } });
   fireEvent.click(getByLabelText(/ml/i));
-  fireEvent.click(getByText(/^add$/i));
+  fireEvent.click(getByTestId("submit"));
 
   expect(getByText(/100ml/i)).toBeInTheDocument();
   expect(getByText(/milk/i)).toBeInTheDocument();
@@ -128,7 +127,7 @@ test("adds, updates, and removes items", () => {
   expect((getByPlaceholderText(/qt/i) as HTMLInputElement).value).toEqual("100");
   expect((getByLabelText(/ml/i) as HTMLInputElement).checked).toBeTruthy();
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
-  fireEvent.click(getByText(/^add$/i));
+  fireEvent.click(getByTestId("submit"));
 
   expect(getByText(/100ml/i)).toBeInTheDocument();
   expect(queryByText(/milk/i)).not.toBeInTheDocument();

@@ -4,6 +4,7 @@ import { GroceryContext } from "../GroceryContext";
 import RadioButton from "./RadioButton";
 import __ from "../utils/translate";
 import styles from "./Form.module.css";
+import AmountInput from "./AmountInput";
 
 const UNITS = ["mg", "g", "kg", "ml", "l"];
 
@@ -29,74 +30,41 @@ function Form() {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (name.length) {
-      if (editing) {
-        dispatch({
-          type: "UPDATE_ITEM",
-          payload: {
-            id: editing.id,
-            name,
-            amount,
-            unit: amount.length ? unit : "",
-            checked: editing.checked,
-          },
-        });
-      } else {
-        dispatch({
-          type: "ADD_ITEM",
-          payload: {
-            id: Date.now(),
-            name,
-            amount,
-            unit: amount.length ? unit : "",
-            checked: false,
-          },
-        });
-      }
-
-      setName("");
-      setAmount("");
-      setUnit("");
+    if (editing) {
+      dispatch({
+        type: "UPDATE_ITEM",
+        payload: {
+          id: editing.id,
+          name,
+          amount,
+          unit: amount.length ? unit : "",
+          checked: editing.checked,
+        },
+      });
+    } else {
+      dispatch({
+        type: "ADD_ITEM",
+        payload: {
+          id: Date.now(),
+          name,
+          amount,
+          unit: amount.length ? unit : "",
+          checked: false,
+        },
+      });
 
       inputRef.current?.focus();
     }
+
+    setName("");
+    setAmount("");
+    setUnit("");
   };
 
   return (
     <form noValidate autoCapitalize="off" onSubmit={handleSubmit} className={styles.wrapper}>
-      <div className={styles["amount-controls"]}>
-        <button
-          type="button"
-          className={styles["amount-button"]}
-          onClick={() => setAmount(String(Number(amount) - 1))}
-          disabled={Number(amount) === 0}
-        >
-          -
-        </button>
-        <input
-          className={[styles.input, styles["amount-input"]].join(" ")}
-          type="number"
-          placeholder={__("form.quantity", language)}
-          value={amount}
-          onChange={(evt) => setAmount(evt.target.value)}
-        />
-        <button
-          type="button"
-          className={styles["amount-button"]}
-          onClick={() => setAmount(String(Number(amount) + 1))}
-        >
-          +
-        </button>
-      </div>
-      <input
-        ref={inputRef}
-        className={[styles.input, styles["name-input"]].join(" ")}
-        type="text"
-        value={name}
-        placeholder={__("form.name", language)}
-        onChange={(evt) => setName(evt.target.value)}
-        autoFocus
-      />
+      <AmountInput value={amount} onChange={setAmount} />
+
       <div className={styles.units}>
         {UNITS.map((value) => (
           <RadioButton
@@ -108,8 +76,34 @@ function Form() {
           />
         ))}
       </div>
-      <button type="submit" className={styles.button}>
-        {__("form.add", language)}
+      <input
+        ref={inputRef}
+        className={styles["name-input"]}
+        type="text"
+        value={name}
+        placeholder={__("form.name", language)}
+        onChange={(evt) => setName(evt.target.value)}
+        autoFocus
+      />
+
+      <button
+        type="submit"
+        className={styles.button}
+        disabled={name.length < 1}
+        data-testid="submit"
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
       </button>
     </form>
   );

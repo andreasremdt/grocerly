@@ -1,0 +1,40 @@
+.amount-controls {
+  position: relative;
+}
+
+.amount-input {
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+.amount-input::-webkit-outer-spin-button,
+.amount-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: unset;
+}
+
+.amount-button {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  background-color: #f1f5f9;
+  border: unset;
+  padding: 0 10px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 3px;
+}
+
+.amount-button:active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.amount-button:first-child {
+  left: 3px;
+}
+
+.amount-button:last-child {
+  right: 3px;
+}

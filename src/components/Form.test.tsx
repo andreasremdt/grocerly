@@ -9,7 +9,7 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 };
 
 test("renders all form elements", () => {
-  const { getByLabelText, getAllByRole, getByText, getByPlaceholderText } = renderWithContext(
+  const { getByLabelText, getAllByRole, getByPlaceholderText, getByTestId } = renderWithContext(
     <Form />,
     {
       language: "en",
@@ -21,18 +21,19 @@ test("renders all form elements", () => {
   expect(getByLabelText(/kg/i)).toBeInTheDocument();
   expect(getByLabelText(/ml/i)).toBeInTheDocument();
   expect(getAllByRole("radio").length).toEqual(5);
-  expect(getByText(/add/i)).toBeInTheDocument();
+  expect(getByTestId("submit")).toBeInTheDocument();
 });
 
-test("it does nothing if no name is provided", () => {
+test("the submit button is disabled if no name is provided", () => {
   const spy = jest.fn();
-  const { getByText } = renderWithContext(<Form />, {
+  const { getByTestId } = renderWithContext(<Form />, {
     dispatch: spy,
     language: "en",
   });
 
-  fireEvent.click(getByText(/add/i));
+  fireEvent.click(getByTestId("submit"));
 
+  expect(getByTestId("submit")).toHaveAttribute("disabled");
   expect(spy).not.toHaveBeenCalled();
 });
 
@@ -40,14 +41,18 @@ test("returns a new grocery object with only the name", () => {
   jest.spyOn(Date, "now").mockImplementation(() => 1487076708000);
 
   const spy = jest.fn();
-  const { getByText, getByPlaceholderText } = renderWithContext(<Form />, {
+  const { getByPlaceholderText, getByTestId } = renderWithContext(<Form />, {
     dispatch: spy,
     language: "en",
   });
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
-  fireEvent.click(getByText(/add/i));
 
+  expect(getByTestId("submit")).not.toHaveAttribute("disabled");
+
+  fireEvent.click(getByTestId("submit"));
+
+  expect(getByTestId("submit")).toHaveAttribute("disabled");
   expect(spy).toHaveBeenCalledWith({
     type: "ADD_ITEM",
     payload: {
@@ -64,7 +69,7 @@ test("all grocery inputs are submitted", () => {
   jest.spyOn(Date, "now").mockImplementation(() => 1487076708000);
 
   const spy = jest.fn();
-  const { getByText, getByPlaceholderText, getByLabelText } = renderWithContext(<Form />, {
+  const { getByTestId, getByPlaceholderText, getByLabelText } = renderWithContext(<Form />, {
     dispatch: spy,
     language: "en",
   });
@@ -72,7 +77,7 @@ test("all grocery inputs are submitted", () => {
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
   fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: 100 } });
   fireEvent.click(getByLabelText(/ml/i));
-  fireEvent.click(getByText(/add/i));
+  fireEvent.click(getByTestId("submit"));
 
   expect(spy).toHaveBeenCalledWith({
     type: "ADD_ITEM",
@@ -99,7 +104,7 @@ test("an existing item can be updated", () => {
     checked: false,
   };
   const spy = jest.fn();
-  const { getByText, getByPlaceholderText, getAllByLabelText } = renderWithContext(<Form />, {
+  const { getByTestId, getByPlaceholderText, getAllByLabelText } = renderWithContext(<Form />, {
     editing,
     dispatch: spy,
     language: "en",
@@ -111,7 +116,7 @@ test("an existing item can be updated", () => {
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
   fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: 150 } });
-  fireEvent.click(getByText(/add/i));
+  fireEvent.click(getByTestId("submit"));
 
   expect(spy).toHaveBeenCalledWith({
     type: "UPDATE_ITEM",
@@ -129,14 +134,14 @@ test("when no amount is specified, the unit is not submitted", () => {
   jest.spyOn(Date, "now").mockImplementation(() => 1487076708000);
 
   const spy = jest.fn();
-  const { getByText, getByPlaceholderText, getByLabelText } = renderWithContext(<Form />, {
+  const { getByTestId, getByPlaceholderText, getByLabelText } = renderWithContext(<Form />, {
     dispatch: spy,
     language: "en",
   });
 
   fireEvent.change(getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
   fireEvent.click(getByLabelText(/ml/i));
-  fireEvent.click(getByText(/add/i));
+  fireEvent.click(getByTestId("submit"));
 
   expect(spy).toHaveBeenCalledWith({
     type: "ADD_ITEM",
@@ -148,27 +153,4 @@ test("when no amount is specified, the unit is not submitted", () => {
       checked: false,
     },
   });
-});
-
-test("the amount can be controlled via buttons", () => {
-  const { getByText, getByPlaceholderText } = renderWithContext(<Form />, {
-    dispatch: jest.fn(),
-    language: "en",
-  });
-
-  expect(getByPlaceholderText(/qt/i)).not.toHaveValue();
-  fireEvent.click(getByText("+"));
-  expect(getByPlaceholderText(/qt/i)).toHaveValue(1);
-  fireEvent.click(getByText("+"));
-  expect(getByPlaceholderText(/qt/i)).toHaveValue(2);
-  fireEvent.click(getByText("-"));
-  expect(getByPlaceholderText(/qt/i)).toHaveValue(1);
-  fireEvent.click(getByText("-"));
-  fireEvent.click(getByText("-"));
-  expect(getByText("-")).toBeDisabled();
-  expect(getByPlaceholderText(/qt/i)).toHaveValue(0);
-
-  fireEvent.change(getByPlaceholderText(/qt/i), { target: { value: "100" } });
-  fireEvent.click(getByText("-"));
-  expect(getByPlaceholderText(/qt/i)).toHaveValue(99);
 });

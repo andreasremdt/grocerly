@@ -12,7 +12,6 @@ const translation = {
   form: {
     name: "e.g. eggs, milk, spinach",
     quantity: "Qt.",
-    add: "Add",
   },
   settings: {
     themeColor: "Theme color",
