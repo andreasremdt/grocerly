@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { ReactNode } from "react";
 
 import { GroceryContext } from "../GroceryContext";
@@ -9,13 +9,13 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 };
 
 test("displays an empty state if no items exist", () => {
-  const { getByText, container } = renderWithContext(<List />, {
+  renderWithContext(<List />, {
     groceries: [],
     language: "en",
   });
 
-  expect(getByText(/nothing here, yet/i)).toBeInTheDocument();
-  expect(container.querySelector("svg")).toBeInTheDocument();
+  expect(screen.getByText(/nothing here, yet/i)).toBeInTheDocument();
+  expect(screen.getByTestId("shopping-cart-icon")).toBeInTheDocument();
 });
 
 test("the table header displays quantity and name", () => {
@@ -29,13 +29,13 @@ test("the table header displays quantity and name", () => {
     },
   ];
 
-  const { getByText } = renderWithContext(<List />, {
+  renderWithContext(<List />, {
     groceries,
     language: "en",
   });
 
-  expect(getByText(/quantity/i)).toBeInTheDocument();
-  expect(getByText(/name/i)).toBeInTheDocument();
+  expect(screen.getByText(/quantity/i)).toBeInTheDocument();
+  expect(screen.getByText(/name/i)).toBeInTheDocument();
 });
 
 test("displays a list of items", () => {
@@ -56,10 +56,10 @@ test("displays a list of items", () => {
     },
   ];
 
-  const { getByText } = renderWithContext(<List />, {
+  renderWithContext(<List />, {
     groceries,
   });
 
-  expect(getByText(/milk/i)).toBeInTheDocument();
-  expect(getByText(/bread/i)).toBeInTheDocument();
+  expect(screen.getByText(/milk/i)).toBeInTheDocument();
+  expect(screen.getByText(/bread/i)).toBeInTheDocument();
 });

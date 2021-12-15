@@ -34,6 +34,7 @@ function Item({ item }: ItemProps) {
       onDoubleClick={handleDoubleClick}
       onClick={handleClick}
       className={styles.row}
+      data-testid="item"
     >
       <td>
         {item.amount || ""}

@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import { ReactNode } from "react";
 
 import { GroceryContext } from "../GroceryContext";
@@ -10,37 +10,34 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 
 test("the amount can be controlled via buttons", () => {
   const spy = jest.fn();
-  const { getByText, getByPlaceholderText, rerender, getByRole } = renderWithContext(
-    <AmountInput value="" onChange={spy} />,
-    {
-      language: "en",
-    }
-  );
+  const { rerender } = renderWithContext(<AmountInput value="" onChange={spy} />, {
+    language: "en",
+  });
 
-  expect(getByPlaceholderText(/qt/i)).not.toHaveValue();
-  fireEvent.click(getByText("+"));
+  expect(screen.getByPlaceholderText(/qt/i)).not.toHaveValue();
+  fireEvent.click(screen.getByText("+"));
   expect(spy).toHaveBeenCalledWith("1");
 
   rerender(<AmountInput value="10" onChange={spy} />);
 
-  expect(getByRole("spinbutton")).toHaveValue(10);
-  fireEvent.click(getByText("+"));
+  expect(screen.getByRole("spinbutton")).toHaveValue(10);
+  fireEvent.click(screen.getByText("+"));
   expect(spy).toHaveBeenCalledWith("20");
 
   rerender(<AmountInput value="150" onChange={spy} />);
 
-  expect(getByRole("spinbutton")).toHaveValue(150);
-  fireEvent.click(getByText("+"));
+  expect(screen.getByRole("spinbutton")).toHaveValue(150);
+  fireEvent.click(screen.getByText("+"));
   expect(spy).toHaveBeenCalledWith("200");
 
-  fireEvent.click(getByText("-"));
+  fireEvent.click(screen.getByText("-"));
   expect(spy).toHaveBeenCalledWith("100");
 
   rerender(<AmountInput value="36" onChange={spy} />);
 
-  fireEvent.click(getByText("-"));
+  fireEvent.click(screen.getByText("-"));
   expect(spy).toHaveBeenCalledWith("20");
 
-  fireEvent.change(getByRole("spinbutton"), { target: { value: "100" } });
+  fireEvent.change(screen.getByRole("spinbutton"), { target: { value: "100" } });
   expect(spy).toHaveBeenCalledWith("100");
 });

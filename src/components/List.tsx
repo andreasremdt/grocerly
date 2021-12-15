@@ -39,7 +39,7 @@ function List() {
         </table>
       ) : (
         <div className={styles.empty}>
-          <svg>
+          <svg data-testid="shopping-cart-icon">
             <use xlinkHref="/shopping-cart.svg#img"></use>
           </svg>
           <p>

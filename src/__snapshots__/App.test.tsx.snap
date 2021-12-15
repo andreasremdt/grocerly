@@ -232,7 +232,9 @@ exports[`the app structure is rendered correctly 1`] = `
     <div
       class="empty"
     >
-      <svg>
+      <svg
+        data-testid="shopping-cart-icon"
+      >
         <use
           xlink:href="/shopping-cart.svg#img"
         />

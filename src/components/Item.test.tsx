@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import { ReactNode } from "react";
 
 import { GroceryContext } from "../GroceryContext";
@@ -24,46 +24,46 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 };
 
 test("displays the correct item data", () => {
-  const { getByText } = render(<Item item={getItem()} />, {
+  render(<Item item={getItem()} />, {
     container: tbody,
   });
 
-  expect(getByText(/1l/i)).toBeInTheDocument();
-  expect(getByText(/milk/i)).toBeInTheDocument();
+  expect(screen.getByText(/1l/i)).toBeInTheDocument();
+  expect(screen.getByText(/milk/i)).toBeInTheDocument();
 });
 
 test("an item is striked-through when checked", () => {
-  const { container, rerender } = render(<Item item={getItem()} />, {
+  const { rerender } = render(<Item item={getItem()} />, {
     container: tbody,
   });
 
-  expect(container.firstElementChild).toHaveStyle("text-decoration: none");
+  expect(screen.getByRole("row")).toHaveStyle("text-decoration: none");
   rerender(<Item item={{ ...getItem(), checked: true }} />);
-  expect(container.firstElementChild).toHaveStyle("text-decoration: line-through");
+  expect(screen.getByRole("row")).toHaveStyle("text-decoration: line-through");
 });
 
 test("deletes an item when clicking the delete button", () => {
   const spy = jest.fn();
   const item = getItem();
-  const { getByTitle } = renderWithContext(<Item item={item} />, {
+  renderWithContext(<Item item={item} />, {
     dispatch: spy,
     language: "en",
   });
 
-  fireEvent.click(getByTitle(/delete item/i));
+  fireEvent.click(screen.getByTitle(/delete item/i));
   expect(spy).toHaveBeenCalledWith({ type: "DELETE_ITEM", payload: item });
 });
 
 test("edits an item with a doubleclick", () => {
   const spy = jest.fn();
   const item = getItem();
-  const { container } = renderWithContext(<Item item={item} />, {
+  renderWithContext(<Item item={item} />, {
     dispatch: spy,
   });
 
-  fireEvent.click(container.firstElementChild!);
+  fireEvent.click(screen.getByRole("row"));
   expect(spy).not.toHaveBeenCalled();
-  fireEvent.dblClick(container.firstElementChild!);
+  fireEvent.dblClick(screen.getByRole("row"));
   expect(spy).toHaveBeenCalledWith({ type: "SELECT_ITEM", payload: item });
 });
 
@@ -73,11 +73,11 @@ test("toggles an item on or off with a single click", () => {
 
   const spy = jest.fn();
   const item = getItem();
-  const { container } = renderWithContext(<Item item={item} />, {
+  renderWithContext(<Item item={item} />, {
     dispatch: spy,
   });
 
-  fireEvent.click(container.firstElementChild!, {
+  fireEvent.click(screen.getByRole("row"), {
     detail: 1,
   });
 

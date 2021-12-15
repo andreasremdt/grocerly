@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import { ReactNode } from "react";
 
 import { GroceryContext } from "../GroceryContext";
@@ -9,7 +9,7 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 };
 
 test("displays the app name", () => {
-  const { getByText } = render(
+  render(
     <Header
       onToggleForm={jest.fn()}
       onSettingsToggle={jest.fn()}
@@ -18,12 +18,12 @@ test("displays the app name", () => {
     />
   );
 
-  expect(getByText(/grocerly/i)).toBeInTheDocument();
+  expect(screen.getByText(/grocerly/i)).toBeInTheDocument();
 });
 
 test("calls dispatch to delete all items", () => {
   const spy = jest.fn();
-  const { getByTitle } = renderWithContext(
+  renderWithContext(
     <Header
       onToggleForm={jest.fn()}
       onSettingsToggle={jest.fn()}
@@ -36,13 +36,13 @@ test("calls dispatch to delete all items", () => {
     }
   );
 
-  fireEvent.click(getByTitle(/delete all items/i));
+  fireEvent.click(screen.getByTitle(/delete all items/i));
   expect(spy).toHaveBeenCalledWith({ type: "DELETE_ALL" });
 });
 
 test("calls the `onToggleAll` function to toggle the form", () => {
   const spy = jest.fn();
-  const { getByTitle } = renderWithContext(
+  renderWithContext(
     <Header
       onToggleForm={spy}
       onSettingsToggle={jest.fn()}
@@ -54,13 +54,13 @@ test("calls the `onToggleAll` function to toggle the form", () => {
     }
   );
 
-  fireEvent.click(getByTitle(/toggle form/i));
+  fireEvent.click(screen.getByTitle(/toggle form/i));
   expect(spy).toHaveBeenCalled();
 });
 
 test("calls the `onSettingsToggle` function", () => {
   const spy = jest.fn();
-  const { getByTitle } = renderWithContext(
+  renderWithContext(
     <Header
       onToggleForm={jest.fn()}
       onSettingsToggle={spy}
@@ -72,6 +72,6 @@ test("calls the `onSettingsToggle` function", () => {
     }
   );
 
-  fireEvent.click(getByTitle(/toggle settings/i));
+  fireEvent.click(screen.getByTitle(/toggle settings/i));
   expect(spy).toHaveBeenCalled();
 });

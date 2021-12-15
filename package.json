@@ -29,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "format": "prettier --write ./src/*"
+    "format": "prettier --write ./src/*",
+    "lint": "eslint src/"
   },
   "eslintConfig": {
     "extends": [
