@@ -54,3 +54,13 @@ test("calls dispatch to toggle the settings page", () => {
   fireEvent.click(screen.getByTitle(/toggle settings/i));
   expect(spy).toHaveBeenCalledWith({ type: "TOGGLE_SETTINGS" });
 });
+
+test("the form toggle and delete all button are hidden when the settings page is visible", () => {
+  renderWithContext(<Header />, {
+    language: "en",
+    isSettingsVisible: true,
+  });
+
+  expect(screen.queryByTitle(/clear this list/i)).not.toBeInTheDocument();
+  expect(screen.queryByTitle(/toggle form/i)).not.toBeInTheDocument();
+});
