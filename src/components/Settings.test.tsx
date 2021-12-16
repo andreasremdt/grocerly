@@ -8,8 +8,17 @@ const renderWithContext = (ui: ReactNode, props: any) => {
   return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
 };
 
+test("renders null if `isSettingsVisible` is falsy", () => {
+  renderWithContext(<Settings />, {
+    language: "en",
+    isSettingsVisible: false,
+  });
+
+  expect(screen.queryByRole("form")).not.toBeInTheDocument();
+});
+
 test("renders all colors", () => {
-  renderWithContext(<Settings />, { language: "en" });
+  renderWithContext(<Settings />, { language: "en", isSettingsVisible: true });
 
   expect(screen.getByText(/theme color/i)).toBeInTheDocument();
   COLORS.forEach((color) => {
@@ -22,6 +31,7 @@ test("lets a user change the theme color", () => {
   renderWithContext(<Settings />, {
     dispatch: spy,
     language: "en",
+    isSettingsVisible: true,
   });
 
   expect(screen.getByText(/theme color/i)).toBeInTheDocument();
@@ -34,6 +44,7 @@ test("lets a user change the language", () => {
   renderWithContext(<Settings />, {
     dispatch: spy,
     language: "en",
+    isSettingsVisible: true,
   });
 
   expect(screen.getByText(/language/i)).toBeInTheDocument();

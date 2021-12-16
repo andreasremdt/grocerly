@@ -18,7 +18,11 @@ export const COLORS = [
 ];
 
 function Settings() {
-  const { dispatch, color: themeColor, language } = useContext(GroceryContext);
+  const { dispatch, color: themeColor, language, isSettingsVisible } = useContext(GroceryContext);
+
+  if (!isSettingsVisible) {
+    return null;
+  }
 
   return (
     <div className={styles.wrapper}>

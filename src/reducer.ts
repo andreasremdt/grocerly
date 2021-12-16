@@ -67,6 +67,16 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
         ...state,
         language: action.payload,
       };
+    case "TOGGLE_FORM":
+      return {
+        ...state,
+        isFormVisible: !state.isFormVisible,
+      };
+    case "TOGGLE_SETTINGS":
+      return {
+        ...state,
+        isSettingsVisible: !state.isSettingsVisible,
+      };
     default:
       return state;
   }

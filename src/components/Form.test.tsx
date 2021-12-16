@@ -8,9 +8,19 @@ const renderWithContext = (ui: ReactNode, props: any) => {
   return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
 };
 
+test("renders null if `isFormVisible` is falsy", () => {
+  renderWithContext(<Form />, {
+    language: "en",
+    isFormVisible: false,
+  });
+
+  expect(screen.queryByRole("form")).not.toBeInTheDocument();
+});
+
 test("renders all form elements", () => {
   renderWithContext(<Form />, {
     language: "en",
+    isFormVisible: true,
   });
 
   expect(screen.getByPlaceholderText(/eggs, milk/i)).toBeInTheDocument();
@@ -26,6 +36,7 @@ test("the submit button is disabled if no name is provided", () => {
   renderWithContext(<Form />, {
     dispatch: spy,
     language: "en",
+    isFormVisible: true,
   });
 
   fireEvent.click(screen.getByTestId("submit"));
@@ -41,6 +52,7 @@ test("returns a new grocery object with only the name", () => {
   renderWithContext(<Form />, {
     dispatch: spy,
     language: "en",
+    isFormVisible: true,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
@@ -69,6 +81,7 @@ test("all grocery inputs are submitted", () => {
   renderWithContext(<Form />, {
     dispatch: spy,
     language: "en",
+    isFormVisible: true,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
@@ -105,6 +118,7 @@ test("an existing item can be updated", () => {
     editing,
     dispatch: spy,
     language: "en",
+    isFormVisible: true,
   });
 
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveValue("milk");
@@ -134,6 +148,7 @@ test("when no amount is specified, the unit is not submitted", () => {
   renderWithContext(<Form />, {
     dispatch: spy,
     language: "en",
+    isFormVisible: true,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });

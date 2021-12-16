@@ -24,9 +24,11 @@ const getState = (
   groceries: Grocery[] = [],
   editing: Grocery | null = null,
   color: string = "gray",
-  language: string = "en"
+  language: string = "en",
+  isFormVisible: boolean = true,
+  isSettingsVisible: boolean = false
 ) => {
-  return { editing, groceries, color, language };
+  return { editing, groceries, color, language, isFormVisible, isSettingsVisible };
 };
 
 test("adds a new item", () => {
@@ -103,4 +105,24 @@ test("changes the language", () => {
   const state = reducer(getState(), { type: "CHANGE_LANGUAGE", payload: "de" });
 
   expect(state.language).toEqual("de");
+});
+
+test("toggles the form", () => {
+  const state = reducer(getState(), { type: "TOGGLE_FORM" });
+
+  expect(state.isFormVisible).toEqual(false);
+
+  const newState = reducer(state, { type: "TOGGLE_FORM" });
+
+  expect(newState.isFormVisible).toEqual(true);
+});
+
+test("toggles the settings page", () => {
+  const state = reducer(getState(), { type: "TOGGLE_SETTINGS" });
+
+  expect(state.isSettingsVisible).toEqual(true);
+
+  const newState = reducer(state, { type: "TOGGLE_SETTINGS" });
+
+  expect(newState.isSettingsVisible).toEqual(false);
 });

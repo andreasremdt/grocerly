@@ -4,22 +4,15 @@ import { GroceryContext } from "../GroceryContext";
 import __ from "../utils/translate";
 import styles from "./Header.module.css";
 
-type HeaderProps = {
-  onToggleForm: () => void;
-  onSettingsToggle: () => void;
-  isFormVisible: boolean;
-  isSettingsVisible: boolean;
-};
-
-function Header({ onToggleForm, onSettingsToggle, isFormVisible, isSettingsVisible }: HeaderProps) {
-  const { dispatch, language } = useContext(GroceryContext);
+function Header() {
+  const { dispatch, language, isFormVisible, isSettingsVisible } = useContext(GroceryContext);
 
   return (
     <header className={styles.wrapper}>
       <h1 className={styles.title}>Grocerly</h1>
       <button
         type="button"
-        onClick={onToggleForm}
+        onClick={() => dispatch({ type: "TOGGLE_FORM" })}
         className={[styles.button, isFormVisible ? styles.active : ""].join(" ")}
         title={__("header.toggleForm", language)}
       >
@@ -64,7 +57,7 @@ function Header({ onToggleForm, onSettingsToggle, isFormVisible, isSettingsVisib
       </button>
       <button
         type="button"
-        onClick={onSettingsToggle}
+        onClick={() => dispatch({ type: "TOGGLE_SETTINGS" })}
         className={[styles.button, isSettingsVisible ? styles.active : ""].join(" ")}
         title={__("header.toggleSettings", language)}
       >

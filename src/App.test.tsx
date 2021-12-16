@@ -9,9 +9,11 @@ beforeEach(() => {
 });
 
 test("the app structure is rendered correctly", () => {
-  const { container } = render(<App />);
+  render(<App />);
 
-  expect(container).toMatchSnapshot();
+  expect(screen.getByRole("banner")).toBeInTheDocument();
+  expect(screen.getByRole("spinbutton")).toBeInTheDocument();
+  expect(screen.getByText(/nothing here/i)).toBeInTheDocument();
 });
 
 test("toggles the settings page and switches colors", () => {
@@ -50,8 +52,10 @@ test("toggles the form", () => {
   expect(screen.getByRole("textbox")).toBeInTheDocument();
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveFocus();
   fireEvent.click(screen.getByTitle(/toggle form/i));
+  expect(localStorage.getItem("form_visible")).toEqual("false");
   expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
   fireEvent.click(screen.getByTitle(/toggle form/i));
+  expect(localStorage.getItem("form_visible")).toEqual("true");
   expect(screen.getByRole("textbox")).toBeInTheDocument();
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveFocus();
 });

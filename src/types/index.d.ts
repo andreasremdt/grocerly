@@ -11,6 +11,8 @@ export type GroceryState = {
   editing: Grocery | null;
   color: string;
   language: string;
+  isFormVisible: boolean;
+  isSettingsVisible: boolean;
 };
 
 export type GroceryActions =
@@ -21,4 +23,6 @@ export type GroceryActions =
   | { type: "UPDATE_ITEM"; payload: Grocery }
   | { type: "DELETE_ALL" }
   | { type: "CHANGE_COLOR"; payload: string }
-  | { type: "CHANGE_LANGUAGE"; payload: string };
+  | { type: "CHANGE_LANGUAGE"; payload: string }
+  | { type: "TOGGLE_FORM" }
+  | { type: "TOGGLE_SETTINGS" };

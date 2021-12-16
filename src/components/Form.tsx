@@ -9,7 +9,7 @@ import AmountInput from "./AmountInput";
 const UNITS = ["mg", "g", "kg", "ml", "l"];
 
 function Form() {
-  const { editing, dispatch, language } = useContext(GroceryContext);
+  const { editing, dispatch, language, isFormVisible } = useContext(GroceryContext);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
@@ -60,6 +60,10 @@ function Form() {
     setAmount("");
     setUnit("");
   };
+
+  if (!isFormVisible) {
+    return null;
+  }
 
   return (
     <form noValidate autoCapitalize="off" onSubmit={handleSubmit} className={styles.wrapper}>
