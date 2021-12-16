@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, act } from "@testing-library/react";
 
 import App from "./App";
+import { LocalStorage } from "./utils/constants";
 
 window.navigator.vibrate = jest.fn();
 
@@ -24,10 +25,10 @@ test("toggles the settings page and switches colors", () => {
   expect(screen.getByText(/theme color/i)).toBeInTheDocument();
   fireEvent.click(screen.getByLabelText(/orange/i));
   expect(document.body.style.getPropertyValue("--primary-color")).toEqual("var(--orange)");
-  expect(localStorage.getItem("color")).toEqual("orange");
+  expect(localStorage.getItem(LocalStorage.Color)).toEqual("orange");
   fireEvent.click(screen.getByLabelText(/blue/i));
   expect(document.body.style.getPropertyValue("--primary-color")).toEqual("var(--blue)");
-  expect(localStorage.getItem("color")).toEqual("blue");
+  expect(localStorage.getItem(LocalStorage.Color)).toEqual("blue");
 
   rerender(<App />);
 
@@ -38,12 +39,12 @@ test("toggles the settings page and switches colors", () => {
 test("switches the language", () => {
   render(<App />);
 
-  expect(localStorage.getItem("language")).toEqual("en");
+  expect(localStorage.getItem(LocalStorage.Language)).toEqual("en");
   fireEvent.click(screen.getByTitle(/toggle settings/i));
   fireEvent.change(screen.getByTestId("language-select"), { target: { value: "de" } });
   expect(screen.queryByText(/nothing here, yet/i)).not.toBeInTheDocument();
   expect(screen.getByText(/diese liste ist noch leer./i)).toBeInTheDocument();
-  expect(localStorage.getItem("language")).toEqual("de");
+  expect(localStorage.getItem(LocalStorage.Language)).toEqual("de");
 });
 
 test("toggles the form", () => {
@@ -52,10 +53,10 @@ test("toggles the form", () => {
   expect(screen.getByRole("textbox")).toBeInTheDocument();
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveFocus();
   fireEvent.click(screen.getByTitle(/toggle form/i));
-  expect(localStorage.getItem("form_visible")).toEqual("false");
+  expect(localStorage.getItem(LocalStorage.FormVisible)).toEqual("false");
   expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
   fireEvent.click(screen.getByTitle(/toggle form/i));
-  expect(localStorage.getItem("form_visible")).toEqual("true");
+  expect(localStorage.getItem(LocalStorage.FormVisible)).toEqual("true");
   expect(screen.getByRole("textbox")).toBeInTheDocument();
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveFocus();
 });
@@ -69,7 +70,7 @@ test("items are persisted in local storage", () => {
   fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "3" } });
   fireEvent.click(screen.getByTestId("submit"));
 
-  expect(JSON.parse(localStorage.getItem("data")!)[0]).toMatchObject(
+  expect(JSON.parse(localStorage.getItem(LocalStorage.Groceries)!)[0]).toMatchObject(
     expect.objectContaining({
       amount: "3",
       name: "tomatoes",
@@ -81,9 +82,9 @@ test("items are persisted in local storage", () => {
   fireEvent.click(screen.getByLabelText(/^l$/i));
   fireEvent.click(screen.getByTestId("submit"));
 
-  expect(JSON.parse(localStorage.getItem("data")!).length).toEqual(2);
+  expect(JSON.parse(localStorage.getItem(LocalStorage.Groceries)!).length).toEqual(2);
   fireEvent.click(screen.getAllByTitle(/delete item/i)[0]);
-  expect(JSON.parse(localStorage.getItem("data")!).length).toEqual(1);
+  expect(JSON.parse(localStorage.getItem(LocalStorage.Groceries)!).length).toEqual(1);
 });
 
 test("adds, updates, and removes items", () => {

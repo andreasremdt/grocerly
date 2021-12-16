@@ -1,6 +1,7 @@
 import { createContext, Dispatch, ReactNode, useReducer, useEffect } from "react";
 
 import reducer from "./reducer";
+import { LocalStorage } from "./utils/constants";
 import { GroceryActions, GroceryState } from "./types";
 
 type GroceryContextState = GroceryState & {
@@ -17,10 +18,10 @@ const INITIAL_STATE = {
 };
 
 function initState(initialState: GroceryState) {
-  const groceries = localStorage.getItem("data");
-  const color = localStorage.getItem("color");
-  const language = localStorage.getItem("language");
-  const isFormVisible = localStorage.getItem("form_visible");
+  const groceries = localStorage.getItem(LocalStorage.Groceries);
+  const color = localStorage.getItem(LocalStorage.Color);
+  const language = localStorage.getItem(LocalStorage.Language);
+  const isFormVisible = localStorage.getItem(LocalStorage.FormVisible);
 
   return {
     editing: null,
@@ -36,22 +37,22 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE, initState);
 
   useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(state.groceries));
+    localStorage.setItem(LocalStorage.Groceries, JSON.stringify(state.groceries));
   }, [state.groceries]);
 
   useEffect(() => {
-    localStorage.setItem("form_visible", String(state.isFormVisible));
+    localStorage.setItem(LocalStorage.FormVisible, String(state.isFormVisible));
   }, [state.isFormVisible]);
 
   useEffect(() => {
-    localStorage.setItem("color", state.color);
+    localStorage.setItem(LocalStorage.Color, state.color);
 
     document.body.style.setProperty("--primary-color", `var(--${state.color})`);
     document.body.style.setProperty("--primary-color-dark", `var(--${state.color}-dark)`);
   }, [state.color]);
 
   useEffect(() => {
-    localStorage.setItem("language", state.language);
+    localStorage.setItem(LocalStorage.Language, state.language);
 
     document.head.lang = state.language;
   }, [state.language]);
