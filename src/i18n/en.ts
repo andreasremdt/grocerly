@@ -5,9 +5,10 @@ const translation = {
     subtitle: "Start adding items to your shopping list below.",
   },
   header: {
+    confirmDeleteAll: "Do you really want to clear this list?",
     toggleForm: "Toggle form",
     toggleSettings: "Toggle settings",
-    deleteAll: "Delete all items",
+    deleteAll: "Clear this list",
   },
   form: {
     name: "e.g. eggs, milk, spinach",

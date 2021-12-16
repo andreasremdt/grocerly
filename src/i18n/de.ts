@@ -5,6 +5,7 @@ const translation = {
     subtitle: "Füge Sachen über das oben stehende Formular hinzu.",
   },
   header: {
+    confirmDeleteAll: "Wollen Sie diese Liste wirklich leeren?",
     toggleForm: "Formular ein/ausblenden",
     toggleSettings: "Einstellungen ein/ausblenden",
     deleteAll: "Liste leeren",

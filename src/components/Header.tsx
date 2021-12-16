@@ -7,6 +7,12 @@ import styles from "./Header.module.css";
 function Header() {
   const { dispatch, language, isFormVisible, isSettingsVisible } = useContext(GroceryContext);
 
+  function handleDelete() {
+    if (window.confirm(__("header.confirmDeleteAll", language))) {
+      dispatch({ type: "DELETE_ALL" });
+    }
+  }
+
   return (
     <header className={styles.wrapper}>
       <h1 className={styles.title}>Grocerly</h1>
@@ -35,7 +41,7 @@ function Header() {
       </button>
       <button
         type="button"
-        onClick={() => dispatch({ type: "DELETE_ALL" })}
+        onClick={handleDelete}
         className={styles.button}
         title={__("header.deleteAll", language)}
       >

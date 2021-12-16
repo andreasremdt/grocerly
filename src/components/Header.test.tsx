@@ -21,8 +21,16 @@ test("calls dispatch to delete all items", () => {
     language: "en",
   });
 
-  fireEvent.click(screen.getByTitle(/delete all items/i));
+  window.confirm = jest.fn(() => true);
+
+  fireEvent.click(screen.getByTitle(/clear this list/i));
+  expect(window.confirm).toHaveBeenCalledWith("Do you really want to clear this list?");
   expect(spy).toHaveBeenCalledWith({ type: "DELETE_ALL" });
+
+  window.confirm = jest.fn(() => false);
+
+  fireEvent.click(screen.getByTitle(/clear this list/i));
+  expect(spy).toHaveBeenCalledTimes(1);
 });
 
 test("calls dispatch to toggle the form", () => {
