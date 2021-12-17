@@ -5,6 +5,7 @@
   height: calc(100% - 3rem);
   width: 100%;
   padding: 1rem var(--padding);
+  z-index: 1;
 }
 
 .fieldset {

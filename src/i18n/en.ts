@@ -19,9 +19,9 @@ const translation = {
     language: "Language",
   },
   list: {
-    quantity: "Quantity",
-    name: "Name",
-    delete: "Delete item",
+    check: "Mark as done",
+    uncheck: "Mark as undone",
+    deleteItem: "Delete this item?",
   },
 };
 

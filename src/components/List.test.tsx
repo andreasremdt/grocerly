@@ -18,26 +18,6 @@ test("displays an empty state if no items exist", () => {
   expect(screen.getByTestId("shopping-cart-icon")).toBeInTheDocument();
 });
 
-test("the table header displays quantity and name", () => {
-  const groceries = [
-    {
-      id: Date.now(),
-      name: "milk",
-      amount: "1",
-      unit: "l",
-      checked: false,
-    },
-  ];
-
-  renderWithContext(<List />, {
-    groceries,
-    language: "en",
-  });
-
-  expect(screen.getByText(/quantity/i)).toBeInTheDocument();
-  expect(screen.getByText(/name/i)).toBeInTheDocument();
-});
-
 test("displays a list of items", () => {
   const groceries = [
     {

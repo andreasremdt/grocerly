@@ -19,9 +19,9 @@ const translation = {
     language: "Sprache",
   },
   list: {
-    quantity: "Anzahl",
-    name: "Name",
-    delete: "Löschen",
+    check: "Als erledigt markieren",
+    uncheck: "Als unerledigt markieren",
+    deleteItem: "Diese Position entfernen?",
   },
 };
 

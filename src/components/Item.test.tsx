@@ -12,37 +12,40 @@ const getItem = () => ({
   checked: false,
 });
 
-const table = document.createElement("table");
-const tbody = document.createElement("tbody");
-table.appendChild(tbody);
-document.body.appendChild(table);
-
 const renderWithContext = (ui: ReactNode, props: any) => {
-  return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>, {
-    container: tbody,
-  });
+  return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
 };
 
-test("displays the correct item data", () => {
-  render(<Item item={getItem()} />, {
-    container: tbody,
-  });
+beforeAll(() => {
+  jest.useFakeTimers();
+});
 
+afterAll(() => {
+  jest.useRealTimers();
+});
+
+test("displays the correct item data", () => {
+  render(<Item item={getItem()} />);
+
+  expect(screen.getByRole("checkbox")).not.toBeChecked();
   expect(screen.getByText(/1l/i)).toBeInTheDocument();
   expect(screen.getByText(/milk/i)).toBeInTheDocument();
 });
 
 test("an item is striked-through when checked", () => {
-  const { rerender } = render(<Item item={getItem()} />, {
-    container: tbody,
-  });
+  const { rerender } = render(<Item item={getItem()} />);
 
-  expect(screen.getByRole("row")).toHaveStyle("text-decoration: none");
+  expect(screen.getByRole("heading")).not.toHaveClass("checked");
+
   rerender(<Item item={{ ...getItem(), checked: true }} />);
-  expect(screen.getByRole("row")).toHaveStyle("text-decoration: line-through");
+
+  expect(screen.getByRole("heading")).toHaveClass("checked");
 });
 
-test("deletes an item when clicking the delete button", () => {
+test("deletes an item when pressing for more than 500 ms", () => {
+  window.navigator.vibrate = jest.fn();
+  window.confirm = jest.fn(() => true);
+
   const spy = jest.fn();
   const item = getItem();
   renderWithContext(<Item item={item} />, {
@@ -50,26 +53,42 @@ test("deletes an item when clicking the delete button", () => {
     language: "en",
   });
 
-  fireEvent.click(screen.getByTitle(/delete item/i));
+  fireEvent.pointerDown(screen.getByText(/milk/i));
+
+  jest.advanceTimersByTime(400);
+
+  expect(spy).not.toHaveBeenCalled();
+
+  fireEvent.pointerDown(screen.getByText(/milk/i));
+
+  jest.advanceTimersByTime(500);
+
+  expect(window.navigator.vibrate).toHaveBeenCalledWith(100);
+  expect(window.confirm).toHaveBeenCalledWith("Delete this item?");
   expect(spy).toHaveBeenCalledWith({ type: "DELETE_ITEM", payload: item });
 });
 
-test("edits an item with a doubleclick", () => {
+test("does not delete an item if the confirmation is falsy", () => {
+  window.navigator.vibrate = jest.fn();
+  window.confirm = jest.fn(() => false);
+
   const spy = jest.fn();
   const item = getItem();
   renderWithContext(<Item item={item} />, {
     dispatch: spy,
+    language: "en",
   });
 
-  fireEvent.click(screen.getByRole("row"));
+  fireEvent.pointerDown(screen.getByText(/milk/i));
+
+  jest.advanceTimersByTime(500);
+
+  expect(window.navigator.vibrate).toHaveBeenCalled();
   expect(spy).not.toHaveBeenCalled();
-  fireEvent.dblClick(screen.getByRole("row"));
-  expect(spy).toHaveBeenCalledWith({ type: "SELECT_ITEM", payload: item });
 });
 
-test("toggles an item on or off with a single click", () => {
-  jest.useFakeTimers("modern");
-  window.navigator.vibrate = jest.fn();
+test("edits an item with a single click", () => {
+  window.confirm = jest.fn(() => false);
 
   const spy = jest.fn();
   const item = getItem();
@@ -77,12 +96,31 @@ test("toggles an item on or off with a single click", () => {
     dispatch: spy,
   });
 
-  fireEvent.click(screen.getByRole("row"), {
-    detail: 1,
+  fireEvent.pointerDown(screen.getByText(/milk/i));
+
+  jest.advanceTimersByTime(100);
+
+  fireEvent.pointerUp(screen.getByText(/milk/i));
+
+  expect(spy).toHaveBeenCalledWith({ type: "SELECT_ITEM", payload: item });
+
+  jest.advanceTimersByTime(400);
+
+  expect(window.confirm).not.toHaveBeenCalled();
+});
+
+test("toggles an item on or off", () => {
+  const spy = jest.fn();
+  const item = getItem();
+  renderWithContext(<Item item={item} />, {
+    dispatch: spy,
   });
 
-  expect(spy).not.toHaveBeenCalled();
-  jest.runAllTimers();
+  fireEvent.click(screen.getByRole("checkbox"));
+
   expect(spy).toHaveBeenCalledWith({ type: "TOGGLE_CHECK_ITEM", payload: item });
-  expect(window.navigator.vibrate).toHaveBeenCalledWith(50);
+
+  fireEvent.click(screen.getByRole("checkbox"));
+
+  expect(spy).toHaveBeenCalledTimes(2);
 });

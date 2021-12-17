@@ -24,19 +24,7 @@ function List() {
   return (
     <main className={styles.wrapper} ref={mainRef}>
       {groceries.length ? (
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>{__("list.quantity", language)}</th>
-              <th>{__("list.name", language)}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {groceries.map((item) => (
-              <Item key={item.id} item={item} />
-            ))}
-          </tbody>
-        </table>
+        groceries.map((grocery) => <Item key={grocery.id} item={grocery} />)
       ) : (
         <div className={styles.empty}>
           <svg data-testid="shopping-cart-icon">

@@ -19,9 +19,9 @@ const translation = {
     language: "Idioma",
   },
   list: {
-    quantity: "Cantidad",
-    name: "Nombre",
-    delete: "Eliminar",
+    check: "Marcar como hecho",
+    uncheck: "Marcar como deshecho",
+    deleteItem: "¿Borrar este artículo?",
   },
 };
 

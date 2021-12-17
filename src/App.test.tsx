@@ -63,6 +63,7 @@ test("toggles the form", () => {
 
 test("items are persisted in local storage", () => {
   Element.prototype.scrollTo = jest.fn();
+  window.confirm = jest.fn(() => true);
 
   render(<App />);
 
@@ -83,13 +84,23 @@ test("items are persisted in local storage", () => {
   fireEvent.click(screen.getByTestId("submit"));
 
   expect(JSON.parse(localStorage.getItem(LocalStorage.Groceries)!).length).toEqual(2);
-  fireEvent.click(screen.getAllByTitle(/delete item/i)[0]);
+
+  jest.useFakeTimers();
+  fireEvent.pointerDown(screen.getByText(/water/i));
+
+  act(() => {
+    jest.advanceTimersByTime(500);
+  });
+
   expect(JSON.parse(localStorage.getItem(LocalStorage.Groceries)!).length).toEqual(1);
+
+  jest.useRealTimers();
 });
 
 test("adds, updates, and removes items", () => {
   Element.prototype.scrollTo = jest.fn();
   jest.useFakeTimers();
+  window.confirm = jest.fn(() => true);
 
   render(<App />);
 
@@ -108,26 +119,20 @@ test("adds, updates, and removes items", () => {
   expect(screen.queryByLabelText(/ml/i)).not.toBeChecked();
   expect(Element.prototype.scrollTo).toHaveBeenCalledTimes(1);
 
-  fireEvent.click(screen.getByTestId("item"), {
-    detail: 1,
-  });
+  fireEvent.click(screen.getByRole("checkbox"));
 
-  act(() => {
-    jest.advanceTimersByTime(300);
-  });
+  expect(screen.getAllByRole("heading")[1]).toHaveClass("checked");
 
-  expect(screen.getByTestId("item")).toHaveStyle("text-decoration: line-through");
+  fireEvent.click(screen.getByRole("checkbox"));
 
-  fireEvent.click(screen.getByTestId("item"), {
-    detail: 1,
-  });
+  expect(screen.getAllByRole("heading")[1]).not.toHaveClass("checked");
 
-  act(() => {
-    jest.advanceTimersByTime(300);
-  });
+  fireEvent.pointerDown(screen.getByText(/milk/i));
 
-  expect(screen.getByTestId("item")).toHaveStyle("text-decoration: none");
-  fireEvent.dblClick(screen.getByTestId("item"));
+  jest.advanceTimersByTime(100);
+
+  fireEvent.pointerUp(screen.getByText(/milk/i));
+
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveValue("milk");
   expect(screen.getByPlaceholderText(/qt/i)).toHaveValue(100);
   expect(screen.getByLabelText(/ml/i)).toBeChecked();
@@ -138,7 +143,13 @@ test("adds, updates, and removes items", () => {
   expect(screen.queryByText(/milk/i)).not.toBeInTheDocument();
   expect(screen.getByText(/bread/i)).toBeInTheDocument();
 
-  fireEvent.click(screen.getByTitle(/delete item/i));
+  fireEvent.pointerDown(screen.getByText(/bread/i));
+
+  act(() => {
+    jest.advanceTimersByTime(500);
+  });
+
+  expect(window.confirm).toHaveBeenCalled();
   expect(screen.getByText(/nothing here, yet/i)).toBeInTheDocument();
   expect(Element.prototype.scrollTo).toHaveBeenCalledTimes(1);
 

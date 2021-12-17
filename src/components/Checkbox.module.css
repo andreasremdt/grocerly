@@ -1,0 +1,22 @@
+.knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+  display: inline-block;
+  background-color: white;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+.input {
+  display: none;
+}
+
+.input:checked + .knob {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
