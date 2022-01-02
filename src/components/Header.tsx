@@ -1,22 +1,44 @@
 import { useContext } from "react";
 
 import { GroceryContext } from "../GroceryContext";
+import { getPageTitle } from "../utils/helpers";
 import __ from "../utils/translate";
 import styles from "./Header.module.css";
 
 function Header() {
-  const { dispatch, language, isFormVisible, isSettingsVisible } = useContext(GroceryContext);
+  const { dispatch, language, activeList, lists, isFormVisible, isSettingsVisible } =
+    useContext(GroceryContext);
 
   function handleDelete() {
     if (window.confirm(__("header.confirmDeleteAll", language))) {
-      dispatch({ type: "DELETE_ALL" });
+      dispatch({ type: "DELETE_LIST", payload: activeList! });
     }
   }
 
   return (
     <header className={styles.wrapper}>
-      <h1 className={styles.title}>Grocerly</h1>
-      {!isSettingsVisible && (
+      {activeList && (
+        <button
+          className={styles.back}
+          onClick={() => dispatch({ type: "SET_ACTIVE_LIST", payload: null })}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+      )}
+      <h1 className={styles.title}>{getPageTitle(lists, activeList)}</h1>
+      {!isSettingsVisible && activeList && (
         <>
           <button
             type="button"
@@ -41,28 +63,30 @@ function Header() {
               )}
             </svg>
           </button>
-          <button
-            type="button"
-            onClick={handleDelete}
-            className={styles.button}
-            title={__("header.deleteAll", language)}
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          {activeList && (
+            <button
+              type="button"
+              onClick={handleDelete}
+              className={styles.button}
+              title={__("header.deleteAll", language)}
             >
-              <polyline points="3 6 5 6 21 6"></polyline>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-              <line x1="10" y1="11" x2="10" y2="17"></line>
-              <line x1="14" y1="11" x2="14" y2="17"></line>
-            </svg>
-          </button>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </button>
+          )}
         </>
       )}
       <button

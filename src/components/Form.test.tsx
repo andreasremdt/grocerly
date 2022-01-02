@@ -8,10 +8,18 @@ const renderWithContext = (ui: ReactNode, props: any) => {
   return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
 };
 
-test("renders null if `isFormVisible` is falsy", () => {
+test("renders null if `isFormVisible` is falsy or `activeList` is null", () => {
   renderWithContext(<Form />, {
     language: "en",
     isFormVisible: false,
+  });
+
+  expect(screen.queryByRole("form")).not.toBeInTheDocument();
+
+  renderWithContext(<Form />, {
+    language: "en",
+    isFormVisible: true,
+    activeList: null,
   });
 
   expect(screen.queryByRole("form")).not.toBeInTheDocument();
@@ -21,6 +29,7 @@ test("renders all form elements", () => {
   renderWithContext(<Form />, {
     language: "en",
     isFormVisible: true,
+    activeList: 1,
   });
 
   expect(screen.getByPlaceholderText(/eggs, milk/i)).toBeInTheDocument();
@@ -37,6 +46,7 @@ test("the submit button is disabled if no name is provided", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
+    activeList: 1,
   });
 
   fireEvent.click(screen.getByTestId("submit"));
@@ -53,6 +63,7 @@ test("returns a new grocery object with only the name", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
+    activeList: 1,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
@@ -68,6 +79,7 @@ test("returns a new grocery object with only the name", () => {
       id: 1487076708000,
       name: "bread",
       amount: "",
+      listId: 1,
       unit: "",
       checked: false,
     },
@@ -82,6 +94,7 @@ test("all grocery inputs are submitted", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
+    activeList: 1,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
@@ -95,6 +108,7 @@ test("all grocery inputs are submitted", () => {
       id: 1487076708000,
       name: "milk",
       amount: "100",
+      listId: 1,
       unit: "ml",
       checked: false,
     },
@@ -119,6 +133,7 @@ test("an existing item can be updated", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
+    activeList: 1,
   });
 
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveValue("milk");
@@ -135,6 +150,7 @@ test("an existing item can be updated", () => {
       id: 1,
       name: "bread",
       amount: "150",
+      listId: 1,
       unit: "l",
       checked: false,
     },
@@ -149,6 +165,7 @@ test("when no amount is specified, the unit is not submitted", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
+    activeList: 1,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
@@ -161,6 +178,7 @@ test("when no amount is specified, the unit is not submitted", () => {
       id: 1487076708000,
       name: "milk",
       amount: "",
+      listId: 1,
       unit: "",
       checked: false,
     },

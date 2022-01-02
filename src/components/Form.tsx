@@ -9,7 +9,7 @@ import AmountInput from "./AmountInput";
 const UNITS = ["mg", "g", "kg", "ml", "l"];
 
 function Form() {
-  const { editing, dispatch, language, isFormVisible } = useContext(GroceryContext);
+  const { editing, dispatch, language, isFormVisible, activeList } = useContext(GroceryContext);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
@@ -34,6 +34,7 @@ function Form() {
       dispatch({
         type: "UPDATE_ITEM",
         payload: {
+          listId: activeList!,
           id: editing.id,
           name,
           amount,
@@ -45,6 +46,7 @@ function Form() {
       dispatch({
         type: "ADD_ITEM",
         payload: {
+          listId: activeList!,
           id: Date.now(),
           name,
           amount,
@@ -61,7 +63,7 @@ function Form() {
     setUnit("");
   };
 
-  if (!isFormVisible) {
+  if (!isFormVisible || !activeList) {
     return null;
   }
 

@@ -15,10 +15,14 @@ const INITIAL_STATE = {
   editing: null,
   isFormVisible: true,
   isSettingsVisible: false,
+  lists: [],
+  activeList: null,
 };
 
 function initState(initialState: GroceryState) {
   const groceries = localStorage.getItem(LocalStorage.Groceries);
+  const lists = localStorage.getItem(LocalStorage.Lists);
+  const activeList = localStorage.getItem(LocalStorage.ActiveList);
   const color = localStorage.getItem(LocalStorage.Color);
   const language = localStorage.getItem(LocalStorage.Language);
   const isFormVisible = localStorage.getItem(LocalStorage.FormVisible);
@@ -26,6 +30,8 @@ function initState(initialState: GroceryState) {
   return {
     editing: null,
     groceries: groceries ? JSON.parse(groceries) : [],
+    lists: lists ? JSON.parse(lists) : [],
+    activeList: activeList !== "null" ? Number(activeList) : initialState.activeList,
     color: color || initialState.color,
     language: language || initialState.language,
     isFormVisible: isFormVisible === "true" || isFormVisible === null,
@@ -56,6 +62,14 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
 
     document.head.lang = state.language;
   }, [state.language]);
+
+  useEffect(() => {
+    localStorage.setItem(LocalStorage.ActiveList, String(state.activeList));
+  }, [state.activeList]);
+
+  useEffect(() => {
+    localStorage.setItem(LocalStorage.Lists, JSON.stringify(state.lists));
+  }, [state.lists]);
 
   return (
     <GroceryContext.Provider value={{ ...state, dispatch }}>{children}</GroceryContext.Provider>

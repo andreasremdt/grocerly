@@ -4,11 +4,13 @@ import { GroceryContext } from "../GroceryContext";
 import Item from "./Item";
 import __ from "../utils/translate";
 import styles from "./List.module.css";
+import { getItemsByList } from "../utils/helpers";
 
 function List() {
-  const { groceries, language } = useContext(GroceryContext);
+  const { groceries, activeList, language } = useContext(GroceryContext);
   const mainRef = useRef<HTMLDivElement>(null);
   const groceriesRef = useRef(groceries);
+  const items = getItemsByList(activeList!, groceries);
 
   useEffect(() => {
     if (groceries.length > groceriesRef.current.length) {
@@ -23,8 +25,8 @@ function List() {
 
   return (
     <main className={styles.wrapper} ref={mainRef}>
-      {groceries.length ? (
-        groceries.map((grocery) => <Item key={grocery.id} item={grocery} />)
+      {items.length ? (
+        items.map((item) => <Item key={item.id} item={item} />)
       ) : (
         <div className={styles.empty}>
           <svg data-testid="shopping-cart-icon">

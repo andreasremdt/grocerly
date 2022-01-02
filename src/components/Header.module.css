@@ -24,3 +24,12 @@
   margin-left: 1rem;
   color: white;
 }
+
+.back {
+  background-color: transparent;
+  color: white;
+  padding: unset;
+  border: unset;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}

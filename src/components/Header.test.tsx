@@ -14,18 +14,20 @@ test("displays the app name", () => {
   expect(screen.getByText(/grocerly/i)).toBeInTheDocument();
 });
 
-test("calls dispatch to delete all items", () => {
+test("calls dispatch to delete the current list", () => {
   const spy = jest.fn();
   renderWithContext(<Header />, {
     dispatch: spy,
     language: "en",
+    activeList: 1,
+    lists: [],
   });
 
   window.confirm = jest.fn(() => true);
 
   fireEvent.click(screen.getByTitle(/clear this list/i));
   expect(window.confirm).toHaveBeenCalledWith("Do you really want to clear this list?");
-  expect(spy).toHaveBeenCalledWith({ type: "DELETE_ALL" });
+  expect(spy).toHaveBeenCalledWith({ type: "DELETE_LIST", payload: 1 });
 
   window.confirm = jest.fn(() => false);
 
@@ -38,6 +40,8 @@ test("calls dispatch to toggle the form", () => {
   renderWithContext(<Header />, {
     dispatch: spy,
     language: "en",
+    activeList: 1,
+    lists: [],
   });
 
   fireEvent.click(screen.getByTitle(/toggle form/i));
