@@ -4,7 +4,6 @@ import cx from "classnames";
 import { GroceryContext } from "../GroceryContext";
 import { GroceryList } from "../types";
 import { getItemsByList } from "../utils/helpers";
-import styles from "./ListCard.module.css";
 
 type ListCardProps = {
   list: GroceryList;
@@ -16,20 +15,20 @@ function ListCard({ list }: ListCardProps) {
 
   return (
     <button
-      className={styles.list}
+      className="bg-white h-[250px] text-left flex flex-col p-2 rounded-md shadow-md shadow-gray-200 overflow-hidden relative"
       onClick={() => dispatch({ type: "SET_ACTIVE_LIST", payload: list.id })}
     >
-      <span className={styles.title}>{list.name}</span>
+      <h2 className="font-semibold text-base mb-2 text-indigo-800">{list.name}</h2>
       {items.length > 0 ? (
-        <ul className={styles.items}>
+        <ul className="after:h-12 after:absolute after:bottom-0 after:left-0 after:right-0 after:bg-gradient-to-b after:from-transparent after:to-white">
           {items.slice(0, 10).map((item) => (
-            <li key={item.id} className={cx({ [styles.checked]: item.checked }, styles.item)}>
+            <li key={item.id} className={cx({ "line-through text-gray-400": item.checked })}>
               {item.name}
             </li>
           ))}
         </ul>
       ) : (
-        <span className={styles.italic}>No items in this list</span>
+        <span>This list is empty.</span>
       )}
     </button>
   );

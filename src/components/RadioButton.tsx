@@ -1,7 +1,5 @@
 import { ChangeEvent, MouseEvent } from "react";
 
-import styles from "./RadioButton.module.css";
-
 type RadioButtonProps = {
   value: string;
   checked: boolean;
@@ -11,7 +9,7 @@ type RadioButtonProps = {
 
 function RadioButton({ value, checked, onChange, onClick, ...props }: RadioButtonProps) {
   return (
-    <label className={styles.label}>
+    <label className="flex-1">
       <input
         type="radio"
         value={value}
@@ -19,10 +17,12 @@ function RadioButton({ value, checked, onChange, onClick, ...props }: RadioButto
         checked={checked}
         onChange={onChange}
         onClick={onClick}
-        className={styles.input}
+        className="hidden peer"
         {...props}
       />
-      <span className={styles.display}>{value}</span>
+      <span className="h-10 px-2 flex items-center justify-center font-semibold uppercase text-xs bg-gray-50 shadow-sm border border-gray-200 rounded-sm peer-checked:shadow-purple-100 peer-checked:bg-purple-50 peer-checked:text-purple-500 peer-checked:border-purple-200">
+        {value}
+      </span>
     </label>
   );
 }

@@ -5,7 +5,6 @@ import { GroceryContext } from "../GroceryContext";
 import { Grocery } from "../types";
 import __ from "../utils/translate";
 import Checkbox from "./Checkbox";
-import styles from "./Item.module.css";
 
 type ItemProps = {
   item: Grocery;
@@ -46,29 +45,30 @@ function Item({ item }: ItemProps) {
   }
 
   return (
-    <article data-testid="item" className={styles.item}>
-      <button
-        type="button"
-        className={styles.button}
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={reset}
-      >
-        <h2 className={cx(styles.name, { [styles.checked]: item.checked })}>{item.name}</h2>
-        {item.amount && (
-          <div className={styles.details}>
-            {item.amount || ""}
-            {item.unit}
-          </div>
-        )}
-      </button>
+    <article data-testid="item" className="bg-white border-b border-gray-200">
+      <div className="max-w-xl mx-auto px-2 flex items-center">
+        <button
+          type="button"
+          className="flex-1 text-left h-12"
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={reset}
+        >
+          <h2 className={cx({ "line-through": item.checked })}>{item.name}</h2>
+          {item.amount && (
+            <div className="text-gray-400 text-xs">
+              {item.amount || ""}
+              {item.unit}
+            </div>
+          )}
+        </button>
 
-      <Checkbox
-        checked={item.checked}
-        onChange={() => dispatch({ type: "TOGGLE_CHECK_ITEM", payload: item })}
-        aria-label={__(item.checked ? "list.uncheck" : "list.check", language)}
-        className={styles.checkbox}
-      />
+        <Checkbox
+          checked={item.checked}
+          onChange={() => dispatch({ type: "TOGGLE_CHECK_ITEM", payload: item })}
+          aria-label={__(item.checked ? "list.uncheck" : "list.check", language)}
+        />
+      </div>
     </article>
   );
 }

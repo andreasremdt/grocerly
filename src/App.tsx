@@ -8,14 +8,20 @@ import ListOverview from "./components/ListOverview";
 import { GroceryContext } from "./GroceryContext";
 
 function App() {
-  const { activeList } = useContext(GroceryContext);
+  const { activeList, isSettingsVisible } = useContext(GroceryContext);
 
   return (
     <>
       <Header />
-      <Form />
-      <Settings />
-      {activeList ? <List /> : <ListOverview />}
+
+      {isSettingsVisible ? (
+        <Settings />
+      ) : (
+        <>
+          <Form />
+          {activeList ? <List /> : <ListOverview />}
+        </>
+      )}
     </>
   );
 }

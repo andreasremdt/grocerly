@@ -3,7 +3,6 @@ import { useContext, useEffect, useRef } from "react";
 import { GroceryContext } from "../GroceryContext";
 import Item from "./Item";
 import __ from "../utils/translate";
-import styles from "./List.module.css";
 import { getItemsByList } from "../utils/helpers";
 
 function List() {
@@ -24,19 +23,16 @@ function List() {
   }, [groceries]);
 
   return (
-    <main className={styles.wrapper} ref={mainRef}>
+    <main ref={mainRef} className="flex-1 overflow-x-auto">
       {items.length ? (
         items.map((item) => <Item key={item.id} item={item} />)
       ) : (
-        <div className={styles.empty}>
-          <svg data-testid="shopping-cart-icon">
+        <div className="text-center flex items-center flex-col pt-10">
+          <svg data-testid="shopping-cart-icon" className="mb-4">
             <use xlinkHref="/shopping-cart.svg#img"></use>
           </svg>
-          <p>
-            <b>{__("emptyState.title", language)}</b>
-            <br />
-            {__("emptyState.subtitle", language)}
-          </p>
+          <h2 className="font-semibold text-indigo-800">{__("emptyState.title", language)}</h2>
+          <p>{__("emptyState.subtitle", language)}</p>
         </div>
       )}
     </main>

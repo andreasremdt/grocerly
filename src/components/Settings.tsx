@@ -1,75 +1,33 @@
-import { CSSProperties, useContext } from "react";
+import { useContext } from "react";
 
 import { GroceryContext } from "../GroceryContext";
+import Select from "./Select";
 import __, { availableLanguages } from "../utils/translate";
-import styles from "./Settings.module.css";
-
-export const COLORS = [
-  "gray",
-  "red",
-  "orange",
-  "yellow",
-  "green",
-  "teal",
-  "cyan",
-  "blue",
-  "purple",
-  "pink",
-];
 
 function Settings() {
-  const { dispatch, color: themeColor, language, isSettingsVisible } = useContext(GroceryContext);
-
-  if (!isSettingsVisible) {
-    return null;
-  }
+  const { dispatch, language } = useContext(GroceryContext);
 
   return (
-    <div className={styles.wrapper}>
+    <main className="p-2 mx-auto max-w-xl w-full">
       <form>
-        <fieldset className={styles.fieldset}>
-          <legend>{__("settings.themeColor", language)}</legend>
+        <label htmlFor="language" className="block mb-1">
+          {__("settings.language", language)}
+        </label>
 
-          <div className={styles.colors}>
-            {COLORS.map((color) => (
-              <label key={color}>
-                <input
-                  type="radio"
-                  value={color}
-                  name="theme-color"
-                  className={styles.radio}
-                  onChange={() => dispatch({ type: "CHANGE_COLOR", payload: color })}
-                  checked={color === themeColor}
-                />
-                <span
-                  className={styles.label}
-                  style={{ "--color": `var(--${color})` } as CSSProperties}
-                >
-                  {color}
-                </span>
-              </label>
-            ))}
-          </div>
-        </fieldset>
-
-        <fieldset className={styles.fieldset}>
-          <legend>{__("settings.language", language)}</legend>
-
-          <select
-            className={styles.select}
-            data-testid="language-select"
-            value={language}
-            onChange={(event) => dispatch({ type: "CHANGE_LANGUAGE", payload: event.target.value })}
-          >
-            {availableLanguages.map((language) => (
-              <option key={language} value={language}>
-                {__(language, language)}
-              </option>
-            ))}
-          </select>
-        </fieldset>
+        <Select
+          id="language"
+          data-testid="language-select"
+          value={language}
+          onChange={(event) => dispatch({ type: "CHANGE_LANGUAGE", payload: event.target.value })}
+        >
+          {availableLanguages.map((language) => (
+            <option key={language} value={language}>
+              {__(language, language)}
+            </option>
+          ))}
+        </Select>
       </form>
-    </div>
+    </main>
   );
 }
 

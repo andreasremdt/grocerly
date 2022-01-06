@@ -1,6 +1,7 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 
-import styles from "./NewListDialog.module.css";
+import Input from "./Input";
+import Button from "./Button";
 import { GroceryList } from "../types";
 
 type NewListDialogProps = {
@@ -35,27 +36,34 @@ function NewListDialog({ onSubmit, onCancel }: NewListDialogProps) {
   }, [onCancel]);
 
   return (
-    <div className={styles.dialog} role="dialog">
-      <form onSubmit={handleSubmit} className={styles.inner}>
+    <div
+      className="fixed inset-0 bg-gray-700/50 z-20 backdrop-blur-sm flex items-center justify-center"
+      role="dialog"
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-md drop-shadow-lg w-full max-w-xl mx-2 p-4"
+      >
         <div>
-          <label htmlFor="name" className={styles.label}>
+          <label htmlFor="name" className="block">
             Provide a name for this grocery list:
           </label>
-          <input
+          <Input
             type="text"
             id="name"
             autoFocus
             value={name}
             onChange={(event) => setName(event.target.value)}
+            className="w-full my-2"
           />
         </div>
-        <footer className={styles.footer}>
-          <button type="button" className={styles["secondary-button"]} onClick={onCancel}>
+        <footer className="text-right">
+          <Button type="button" className="mr-2" onClick={onCancel}>
             Cancel
-          </button>
-          <button type="submit" className={styles["primary-button"]}>
+          </Button>
+          <Button type="submit" className="">
             Okay
-          </button>
+          </Button>
         </footer>
       </form>
     </div>
