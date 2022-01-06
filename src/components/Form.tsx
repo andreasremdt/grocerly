@@ -7,6 +7,7 @@ import __ from "../utils/translate";
 import AmountInput from "./AmountInput";
 import Input from "./Input";
 import Button from "./Button";
+import Icon from "./Icon";
 
 const UNITS = ["mg", "g", "kg", "ml", "l"];
 
@@ -97,18 +98,7 @@ function Form() {
         />
 
         <Button type="submit" disabled={name.length < 1} data-testid="submit">
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
+          <Icon type="check" />
         </Button>
       </div>
     </form>
