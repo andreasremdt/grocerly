@@ -17,7 +17,6 @@ beforeEach(() => {
 
 test.skip("the app structure is rendered correctly", () => {
   renderWithContext(<App />, {
-    activeList: 1,
     lists: [],
     groceries: [],
     isFormVisible: true,
@@ -31,7 +30,6 @@ test.skip("the app structure is rendered correctly", () => {
 
 test.skip("toggles the settings page and switches colors", () => {
   const { rerender } = renderWithContext(<App />, {
-    activeList: null,
     lists: [],
     language: "en",
   });

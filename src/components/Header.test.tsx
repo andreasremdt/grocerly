@@ -19,7 +19,6 @@ test("calls dispatch to delete the current list", () => {
   renderWithContext(<Header />, {
     dispatch: spy,
     language: "en",
-    activeList: 1,
     lists: [],
   });
 
@@ -40,7 +39,6 @@ test("calls dispatch to toggle the form", () => {
   renderWithContext(<Header />, {
     dispatch: spy,
     language: "en",
-    activeList: 1,
     lists: [],
   });
 
@@ -62,7 +60,6 @@ test("calls dispatch to toggle the settings page", () => {
 test("the form toggle and delete all button are hidden when the settings page is visible", () => {
   renderWithContext(<Header />, {
     language: "en",
-    isSettingsVisible: true,
   });
 
   expect(screen.queryByTitle(/clear this list/i)).not.toBeInTheDocument();

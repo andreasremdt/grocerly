@@ -57,11 +57,6 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
           return grocery;
         }),
       };
-    case "CHANGE_COLOR":
-      return {
-        ...state,
-        color: action.payload,
-      };
     case "CHANGE_LANGUAGE":
       return {
         ...state,
@@ -72,28 +67,17 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
         ...state,
         isFormVisible: !state.isFormVisible,
       };
-    case "TOGGLE_SETTINGS":
-      return {
-        ...state,
-        isSettingsVisible: !state.isSettingsVisible,
-      };
     case "ADD_LIST":
       return {
         ...state,
         lists: [...state.lists, action.payload],
-        activeList: action.payload.id,
         isFormVisible: true,
       };
     case "DELETE_LIST":
+      console.log(action.payload);
       return {
         ...state,
         lists: state.lists.filter((list) => list.id !== action.payload),
-        activeList: null,
-      };
-    case "SET_ACTIVE_LIST":
-      return {
-        ...state,
-        activeList: action.payload,
       };
     default:
       return state;

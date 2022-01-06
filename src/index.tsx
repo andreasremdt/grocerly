@@ -1,15 +1,18 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import GroceryContextProvider from "./GroceryContext";
 import "./index.css";
 
-ReactDOM.render(
+render(
   <React.StrictMode>
-    <GroceryContextProvider>
-      <App />
-    </GroceryContextProvider>
+    <BrowserRouter>
+      <GroceryContextProvider>
+        <App />
+      </GroceryContextProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

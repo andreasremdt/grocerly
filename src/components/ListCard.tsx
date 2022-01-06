@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import cx from "classnames";
+import { Link } from "react-router-dom";
 
 import { GroceryContext } from "../GroceryContext";
 import { GroceryList } from "../types";
@@ -10,13 +11,13 @@ type ListCardProps = {
 };
 
 function ListCard({ list }: ListCardProps) {
-  const { groceries, dispatch } = useContext(GroceryContext);
+  const { groceries } = useContext(GroceryContext);
   const items = getItemsByList(list.id, groceries);
 
   return (
-    <button
+    <Link
       className="bg-white h-[250px] text-left flex flex-col p-2 rounded-md shadow-md shadow-gray-200 overflow-hidden relative"
-      onClick={() => dispatch({ type: "SET_ACTIVE_LIST", payload: list.id })}
+      to={`/list/${list.id}`}
     >
       <h2 className="font-semibold text-base mb-2 text-indigo-800">{list.name}</h2>
       {items.length > 0 ? (
@@ -30,7 +31,7 @@ function ListCard({ list }: ListCardProps) {
       ) : (
         <span>This list is empty.</span>
       )}
-    </button>
+    </Link>
   );
 }
 

@@ -19,7 +19,6 @@ test("renders null if `isFormVisible` is falsy or `activeList` is null", () => {
   renderWithContext(<Form />, {
     language: "en",
     isFormVisible: true,
-    activeList: null,
   });
 
   expect(screen.queryByRole("form")).not.toBeInTheDocument();
@@ -29,7 +28,6 @@ test("renders all form elements", () => {
   renderWithContext(<Form />, {
     language: "en",
     isFormVisible: true,
-    activeList: 1,
   });
 
   expect(screen.getByPlaceholderText(/eggs, milk/i)).toBeInTheDocument();
@@ -46,7 +44,6 @@ test("the submit button is disabled if no name is provided", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
-    activeList: 1,
   });
 
   fireEvent.click(screen.getByTestId("submit"));
@@ -63,7 +60,6 @@ test("returns a new grocery object with only the name", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
-    activeList: 1,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
@@ -94,7 +90,6 @@ test("all grocery inputs are submitted", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
-    activeList: 1,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
@@ -133,7 +128,6 @@ test("an existing item can be updated", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
-    activeList: 1,
   });
 
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveValue("milk");
@@ -165,7 +159,6 @@ test("when no amount is specified, the unit is not submitted", () => {
     dispatch: spy,
     language: "en",
     isFormVisible: true,
-    activeList: 1,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });

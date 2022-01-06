@@ -2,7 +2,7 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import { ReactNode } from "react";
 
 import { GroceryContext } from "../GroceryContext";
-import Settings, { COLORS } from "./Settings";
+import Settings from "./Settings";
 
 const renderWithContext = (ui: ReactNode, props: any) => {
   return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
@@ -11,32 +11,9 @@ const renderWithContext = (ui: ReactNode, props: any) => {
 test("renders null if `isSettingsVisible` is falsy", () => {
   renderWithContext(<Settings />, {
     language: "en",
-    isSettingsVisible: false,
   });
 
   expect(screen.queryByRole("form")).not.toBeInTheDocument();
-});
-
-test("renders all colors", () => {
-  renderWithContext(<Settings />, { language: "en", isSettingsVisible: true });
-
-  expect(screen.getByText(/theme color/i)).toBeInTheDocument();
-  COLORS.forEach((color) => {
-    expect(screen.getByLabelText(color)).toBeInTheDocument();
-  });
-});
-
-test("lets a user change the theme color", () => {
-  const spy = jest.fn();
-  renderWithContext(<Settings />, {
-    dispatch: spy,
-    language: "en",
-    isSettingsVisible: true,
-  });
-
-  expect(screen.getByText(/theme color/i)).toBeInTheDocument();
-  fireEvent.click(screen.getByLabelText(/green/i));
-  expect(spy).toHaveBeenCalledWith({ type: "CHANGE_COLOR", payload: "green" });
 });
 
 test("lets a user change the language", () => {
@@ -44,7 +21,6 @@ test("lets a user change the language", () => {
   renderWithContext(<Settings />, {
     dispatch: spy,
     language: "en",
-    isSettingsVisible: true,
   });
 
   expect(screen.getByText(/language/i)).toBeInTheDocument();

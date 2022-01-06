@@ -1,27 +1,20 @@
-import { useContext } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import List from "./components/List";
-import Form from "./components/Form";
 import Settings from "./components/Settings";
 import ListOverview from "./components/ListOverview";
-import { GroceryContext } from "./GroceryContext";
 
 function App() {
-  const { activeList, isSettingsVisible } = useContext(GroceryContext);
-
   return (
     <>
       <Header />
 
-      {isSettingsVisible ? (
-        <Settings />
-      ) : (
-        <>
-          <Form />
-          {activeList ? <List /> : <ListOverview />}
-        </>
-      )}
+      <Routes>
+        <Route path="/" element={<ListOverview />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/list/:listId" element={<List />} />
+      </Routes>
     </>
   );
 }

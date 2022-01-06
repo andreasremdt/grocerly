@@ -10,20 +10,15 @@ type GroceryContextState = GroceryState & {
 
 const INITIAL_STATE = {
   language: "en",
-  color: "gray",
   groceries: [],
   editing: null,
   isFormVisible: true,
-  isSettingsVisible: false,
   lists: [],
-  activeList: null,
 };
 
 function initState(initialState: GroceryState) {
   const groceries = localStorage.getItem(LocalStorage.Groceries);
   const lists = localStorage.getItem(LocalStorage.Lists);
-  const activeList = localStorage.getItem(LocalStorage.ActiveList);
-  const color = localStorage.getItem(LocalStorage.Color);
   const language = localStorage.getItem(LocalStorage.Language);
   const isFormVisible = localStorage.getItem(LocalStorage.FormVisible);
 
@@ -31,11 +26,8 @@ function initState(initialState: GroceryState) {
     editing: null,
     groceries: groceries ? JSON.parse(groceries) : [],
     lists: lists ? JSON.parse(lists) : [],
-    activeList: activeList !== "null" ? Number(activeList) : initialState.activeList,
-    color: color || initialState.color,
     language: language || initialState.language,
     isFormVisible: isFormVisible === "true" || isFormVisible === null,
-    isSettingsVisible: false,
   };
 }
 
@@ -51,21 +43,10 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
   }, [state.isFormVisible]);
 
   useEffect(() => {
-    localStorage.setItem(LocalStorage.Color, state.color);
-
-    document.body.style.setProperty("--primary-color", `var(--${state.color})`);
-    document.body.style.setProperty("--primary-color-dark", `var(--${state.color}-dark)`);
-  }, [state.color]);
-
-  useEffect(() => {
     localStorage.setItem(LocalStorage.Language, state.language);
 
     document.head.lang = state.language;
   }, [state.language]);
-
-  useEffect(() => {
-    localStorage.setItem(LocalStorage.ActiveList, String(state.activeList));
-  }, [state.activeList]);
 
   useEffect(() => {
     localStorage.setItem(LocalStorage.Lists, JSON.stringify(state.lists));

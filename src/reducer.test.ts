@@ -4,12 +4,9 @@ import { Grocery, GroceryList } from "./types";
 type StateProps = {
   lists?: GroceryList[];
   groceries?: Grocery[];
-  activeList?: number | null;
   editing?: Grocery | null;
-  color?: string;
   language?: string;
   isFormVisible?: boolean;
-  isSettingsVisible?: boolean;
 };
 
 function getItems(amount: number = 2): Grocery[] {
@@ -49,21 +46,15 @@ function getLists(amount: number = 2): GroceryList[] {
 function getState({
   groceries = [],
   editing = null,
-  color = "gray",
   language = "en",
   isFormVisible = false,
-  isSettingsVisible = false,
-  activeList = null,
   lists = [],
 }: StateProps = {}) {
   return {
     editing,
     groceries,
-    color,
     language,
     isFormVisible,
-    isSettingsVisible,
-    activeList,
     lists,
   };
 }
@@ -141,12 +132,6 @@ test("updates an existing item", () => {
   });
 });
 
-test("changes the theme color", () => {
-  const state = reducer(getState(), { type: "CHANGE_COLOR", payload: "orange" });
-
-  expect(state.color).toEqual("orange");
-});
-
 test("changes the language", () => {
   const state = reducer(getState(), { type: "CHANGE_LANGUAGE", payload: "de" });
 
@@ -163,16 +148,6 @@ test("toggles the form", () => {
   expect(newState.isFormVisible).toEqual(false);
 });
 
-test("toggles the settings page", () => {
-  const state = reducer(getState(), { type: "TOGGLE_SETTINGS" });
-
-  expect(state.isSettingsVisible).toEqual(true);
-
-  const newState = reducer(state, { type: "TOGGLE_SETTINGS" });
-
-  expect(newState.isSettingsVisible).toEqual(false);
-});
-
 test("adds a new list", () => {
   const state = reducer(getState(), {
     type: "ADD_LIST",
@@ -185,7 +160,6 @@ test("adds a new list", () => {
   expect(state.lists).toHaveLength(1);
   expect(state.lists[0].name).toEqual("List #1");
   expect(state.isFormVisible).toEqual(true);
-  expect(state.activeList).toEqual(123);
 
   const newState = reducer(state, {
     type: "ADD_LIST",
@@ -208,15 +182,4 @@ test("removes a list", () => {
 
   expect(state.lists).toHaveLength(1);
   expect(state.activeList).toEqual(null);
-});
-
-test("sets a list as active", () => {
-  const lists = getLists();
-
-  const state = reducer(getState({ lists }), {
-    type: "SET_ACTIVE_LIST",
-    payload: lists[0].id,
-  });
-
-  expect(state.activeList).toEqual(lists[0].id);
 });

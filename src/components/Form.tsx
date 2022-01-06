@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import { GroceryContext } from "../GroceryContext";
 import RadioButton from "./RadioButton";
@@ -10,7 +11,8 @@ import Button from "./Button";
 const UNITS = ["mg", "g", "kg", "ml", "l"];
 
 function Form() {
-  const { editing, dispatch, language, isFormVisible, activeList } = useContext(GroceryContext);
+  const { listId } = useParams();
+  const { editing, dispatch, language, isFormVisible } = useContext(GroceryContext);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
@@ -35,7 +37,7 @@ function Form() {
       dispatch({
         type: "UPDATE_ITEM",
         payload: {
-          listId: activeList!,
+          listId: Number(listId),
           id: editing.id,
           name,
           amount,
@@ -47,7 +49,7 @@ function Form() {
       dispatch({
         type: "ADD_ITEM",
         payload: {
-          listId: activeList!,
+          listId: Number(listId),
           id: Date.now(),
           name,
           amount,
@@ -64,7 +66,7 @@ function Form() {
     setUnit("");
   };
 
-  if (!isFormVisible || !activeList) {
+  if (!isFormVisible) {
     return null;
   }
 

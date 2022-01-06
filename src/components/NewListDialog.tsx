@@ -1,4 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Input from "./Input";
 import Button from "./Button";
@@ -10,15 +11,17 @@ type NewListDialogProps = {
 };
 
 function NewListDialog({ onSubmit, onCancel }: NewListDialogProps) {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
 
   function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
-    onSubmit({
-      id: Date.now(),
-      name,
-    });
+    const id = Date.now();
+
+    onSubmit({ id, name });
+    navigate(`/list/${id}`);
   }
 
   useEffect(() => {
