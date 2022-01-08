@@ -9,6 +9,7 @@
   "description": "Simple and intuitive shopping app to help you manage your groceries.",
   "license": "MIT",
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^0.1.4",
     "classnames": "^2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { GroceryContext } from "../GroceryContext";
 import { getListIdFromURL, getPageTitle } from "../utils/helpers";
 import __ from "../utils/translate";
+import AppMenu from "./AppMenu";
 import Icon from "./Icon";
 
 function Header() {
@@ -55,13 +56,7 @@ function Header() {
             )}
           </>
         )}
-        <Link
-          to="/settings"
-          className="text-white h-8 w-8 flex items-center justify-center"
-          title={__("header.toggleSettings", language)}
-        >
-          <Icon type="settings" />
-        </Link>
+        <AppMenu />
       </div>
     </header>
   );
