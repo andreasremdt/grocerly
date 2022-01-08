@@ -18,6 +18,7 @@ export type GroceryState = {
   editing: Grocery | null;
   language: string;
   isFormVisible: boolean;
+  isNewListDialogVisible: boolean;
 };
 
 export type GroceryActions =
@@ -29,5 +30,6 @@ export type GroceryActions =
   | { type: "DELETE_ALL" }
   | { type: "CHANGE_LANGUAGE"; payload: string }
   | { type: "TOGGLE_FORM" }
+  | { type: "TOGGLE_NEW_LIST_DIALOG" }
   | { type: "ADD_LIST"; payload: GroceryList }
   | { type: "DELETE_LIST"; payload: number };

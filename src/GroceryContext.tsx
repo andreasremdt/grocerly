@@ -8,15 +8,16 @@ type GroceryContextState = GroceryState & {
   dispatch: Dispatch<GroceryActions>;
 };
 
-const INITIAL_STATE = {
+const INITIAL_STATE: GroceryState = {
   language: "en",
   groceries: [],
   editing: null,
   isFormVisible: true,
+  isNewListDialogVisible: false,
   lists: [],
 };
 
-function initState(initialState: GroceryState) {
+function initState(initialState: GroceryState): GroceryState {
   const groceries = localStorage.getItem(LocalStorage.Groceries);
   const lists = localStorage.getItem(LocalStorage.Lists);
   const language = localStorage.getItem(LocalStorage.Language);
@@ -28,6 +29,7 @@ function initState(initialState: GroceryState) {
     lists: lists ? JSON.parse(lists) : [],
     language: language || initialState.language,
     isFormVisible: isFormVisible === "true" || isFormVisible === null,
+    isNewListDialogVisible: false,
   };
 }
 

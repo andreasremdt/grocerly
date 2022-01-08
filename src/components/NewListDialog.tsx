@@ -1,18 +1,13 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Input from "./Input";
 import Button from "./Button";
-import { GroceryList } from "../types";
+import { GroceryContext } from "../GroceryContext";
 
-type NewListDialogProps = {
-  onSubmit: (newList: GroceryList) => void;
-  onCancel: () => void;
-};
-
-function NewListDialog({ onSubmit, onCancel }: NewListDialogProps) {
+function NewListDialog() {
   const navigate = useNavigate();
-
+  const { dispatch, isNewListDialogVisible } = useContext(GroceryContext);
   const [name, setName] = useState("");
 
   function handleSubmit(event: SyntheticEvent) {
@@ -20,14 +15,14 @@ function NewListDialog({ onSubmit, onCancel }: NewListDialogProps) {
 
     const id = Date.now();
 
-    onSubmit({ id, name });
+    dispatch({ type: "ADD_LIST", payload: { id, name } });
     navigate(`/list/${id}`);
   }
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        onCancel();
+        dispatch({ type: "TOGGLE_NEW_LIST_DIALOG" });
       }
     }
 
@@ -36,7 +31,11 @@ function NewListDialog({ onSubmit, onCancel }: NewListDialogProps) {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [onCancel]);
+  }, [dispatch]);
+
+  if (!isNewListDialogVisible) {
+    return null;
+  }
 
   return (
     <div
@@ -61,7 +60,11 @@ function NewListDialog({ onSubmit, onCancel }: NewListDialogProps) {
           />
         </div>
         <footer className="text-right">
-          <Button type="button" className="mr-2" onClick={onCancel}>
+          <Button
+            type="button"
+            className="mr-2"
+            onClick={() => dispatch({ type: "TOGGLE_NEW_LIST_DIALOG" })}
+          >
             Cancel
           </Button>
           <Button type="submit" className="">

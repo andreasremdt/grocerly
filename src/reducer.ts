@@ -67,11 +67,17 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
         ...state,
         isFormVisible: !state.isFormVisible,
       };
+    case "TOGGLE_NEW_LIST_DIALOG":
+      return {
+        ...state,
+        isNewListDialogVisible: !state.isNewListDialogVisible,
+      };
     case "ADD_LIST":
       return {
         ...state,
         lists: [...state.lists, action.payload],
         isFormVisible: true,
+        isNewListDialogVisible: false,
       };
     case "DELETE_LIST":
       console.log(action.payload);

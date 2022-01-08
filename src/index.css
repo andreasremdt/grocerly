@@ -5,6 +5,7 @@
 @layer base {
   html {
     @apply h-full;
+    -webkit-tap-highlight-color: transparent;
   }
 
   #root {

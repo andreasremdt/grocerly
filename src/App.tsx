@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import List from "./components/List";
 import Settings from "./components/Settings";
 import ListOverview from "./components/ListOverview";
+import NewListDialog from "./components/NewListDialog";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/list/:listId" element={<List />} />
       </Routes>
+
+      <NewListDialog />
     </>
   );
 }
