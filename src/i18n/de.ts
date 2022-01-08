@@ -5,10 +5,7 @@ const translation = {
     subtitle: "Füge Sachen über das oben stehende Formular hinzu.",
   },
   header: {
-    confirmDeleteAll: "Wollen Sie diese Liste wirklich leeren?",
     toggleForm: "Formular ein/ausblenden",
-    toggleSettings: "Einstellungen ein/ausblenden",
-    deleteAll: "Liste leeren",
   },
   form: {
     name: "z.B. Eier, Milch oder Spinat",
@@ -33,6 +30,10 @@ const translation = {
   },
   menu: {
     settings: "Einstellungen",
+    deleteList: "Liste löschen",
+    clearList: "Alle Einträge löschen",
+    confirmDeleteList: "Möchten Sie diese Liste und all ihre Einträge wirklich löschen?",
+    confirmClearList: "Möchten Sie wirklich alle Einträge löschen?",
   },
 };
 

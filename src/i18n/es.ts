@@ -5,10 +5,7 @@ const translation = {
     subtitle: "Comience a agregar artículos a su lista de compras arriba.",
   },
   header: {
-    confirmDeleteAll: "¿De verdad quieres borrar esta lista?",
     toggleForm: "Alternar formulario",
-    toggleSettings: "Alternar configuración",
-    deleteAll: "Borrar esta lista",
   },
   form: {
     name: "p.ej. huevos, leche o espinacas",
@@ -33,6 +30,10 @@ const translation = {
   },
   menu: {
     settings: "Ajustes",
+    deleteList: "Borrar lista",
+    clearList: "Borrar todos los elementos",
+    confirmDeleteList: "¿Realmente desea eliminar esta lista y todos sus elementos?",
+    confirmClearList: "¿Realmente desea borrar todos los elementos de esta lista?",
   },
 };
 

@@ -1,6 +1,6 @@
-import { ArrowLeftIcon, EyeIcon, EyeOffIcon, PlusIcon, TrashIcon } from "@heroicons/react/outline";
+import { ArrowLeftIcon, EyeIcon, EyeOffIcon, PlusIcon } from "@heroicons/react/outline";
 import { useContext } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { GroceryContext } from "../GroceryContext";
 import { getListIdFromURL, getPageTitle } from "../utils/helpers";
@@ -9,17 +9,8 @@ import AppMenu from "./AppMenu";
 
 function Header() {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const { dispatch, language, lists, isFormVisible } = useContext(GroceryContext);
-
   const listId = getListIdFromURL(pathname);
-
-  function handleDelete() {
-    if (window.confirm(__("header.confirmDeleteAll", language))) {
-      dispatch({ type: "DELETE_LIST", payload: listId! });
-      navigate("/");
-    }
-  }
 
   return (
     <header className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md relative z-20">
@@ -58,16 +49,6 @@ function Header() {
             >
               {isFormVisible ? <EyeOffIcon className="w-6 h-6" /> : <EyeIcon className="w-6 h-6" />}
             </button>
-            {listId && (
-              <button
-                type="button"
-                className="w-10 h-10 mr-2 text-white flex items-center justify-center hover:bg-white/10 active:bg-white/30 active:text-purple-700 rounded-full focus:outline-none"
-                onClick={handleDelete}
-                title={__("header.deleteAll", language)}
-              >
-                <TrashIcon className="w-6 h-6" />
-              </button>
-            )}
           </>
         )}
 

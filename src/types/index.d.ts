@@ -32,4 +32,5 @@ export type GroceryActions =
   | { type: "TOGGLE_FORM" }
   | { type: "TOGGLE_NEW_LIST_DIALOG" }
   | { type: "ADD_LIST"; payload: GroceryList }
-  | { type: "DELETE_LIST"; payload: number };
+  | { type: "DELETE_LIST"; payload: number }
+  | { type: "CLEAR_LIST"; payload: number };

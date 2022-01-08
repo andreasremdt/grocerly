@@ -5,10 +5,7 @@ const translation = {
     subtitle: "Start adding items to your shopping list below.",
   },
   header: {
-    confirmDeleteAll: "Do you really want to clear this list?",
     toggleForm: "Toggle form",
-    toggleSettings: "Toggle settings",
-    deleteAll: "Clear this list",
   },
   form: {
     name: "e.g. eggs, milk, spinach",
@@ -33,6 +30,10 @@ const translation = {
   },
   menu: {
     settings: "Settings",
+    deleteList: "Delete list",
+    clearList: "Clear all items",
+    confirmDeleteList: "Do you really want to delete this list and all of its items?",
+    confirmClearList: "Do you really want to clear all items from this list?",
   },
 };
 

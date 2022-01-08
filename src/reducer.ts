@@ -80,10 +80,14 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
         isNewListDialogVisible: false,
       };
     case "DELETE_LIST":
-      console.log(action.payload);
       return {
         ...state,
         lists: state.lists.filter((list) => list.id !== action.payload),
+      };
+    case "CLEAR_LIST":
+      return {
+        ...state,
+        groceries: state.groceries.filter((grocery) => grocery.listId !== action.payload),
       };
     default:
       return state;
