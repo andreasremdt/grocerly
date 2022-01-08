@@ -15,13 +15,24 @@ const translation = {
     quantity: "Cant.",
   },
   settings: {
-    themeColor: "Color del tema",
     language: "Idioma",
   },
   list: {
     check: "Marcar como hecho",
     uncheck: "Marcar como deshecho",
     deleteItem: "¿Borrar este artículo?",
+  },
+  card: {
+    empty: "Esta lista está vacía.",
+  },
+  newListDialog: {
+    label: "Dale un nombre a esta lista:",
+    submit: "Crear lista",
+    cancel: "Abortar",
+    placeholder: "Lista sin nombre",
+  },
+  menu: {
+    settings: "Ajustes",
   },
 };
 

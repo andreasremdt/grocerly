@@ -15,13 +15,24 @@ const translation = {
     quantity: "Anz.",
   },
   settings: {
-    themeColor: "Farbwahl",
     language: "Sprache",
   },
   list: {
     check: "Als erledigt markieren",
     uncheck: "Als unerledigt markieren",
     deleteItem: "Diese Position entfernen?",
+  },
+  card: {
+    empty: "Diese Liste ist leer.",
+  },
+  newListDialog: {
+    label: "Geben Sie Ihrer Liste einen Namen:",
+    submit: "Liste erstellen",
+    cancel: "Abbrechen",
+    placeholder: "Unbenannte Liste",
+  },
+  menu: {
+    settings: "Einstellungen",
   },
 };
 

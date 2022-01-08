@@ -1,8 +1,14 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { MenuIcon } from "@heroicons/react/outline";
 
+import { GroceryContext } from "../GroceryContext";
+import __ from "../utils/translate";
+
 function AppMenu() {
+  const { language } = useContext(GroceryContext);
+
   return (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger
@@ -19,7 +25,7 @@ function AppMenu() {
       >
         <DropdownMenu.Item asChild>
           <Link to="/settings" className="py-2 px-4 block hover:bg-gray-100">
-            Settings
+            {__("menu.settings", language)}
           </Link>
         </DropdownMenu.Item>
         <DropdownMenu.Arrow className="fill-white" offset={8} />

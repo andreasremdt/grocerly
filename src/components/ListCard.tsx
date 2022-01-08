@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import { GroceryContext } from "../GroceryContext";
 import { GroceryList } from "../types";
 import { getItemsByList } from "../utils/helpers";
+import __ from "../utils/translate";
 
 type ListCardProps = {
   list: GroceryList;
 };
 
 function ListCard({ list }: ListCardProps) {
-  const { groceries } = useContext(GroceryContext);
+  const { groceries, language } = useContext(GroceryContext);
   const items = getItemsByList(list.id, groceries);
 
   return (
@@ -29,7 +30,7 @@ function ListCard({ list }: ListCardProps) {
           ))}
         </ul>
       ) : (
-        <span>This list is empty.</span>
+        <span>{__("card.empty", language)}</span>
       )}
     </Link>
   );

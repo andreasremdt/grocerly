@@ -15,13 +15,24 @@ const translation = {
     quantity: "Qt.",
   },
   settings: {
-    themeColor: "Theme color",
     language: "Language",
   },
   list: {
     check: "Mark as done",
     uncheck: "Mark as undone",
     deleteItem: "Delete this item?",
+  },
+  card: {
+    empty: "This list is empty.",
+  },
+  newListDialog: {
+    label: "Provide a name for this grocery list:",
+    submit: "Create list",
+    cancel: "Cancel",
+    placeholder: "Untitled list",
+  },
+  menu: {
+    settings: "Settings",
   },
 };
 
