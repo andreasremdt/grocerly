@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { CheckIcon } from "@heroicons/react/outline";
 
 import { GroceryContext } from "../GroceryContext";
 import RadioButton from "./RadioButton";
@@ -7,7 +8,6 @@ import __ from "../utils/translate";
 import AmountInput from "./AmountInput";
 import Input from "./Input";
 import Button from "./Button";
-import Icon from "./Icon";
 
 const UNITS = ["mg", "g", "kg", "ml", "l"];
 
@@ -98,7 +98,7 @@ function Form() {
         />
 
         <Button type="submit" disabled={name.length < 1} data-testid="submit">
-          <Icon type="check" />
+          <CheckIcon className="w-5 h-5" />
         </Button>
       </div>
     </form>

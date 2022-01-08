@@ -4,7 +4,7 @@ import { GroceryContext } from "../GroceryContext";
 import { GroceryList } from "../types";
 import NewListDialog from "./NewListDialog";
 import ListCard from "./ListCard";
-import Icon from "./Icon";
+import { DocumentAddIcon } from "@heroicons/react/outline";
 
 function ListOverview() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -22,7 +22,7 @@ function ListOverview() {
         className="bg-gradient-to-br from-indigo-200 to-purple-200 h-[250px] flex flex-col items-center justify-center text-indigo-800 rounded-md shadow-md shadow-purple-100"
         onClick={() => setIsDialogOpen(true)}
       >
-        <Icon type="add" width={48} height={48} />
+        <DocumentAddIcon className="w-12 h-12" />
         New grocery list
       </button>
 

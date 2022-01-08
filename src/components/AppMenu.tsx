@@ -1,13 +1,12 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Link } from "react-router-dom";
-
-import Icon from "./Icon";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { MenuIcon } from "@heroicons/react/outline";
 
 function AppMenu() {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger aria-label="Open menu">
-        <Icon type="menu" width={24} height={24} />
+        <MenuIcon className="w-6 h-6" />
       </DropdownMenu.Trigger>
       <DropdownMenu.Content
         className="bg-white rounded-md shadow-md py-2 w-52"

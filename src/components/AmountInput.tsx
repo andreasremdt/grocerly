@@ -1,8 +1,8 @@
 import { useContext } from "react";
+import { MinusIcon, PlusIcon } from "@heroicons/react/outline";
 
 import { GroceryContext } from "../GroceryContext";
 import Input from "./Input";
-import Icon from "./Icon";
 import __ from "../utils/translate";
 
 type AmountInputProps = {
@@ -53,7 +53,7 @@ function AmountInput({ value = "", onChange }: AmountInputProps) {
         onClick={decrease}
         disabled={value === "" || value === "0"}
       >
-        <Icon type="minus" />
+        <MinusIcon className="w-5 h-5" />
       </button>
       <Input
         className="text-center w-full"
@@ -67,7 +67,7 @@ function AmountInput({ value = "", onChange }: AmountInputProps) {
         className="h-8 w-8 bg-gray-50 border border-gray-200 rounded-sm absolute flex items-center justify-center right-1 top-1 active:bg-purple-50 active:text-purple-500 active:border-purple-200"
         onClick={increase}
       >
-        <Icon type="plus" />
+        <PlusIcon className="w-5 h-5" />
       </button>
     </div>
   );

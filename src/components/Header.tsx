@@ -1,3 +1,4 @@
+import { ArrowLeftIcon, EyeIcon, EyeOffIcon, TrashIcon } from "@heroicons/react/outline";
 import { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -5,7 +6,6 @@ import { GroceryContext } from "../GroceryContext";
 import { getListIdFromURL, getPageTitle } from "../utils/helpers";
 import __ from "../utils/translate";
 import AppMenu from "./AppMenu";
-import Icon from "./Icon";
 
 function Header() {
   const { pathname } = useLocation();
@@ -26,7 +26,7 @@ function Header() {
       <div className="max-w-xl mx-auto px-2 flex h-12 items-center">
         {pathname !== "/" && (
           <Link to="/" className="mr-2 text-white h-8 w-8 flex items-center justify-center">
-            <Icon type="back" />
+            <ArrowLeftIcon className="w-6 h-6" />
           </Link>
         )}
 
@@ -42,7 +42,7 @@ function Header() {
               onClick={() => dispatch({ type: "TOGGLE_FORM" })}
               title={__("header.toggleForm", language)}
             >
-              <Icon type={isFormVisible ? "hide" : "show"} />
+              {isFormVisible ? <EyeOffIcon className="w-6 h-6" /> : <EyeIcon className="w-6 h-6" />}
             </button>
             {listId && (
               <button
@@ -51,7 +51,7 @@ function Header() {
                 onClick={handleDelete}
                 title={__("header.deleteAll", language)}
               >
-                <Icon type="trash" />
+                <TrashIcon className="w-6 h-6" />
               </button>
             )}
           </>
