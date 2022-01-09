@@ -41,8 +41,10 @@ const translation = {
     settings: "Ajustes",
     deleteList: "Borrar lista",
     clearList: "Borrar todos los elementos",
-    confirmDeleteList: "¿Realmente desea eliminar esta lista y todos sus elementos?",
-    confirmClearList: "¿Realmente desea borrar todos los elementos de esta lista?",
+    confirmDeleteList:
+      "¿Realmente desea eliminar esta lista y todos sus elementos? Esta acción no se puede deshacer.",
+    confirmClearList:
+      "¿Realmente desea borrar todos los elementos de esta lista? Esta acción no se puede deshacer.",
   },
 };
 

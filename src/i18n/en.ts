@@ -40,8 +40,10 @@ const translation = {
     settings: "Settings",
     deleteList: "Delete list",
     clearList: "Clear all items",
-    confirmDeleteList: "Do you really want to delete this list and all of its items?",
-    confirmClearList: "Do you really want to clear all items from this list?",
+    confirmDeleteList:
+      "Do you really want to delete this list and all of its items? This action can't be undone.",
+    confirmClearList:
+      "Do you really want to clear all items from this list? This action can't be undone.",
   },
 };
 
