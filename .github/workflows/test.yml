@@ -30,5 +30,5 @@ jobs:
       - name: Upload code coverage
         uses: codecov/codecov-action@v2
         with:
-          files: ./coverage/clover.xml
+          files: ./coverage/coverage-final.json
           fail_ci_if_error: true
