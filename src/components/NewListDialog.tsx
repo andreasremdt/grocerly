@@ -4,7 +4,7 @@ import { CheckIcon, XIcon } from "@heroicons/react/outline";
 
 import Input from "./Input";
 import Button from "./Button";
-import { GroceryContext } from "../GroceryContext";
+import { GroceryContext } from "../contexts/GroceryContext";
 import __ from "../utils/translate";
 
 function NewListDialog() {

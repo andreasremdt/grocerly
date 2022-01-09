@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import cx from "classnames";
 
-import { GroceryContext } from "../GroceryContext";
+import { GroceryContext } from "../contexts/GroceryContext";
 import ListCard from "./ListCard";
 import EmptyState from "./EmptyState";
 import __ from "../utils/translate";

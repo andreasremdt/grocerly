@@ -2,7 +2,7 @@ import { ArrowLeftIcon, EyeIcon, EyeOffIcon, PlusIcon } from "@heroicons/react/o
 import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import { GroceryContext } from "../GroceryContext";
+import { GroceryContext } from "../contexts/GroceryContext";
 import { getListIdFromURL, getPageTitle } from "../utils/helpers";
 import __ from "../utils/translate";
 import AppMenu from "./AppMenu";

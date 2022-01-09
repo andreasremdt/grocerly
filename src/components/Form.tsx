@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from 
 import { useLocation } from "react-router-dom";
 import { CheckIcon } from "@heroicons/react/outline";
 
-import { GroceryContext } from "../GroceryContext";
+import { GroceryContext } from "../contexts/GroceryContext";
 import RadioButton from "./RadioButton";
 import __ from "../utils/translate";
 import AmountInput from "./AmountInput";

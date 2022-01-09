@@ -2,7 +2,7 @@ import { useContext } from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
 
-import { GroceryContext } from "../GroceryContext";
+import { GroceryContext } from "../contexts/GroceryContext";
 import { GroceryList } from "../types";
 import { getItemsByList } from "../utils/helpers";
 import __ from "../utils/translate";
