@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 import cx from "classnames";
 
-import { GroceryContext } from "../GroceryContext";
+import { GroceryContext } from "../contexts/GroceryContext";
 import { Grocery } from "../types";
 import __ from "../utils/translate";
 import Checkbox from "./Checkbox";

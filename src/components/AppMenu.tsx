@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ClipboardIcon, CogIcon, MenuIcon, TrashIcon } from "@heroicons/react/outline";
 
-import { GroceryContext } from "../GroceryContext";
+import { GroceryContext } from "../contexts/GroceryContext";
 import __ from "../utils/translate";
 import { getListIdFromURL } from "../utils/helpers";
 import useConfirm from "../hooks/use-confirm";

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
-import { GroceryContext } from "../GroceryContext";
+import { GroceryContext } from "../contexts/GroceryContext";
 import Item from "./Item";
 import Form from "./Form";
 import __ from "../utils/translate";

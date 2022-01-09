@@ -6,7 +6,7 @@ import Settings from "./components/Settings";
 import ListOverview from "./components/ListOverview";
 import NewListDialog from "./components/NewListDialog";
 import ConfirmDialog from "./components/ConfirmDialog";
-import GroceryContextProvider from "./GroceryContext";
+import GroceryContextProvider from "./contexts/GroceryContext";
 import DialogContextProvider from "./contexts/DialogContext";
 
 function App() {
