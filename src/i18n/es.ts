@@ -17,7 +17,8 @@ const translation = {
   list: {
     check: "Marcar como hecho",
     uncheck: "Marcar como deshecho",
-    deleteItem: "¿Borrar este artículo?",
+    deleteItem: "Borrar artículo",
+    confirmDeleteItem: "¿Realmente desea eliminar este elemento? Esta acción no se puede deshacer.",
     emptyState: {
       title: "Nada aquí, todavía.",
       subtitle: "Comience a agregar artículos a su lista de compras arriba.",

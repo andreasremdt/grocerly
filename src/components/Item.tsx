@@ -5,6 +5,7 @@ import { GroceryContext } from "../contexts/GroceryContext";
 import { Grocery } from "../types";
 import __ from "../utils/translate";
 import Checkbox from "./Checkbox";
+import useConfirm from "../hooks/use-confirm";
 
 type ItemProps = {
   item: Grocery;
@@ -12,6 +13,7 @@ type ItemProps = {
 
 function Item({ item }: ItemProps) {
   const { dispatch, language } = useContext(GroceryContext);
+  const { confirm } = useConfirm();
   const timer = useRef<NodeJS.Timeout | null>(null);
   const hasFired = useRef(false);
 
@@ -24,10 +26,15 @@ function Item({ item }: ItemProps) {
   }
 
   function handlePointerDown() {
-    timer.current = setTimeout(() => {
+    timer.current = setTimeout(async () => {
       window.navigator.vibrate(100);
 
-      if (window.confirm(__("list.deleteItem", language))) {
+      const confirmed = await confirm({
+        title: __("list.deleteItem", language),
+        content: __("list.confirmDeleteItem", language),
+      });
+
+      if (confirmed) {
         dispatch({ type: "DELETE_ITEM", payload: item });
       }
 

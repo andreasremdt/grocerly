@@ -17,7 +17,9 @@ const translation = {
   list: {
     check: "Als erledigt markieren",
     uncheck: "Als unerledigt markieren",
-    deleteItem: "Diese Position entfernen?",
+    deleteItem: "Position löschen",
+    confirmDeleteItem:
+      "Möchten Sie diese Position wirklich löschen? Dies kann nicht rückgängig gemacht werden.",
     emptyState: {
       title: "Diese Liste ist noch leer.",
       subtitle: "Fügen Sie Sachen über das oben stehende Formular hinzu.",

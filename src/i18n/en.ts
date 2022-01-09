@@ -17,7 +17,8 @@ const translation = {
   list: {
     check: "Mark as done",
     uncheck: "Mark as undone",
-    deleteItem: "Delete this item?",
+    deleteItem: "Delete item",
+    confirmDeleteItem: "Do you really want to delete this item? This action can't be undone.",
     emptyState: {
       title: "Nothing here, yet.",
       subtitle: "Start adding items to your shopping list via the form above.",
