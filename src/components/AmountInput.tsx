@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { MinusIcon, PlusIcon } from "@heroicons/react/outline";
 
-import { GroceryContext } from "../contexts/GroceryContext";
+import { GroceryContext } from "../GroceryContext";
 import Input from "./Input";
 import __ from "../utils/translate";
 

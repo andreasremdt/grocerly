@@ -1,5 +1,5 @@
-import stateReducer from "./state-reducer";
-import { Grocery, GroceryList } from "../types";
+import reducer from "./reducer";
+import { Grocery, GroceryList } from "./types";
 
 type StateProps = {
   lists?: GroceryList[];
@@ -64,14 +64,14 @@ function getState({
 
 test("adds a new item", () => {
   const [item] = getItems(1);
-  const state = stateReducer(getState(), { type: "ADD_ITEM", payload: item });
+  const state = reducer(getState(), { type: "ADD_ITEM", payload: item });
 
   expect(state.groceries).toMatchObject([item]);
 });
 
 test("sums up the same item's amount", () => {
   const [item] = getItems(1);
-  const state = stateReducer(getState({ groceries: getItems() }), {
+  const state = reducer(getState({ groceries: getItems() }), {
     type: "ADD_ITEM",
     payload: item,
   });
@@ -81,7 +81,7 @@ test("sums up the same item's amount", () => {
 
 test("removes an item and clears the currently editing", () => {
   const items = getItems();
-  const state = stateReducer(getState({ groceries: items, editing: items[0] }), {
+  const state = reducer(getState({ groceries: items, editing: items[0] }), {
     type: "DELETE_ITEM",
     payload: items[0],
   });
@@ -92,14 +92,14 @@ test("removes an item and clears the currently editing", () => {
 
 it("clears all items", () => {
   const items = getItems();
-  const state = stateReducer(getState({ groceries: items }), { type: "DELETE_ALL" });
+  const state = reducer(getState({ groceries: items }), { type: "DELETE_ALL" });
 
   expect(state.groceries.length).toEqual(0);
 });
 
 test("toggles an item's checked state", () => {
   const items = getItems();
-  const state = stateReducer(getState({ groceries: items }), {
+  const state = reducer(getState({ groceries: items }), {
     type: "TOGGLE_CHECK_ITEM",
     payload: items[0],
   });
@@ -107,7 +107,7 @@ test("toggles an item's checked state", () => {
   expect(state.groceries[0].checked).toEqual(true);
   expect(state.groceries[1].checked).toEqual(true);
 
-  const newState = stateReducer(state, { type: "TOGGLE_CHECK_ITEM", payload: items[0] });
+  const newState = reducer(state, { type: "TOGGLE_CHECK_ITEM", payload: items[0] });
 
   expect(newState.groceries[0].checked).toEqual(false);
   expect(newState.groceries[1].checked).toEqual(true);
@@ -115,7 +115,7 @@ test("toggles an item's checked state", () => {
 
 test("selects an item", () => {
   const items = getItems();
-  const state = stateReducer(getState({ groceries: items }), {
+  const state = reducer(getState({ groceries: items }), {
     type: "SELECT_ITEM",
     payload: items[0],
   });
@@ -126,7 +126,7 @@ test("selects an item", () => {
 test("updates an existing item", () => {
   const items = getItems();
   const updated = { ...items[0], name: "water", unit: "ml" };
-  const state = stateReducer(getState({ groceries: items, editing: items[0] }), {
+  const state = reducer(getState({ groceries: items, editing: items[0] }), {
     type: "UPDATE_ITEM",
     payload: updated,
   });
@@ -142,33 +142,33 @@ test("updates an existing item", () => {
 });
 
 test("changes the language", () => {
-  const state = stateReducer(getState(), { type: "CHANGE_LANGUAGE", payload: "de" });
+  const state = reducer(getState(), { type: "CHANGE_LANGUAGE", payload: "de" });
 
   expect(state.language).toEqual("de");
 });
 
 test("toggles the form", () => {
-  const state = stateReducer(getState(), { type: "TOGGLE_FORM" });
+  const state = reducer(getState(), { type: "TOGGLE_FORM" });
 
   expect(state.isFormVisible).toEqual(true);
 
-  const newState = stateReducer(state, { type: "TOGGLE_FORM" });
+  const newState = reducer(state, { type: "TOGGLE_FORM" });
 
   expect(newState.isFormVisible).toEqual(false);
 });
 
 test("toggles the new list dialog", () => {
-  const state = stateReducer(getState(), { type: "TOGGLE_NEW_LIST_DIALOG" });
+  const state = reducer(getState(), { type: "TOGGLE_NEW_LIST_DIALOG" });
 
   expect(state.isNewListDialogVisible).toEqual(true);
 
-  const newState = stateReducer(state, { type: "TOGGLE_NEW_LIST_DIALOG" });
+  const newState = reducer(state, { type: "TOGGLE_NEW_LIST_DIALOG" });
 
   expect(newState.isNewListDialogVisible).toEqual(false);
 });
 
 test("adds a new list", () => {
-  const state = stateReducer(getState(), {
+  const state = reducer(getState(), {
     type: "ADD_LIST",
     payload: {
       id: 123,
@@ -180,7 +180,7 @@ test("adds a new list", () => {
   expect(state.lists[0].name).toEqual("List #1");
   expect(state.isFormVisible).toEqual(true);
 
-  const newState = stateReducer(state, {
+  const newState = reducer(state, {
     type: "ADD_LIST",
     payload: {
       id: 456,
@@ -194,7 +194,7 @@ test("adds a new list", () => {
 test("removes a list", () => {
   const lists = getLists();
 
-  const state = stateReducer(getState({ lists }), {
+  const state = reducer(getState({ lists }), {
     type: "DELETE_LIST",
     payload: lists[0].id,
   });
@@ -206,7 +206,7 @@ test("clears all items from a list", () => {
   const lists = getLists();
   const groceries = getItems();
 
-  const state = stateReducer(getState({ lists, groceries }), {
+  const state = reducer(getState({ lists, groceries }), {
     type: "CLEAR_LIST",
     payload: 1,
   });
@@ -215,7 +215,7 @@ test("clears all items from a list", () => {
 });
 
 test("returns the default state", () => {
-  const state = stateReducer(getState(), {
+  const state = reducer(getState(), {
     // @ts-ignore
     type: "INVALID",
   });

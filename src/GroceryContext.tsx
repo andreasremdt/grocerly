@@ -1,8 +1,8 @@
 import { createContext, Dispatch, ReactNode, useReducer, useEffect } from "react";
 
-import stateReducer from "../reducers/state-reducer";
-import { LocalStorage } from "../utils/constants";
-import { GroceryActions, GroceryState } from "../types";
+import stateReducer from "./reducer";
+import { LocalStorage } from "./utils/constants";
+import { GroceryActions, GroceryState } from "./types";
 
 type GroceryContextState = GroceryState & {
   dispatch: Dispatch<GroceryActions>;
