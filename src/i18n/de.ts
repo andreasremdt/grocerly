@@ -41,8 +41,10 @@ const translation = {
     settings: "Einstellungen",
     deleteList: "Liste löschen",
     clearList: "Alle Einträge löschen",
-    confirmDeleteList: "Möchten Sie diese Liste und all ihre Einträge wirklich löschen?",
-    confirmClearList: "Möchten Sie wirklich alle Einträge löschen?",
+    confirmDeleteList:
+      "Möchten Sie diese Liste und all ihre Einträge wirklich löschen? Dies kann nicht rückgängig gemacht werden.",
+    confirmClearList:
+      "Möchten Sie wirklich alle Einträge löschen? Dies kann nicht rückgängig gemacht werden.",
   },
 };
 

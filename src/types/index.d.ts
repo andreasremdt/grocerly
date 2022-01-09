@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type Grocery = {
   id: number;
   name: string;
@@ -20,6 +22,16 @@ export type GroceryState = {
   isFormVisible: boolean;
   isNewListDialogVisible: boolean;
 };
+
+export type DialogState = {
+  open: boolean;
+  title: string;
+  content: string | ReactNode;
+};
+
+export type DialogActions =
+  | { type: "SHOW_DIALOG"; payload: { title: string; content?: string | ReactNode } }
+  | { type: "HIDE_DIALOG" };
 
 export type GroceryActions =
   | { type: "ADD_ITEM"; payload: Grocery }

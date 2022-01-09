@@ -6,21 +6,33 @@ import { ClipboardIcon, CogIcon, MenuIcon, TrashIcon } from "@heroicons/react/ou
 import { GroceryContext } from "../GroceryContext";
 import __ from "../utils/translate";
 import { getListIdFromURL } from "../utils/helpers";
+import useConfirm from "../hooks/use-confirm";
 
 function AppMenu() {
   const { pathname } = useLocation();
+  const { confirm } = useConfirm();
   const navigate = useNavigate();
   const { language, dispatch } = useContext(GroceryContext);
   const listId = getListIdFromURL(pathname);
 
-  function handleClearList() {
-    if (window.confirm(__("menu.confirmClearList", language))) {
+  async function handleClearList() {
+    const confirmed = await confirm({
+      title: __("menu.clearList", language),
+      content: __("menu.confirmClearList", language),
+    });
+
+    if (confirmed) {
       dispatch({ type: "CLEAR_LIST", payload: listId! });
     }
   }
 
-  function handleDeleteList() {
-    if (window.confirm(__("menu.confirmDeleteList", language))) {
+  async function handleDeleteList() {
+    const confirmed = await confirm({
+      title: __("menu.deleteList", language),
+      content: __("menu.confirmDeleteList", language),
+    });
+
+    if (confirmed) {
       dispatch({ type: "DELETE_LIST", payload: listId! });
       navigate("/");
     }
