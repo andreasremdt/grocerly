@@ -57,7 +57,7 @@ function Item({ item }: ItemProps) {
           <h2 className={cx({ "line-through": item.checked })}>{item.name}</h2>
           {item.amount && (
             <div className="text-gray-400 text-xs">
-              {item.amount || ""}
+              {item.amount}
               {item.unit}
             </div>
           )}

@@ -1,15 +1,15 @@
 const translation = {
   de: "Deutsch",
-  emptyState: {
-    title: "Diese Liste ist noch leer.",
-    subtitle: "Füge Sachen über das oben stehende Formular hinzu.",
-  },
   header: {
     toggleForm: "Formular ein/ausblenden",
+    goBack: "Zurück",
+    createList: "Neue Liste erstellen",
   },
   form: {
     name: "z.B. Eier, Milch oder Spinat",
     quantity: "Anz.",
+    increase: "Anzahl verringern",
+    decrease: "Anzahl erhöhen",
   },
   settings: {
     language: "Sprache",
@@ -18,9 +18,18 @@ const translation = {
     check: "Als erledigt markieren",
     uncheck: "Als unerledigt markieren",
     deleteItem: "Diese Position entfernen?",
+    emptyState: {
+      title: "Diese Liste ist noch leer.",
+      subtitle: "Fügen Sie Sachen über das oben stehende Formular hinzu.",
+    },
   },
   card: {
     empty: "Diese Liste ist leer.",
+    emptyState: {
+      title: "Keine Einkaufslisten vorhanden.",
+      subtitle:
+        'Erstellen Sie Ihre erste Einkaufsliste über die oben stehende "Plus" Schaltfläche.',
+    },
   },
   newListDialog: {
     label: "Geben Sie Ihrer Liste einen Namen:",

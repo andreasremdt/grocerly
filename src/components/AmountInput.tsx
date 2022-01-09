@@ -18,7 +18,7 @@ function getUpdatedAmount(amount: number, factor: number, subtract: boolean = fa
   return amount + factor - ((amount + factor) % factor);
 }
 
-function AmountInput({ value = "", onChange }: AmountInputProps) {
+function AmountInput({ value, onChange }: AmountInputProps) {
   const { language } = useContext(GroceryContext);
 
   function increase() {
@@ -40,7 +40,7 @@ function AmountInput({ value = "", onChange }: AmountInputProps) {
       onChange(String(amountAsNumber - 1));
     } else if (amountAsNumber > 10 && amountAsNumber <= 100) {
       onChange(String(getUpdatedAmount(amountAsNumber, 10, true)));
-    } else if (amountAsNumber > 0) {
+    } else {
       onChange(String(getUpdatedAmount(amountAsNumber, 50, true)));
     }
   }
@@ -52,6 +52,7 @@ function AmountInput({ value = "", onChange }: AmountInputProps) {
         className="h-8 w-8 bg-gray-50 border border-gray-200 rounded-sm absolute flex items-center justify-center left-1 top-1 active:bg-purple-50 active:text-purple-500 active:border-purple-200"
         onClick={decrease}
         disabled={value === "" || value === "0"}
+        title={__("form.decrease", language)}
       >
         <MinusIcon className="w-5 h-5" />
       </button>
@@ -66,6 +67,7 @@ function AmountInput({ value = "", onChange }: AmountInputProps) {
         type="button"
         className="h-8 w-8 bg-gray-50 border border-gray-200 rounded-sm absolute flex items-center justify-center right-1 top-1 active:bg-purple-50 active:text-purple-500 active:border-purple-200"
         onClick={increase}
+        title={__("form.increase", language)}
       >
         <PlusIcon className="w-5 h-5" />
       </button>

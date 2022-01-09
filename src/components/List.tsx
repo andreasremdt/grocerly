@@ -1,18 +1,19 @@
 import { useContext, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { GroceryContext } from "../GroceryContext";
 import Item from "./Item";
 import Form from "./Form";
 import __ from "../utils/translate";
-import { getItemsByList } from "../utils/helpers";
+import { getItemsByList, getListIdFromURL } from "../utils/helpers";
+import EmptyState from "./EmptyState";
 
 function List() {
-  const { listId } = useParams();
+  const { pathname } = useLocation();
   const { groceries, language } = useContext(GroceryContext);
   const mainRef = useRef<HTMLDivElement>(null);
   const groceriesRef = useRef(groceries);
-  const items = getItemsByList(Number(listId), groceries);
+  const items = getItemsByList(getListIdFromURL(pathname)!, groceries);
 
   useEffect(() => {
     if (groceries.length > groceriesRef.current.length) {
@@ -29,16 +30,13 @@ function List() {
     <main ref={mainRef} className="flex-1 overflow-x-auto">
       <Form />
 
-      {items.length ? (
+      {items.length > 0 ? (
         items.map((item) => <Item key={item.id} item={item} />)
       ) : (
-        <div className="text-center flex items-center flex-col pt-10">
-          <svg data-testid="shopping-cart-icon" className="mb-4">
-            <use xlinkHref="/shopping-cart.svg#img"></use>
-          </svg>
-          <h2 className="font-semibold text-indigo-800">{__("emptyState.title", language)}</h2>
-          <p>{__("emptyState.subtitle", language)}</p>
-        </div>
+        <EmptyState
+          title={__("list.emptyState.title", language)}
+          text={__("list.emptyState.subtitle", language)}
+        />
       )}
     </main>
   );

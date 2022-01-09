@@ -1,15 +1,15 @@
 const translation = {
   es: "Español",
-  emptyState: {
-    title: "Nada aquí, todavía.",
-    subtitle: "Comience a agregar artículos a su lista de compras arriba.",
-  },
   header: {
     toggleForm: "Alternar formulario",
+    goBack: "Volver",
+    createList: "Crear lista nueva",
   },
   form: {
     name: "p.ej. huevos, leche o espinacas",
     quantity: "Cant.",
+    increase: "Aumentar cantidad",
+    decrease: "Disminuir cantidad",
   },
   settings: {
     language: "Idioma",
@@ -18,9 +18,18 @@ const translation = {
     check: "Marcar como hecho",
     uncheck: "Marcar como deshecho",
     deleteItem: "¿Borrar este artículo?",
+    emptyState: {
+      title: "Nada aquí, todavía.",
+      subtitle: "Comience a agregar artículos a su lista de compras arriba.",
+    },
   },
   card: {
     empty: "Esta lista está vacía.",
+    emptyState: {
+      title: "Nada aquí, todavía.",
+      subtitle:
+        'Comience a crear su primera lista de compras haciendo clic en el botón "Crear" arriba.',
+    },
   },
   newListDialog: {
     label: "Dale un nombre a esta lista:",

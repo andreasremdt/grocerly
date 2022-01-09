@@ -1,14 +1,19 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import { ReactNode } from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import { GroceryContext } from "../GroceryContext";
 import ListCard from "./ListCard";
 
 const renderWithContext = (ui: ReactNode, props: any) => {
-  return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
+  return render(
+    <MemoryRouter>
+      <GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>
+    </MemoryRouter>
+  );
 };
 
-test("renders a button with the list title and items", () => {
+test("renders a link with the list title and items", () => {
   renderWithContext(<ListCard list={{ id: 1, name: "List #1" }} />, {
     groceries: [
       { id: 1, listId: 1, name: "Item #1", checked: false },
@@ -17,13 +22,14 @@ test("renders a button with the list title and items", () => {
     ],
   });
 
-  expect(screen.getByRole("button")).toBeInTheDocument();
+  expect(screen.getByRole("link")).toBeInTheDocument();
+  expect(screen.getByRole("link")).toHaveAttribute("href", "/list/1");
   expect(screen.getByText(/list #1/i)).toBeInTheDocument();
   expect(screen.getAllByRole("listitem")).toHaveLength(2);
   expect(screen.getAllByRole("listitem")[0]).toHaveTextContent(/item #1/i);
   expect(screen.getAllByRole("listitem")[1]).toHaveTextContent(/item #2/i);
-  expect(screen.getAllByRole("listitem")[0]).not.toHaveClass("checked");
-  expect(screen.getAllByRole("listitem")[1]).toHaveClass("checked");
+  expect(screen.getAllByRole("listitem")[0]).not.toHaveClass("line-through");
+  expect(screen.getAllByRole("listitem")[1]).toHaveClass("line-through");
 });
 
 test("doesn't render more than 10 items", () => {
@@ -49,21 +55,9 @@ test("doesn't render more than 10 items", () => {
 test("displays an empty state", () => {
   renderWithContext(<ListCard list={{ id: 1, name: "List #1" }} />, {
     groceries: [],
+    language: "en",
   });
 
-  expect(screen.getByText(/no items in this list/i)).toBeInTheDocument();
+  expect(screen.getByText(/this list is empty/i)).toBeInTheDocument();
   expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
-});
-
-test("clicking on the button opens the list", () => {
-  const spy = jest.fn();
-
-  renderWithContext(<ListCard list={{ id: 1, name: "List #1" }} />, {
-    dispatch: spy,
-    groceries: [],
-  });
-
-  fireEvent.click(screen.getByRole("button"));
-
-  expect(spy).toHaveBeenCalledWith({ type: "SET_ACTIVE_LIST", payload: 1 });
 });

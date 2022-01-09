@@ -1,16 +1,28 @@
 import { useContext } from "react";
+import cx from "classnames";
 
 import { GroceryContext } from "../GroceryContext";
 import ListCard from "./ListCard";
+import EmptyState from "./EmptyState";
+import __ from "../utils/translate";
 
 function ListOverview() {
-  const { lists } = useContext(GroceryContext);
+  const { lists, language } = useContext(GroceryContext);
 
   return (
-    <main className="max-w-xl mx-auto p-2 grid grid-cols-2 sm:grid-cols-3 gap-2">
-      {lists.map((list) => (
-        <ListCard key={list.id} list={list} />
-      ))}
+    <main
+      className={cx("max-w-xl mx-auto p-2 w-full", {
+        "grid grid-cols-2 sm:grid-cols-3 gap-2": lists.length > 0,
+      })}
+    >
+      {lists.length > 0 ? (
+        lists.map((list) => <ListCard key={list.id} list={list} />)
+      ) : (
+        <EmptyState
+          title={__("card.emptyState.title", language)}
+          text={__("card.emptyState.subtitle", language)}
+        />
+      )}
     </main>
   );
 }

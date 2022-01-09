@@ -7,6 +7,7 @@ type StateProps = {
   editing?: Grocery | null;
   language?: string;
   isFormVisible?: boolean;
+  isNewListDialogVisible?: boolean;
 };
 
 function getItems(amount: number = 2): Grocery[] {
@@ -48,6 +49,7 @@ function getState({
   editing = null,
   language = "en",
   isFormVisible = false,
+  isNewListDialogVisible = false,
   lists = [],
 }: StateProps = {}) {
   return {
@@ -55,6 +57,7 @@ function getState({
     groceries,
     language,
     isFormVisible,
+    isNewListDialogVisible,
     lists,
   };
 }
@@ -148,6 +151,16 @@ test("toggles the form", () => {
   expect(newState.isFormVisible).toEqual(false);
 });
 
+test("toggles the new list dialog", () => {
+  const state = reducer(getState(), { type: "TOGGLE_NEW_LIST_DIALOG" });
+
+  expect(state.isNewListDialogVisible).toEqual(true);
+
+  const newState = reducer(state, { type: "TOGGLE_NEW_LIST_DIALOG" });
+
+  expect(newState.isNewListDialogVisible).toEqual(false);
+});
+
 test("adds a new list", () => {
   const state = reducer(getState(), {
     type: "ADD_LIST",
@@ -175,11 +188,31 @@ test("adds a new list", () => {
 test("removes a list", () => {
   const lists = getLists();
 
-  const state = reducer(getState({ lists, activeList: lists[0].id }), {
+  const state = reducer(getState({ lists }), {
     type: "DELETE_LIST",
     payload: lists[0].id,
   });
 
   expect(state.lists).toHaveLength(1);
-  expect(state.activeList).toEqual(null);
+});
+
+test("clears all items from a list", () => {
+  const lists = getLists();
+  const groceries = getItems();
+
+  const state = reducer(getState({ lists, groceries }), {
+    type: "CLEAR_LIST",
+    payload: 1,
+  });
+
+  expect(state.groceries).toHaveLength(0);
+});
+
+test("returns the default state", () => {
+  const state = reducer(getState(), {
+    // @ts-ignore
+    type: "INVALID",
+  });
+
+  expect(state).toEqual(getState());
 });

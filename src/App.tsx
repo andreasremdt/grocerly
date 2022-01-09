@@ -5,10 +5,11 @@ import List from "./components/List";
 import Settings from "./components/Settings";
 import ListOverview from "./components/ListOverview";
 import NewListDialog from "./components/NewListDialog";
+import GroceryContextProvider from "./GroceryContext";
 
 function App() {
   return (
-    <>
+    <GroceryContextProvider>
       <Header />
 
       <Routes>
@@ -18,7 +19,7 @@ function App() {
       </Routes>
 
       <NewListDialog />
-    </>
+    </GroceryContextProvider>
   );
 }
 

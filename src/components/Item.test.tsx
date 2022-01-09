@@ -10,6 +10,7 @@ const getItem = () => ({
   amount: "1",
   unit: "l",
   checked: false,
+  listId: 123,
 });
 
 const renderWithContext = (ui: ReactNode, props: any) => {
@@ -35,11 +36,11 @@ test("displays the correct item data", () => {
 test("an item is striked-through when checked", () => {
   const { rerender } = render(<Item item={getItem()} />);
 
-  expect(screen.getByRole("heading")).not.toHaveClass("checked");
+  expect(screen.getByRole("heading")).not.toHaveClass("line-through");
 
   rerender(<Item item={{ ...getItem(), checked: true }} />);
 
-  expect(screen.getByRole("heading")).toHaveClass("checked");
+  expect(screen.getByRole("heading")).toHaveClass("line-through");
 });
 
 test("deletes an item when pressing for more than 500 ms", () => {

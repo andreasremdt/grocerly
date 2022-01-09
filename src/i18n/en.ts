@@ -1,15 +1,15 @@
 const translation = {
   en: "English",
-  emptyState: {
-    title: "Nothing here, yet.",
-    subtitle: "Start adding items to your shopping list below.",
-  },
   header: {
     toggleForm: "Toggle form",
+    goBack: "Back",
+    createList: "Create new list",
   },
   form: {
     name: "e.g. eggs, milk, spinach",
     quantity: "Qt.",
+    increase: "Increase amount",
+    decrease: "Decrease amount",
   },
   settings: {
     language: "Language",
@@ -18,9 +18,17 @@ const translation = {
     check: "Mark as done",
     uncheck: "Mark as undone",
     deleteItem: "Delete this item?",
+    emptyState: {
+      title: "Nothing here, yet.",
+      subtitle: "Start adding items to your shopping list via the form above.",
+    },
   },
   card: {
     empty: "This list is empty.",
+    emptyState: {
+      title: "Nothing here, yet.",
+      subtitle: 'Start creating your first shopping list by clicking the "Create" button above.',
+    },
   },
   newListDialog: {
     label: "Provide a name for this grocery list:",

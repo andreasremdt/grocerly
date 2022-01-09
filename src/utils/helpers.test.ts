@@ -1,5 +1,5 @@
 import { Grocery, GroceryList } from "../types";
-import { getItemsByList, getPageTitle } from "./helpers";
+import { getItemsByList, getListIdFromURL, getPageTitle } from "./helpers";
 
 test("returns all items for a list", () => {
   const items: Grocery[] = [
@@ -21,4 +21,11 @@ test("returns the correct page title", () => {
   expect(getPageTitle(lists, null)).toEqual("Grocerly");
   expect(getPageTitle(lists, 1)).toEqual("List #1");
   expect(getPageTitle(lists, 2)).toEqual("Untitled List");
+  expect(getPageTitle(null, 2)).toEqual("Untitled List");
+});
+
+test("returns the list ID from the pathname", () => {
+  expect(getListIdFromURL("/list/123")).toEqual(123);
+  expect(getListIdFromURL("/list")).toBeUndefined();
+  expect(getListIdFromURL("/")).toBeUndefined();
 });

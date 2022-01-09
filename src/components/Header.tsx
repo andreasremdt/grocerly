@@ -18,6 +18,7 @@ function Header() {
         {pathname !== "/" && (
           <Link
             to="/"
+            title={__("header.goBack", language)}
             className="w-10 h-10 mr-2 -ml-2 text-white flex items-center justify-center hover:bg-white/10 active:bg-white/30 active:text-purple-700 rounded-full focus:outline-none"
           >
             <ArrowLeftIcon className="w-6 h-6" />

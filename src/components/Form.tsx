@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { CheckIcon } from "@heroicons/react/outline";
 
 import { GroceryContext } from "../GroceryContext";
@@ -8,11 +8,12 @@ import __ from "../utils/translate";
 import AmountInput from "./AmountInput";
 import Input from "./Input";
 import Button from "./Button";
+import { getListIdFromURL } from "../utils/helpers";
 
 const UNITS = ["mg", "g", "kg", "ml", "l"];
 
 function Form() {
-  const { listId } = useParams();
+  const { pathname } = useLocation();
   const { editing, dispatch, language, isFormVisible } = useContext(GroceryContext);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
@@ -38,7 +39,7 @@ function Form() {
       dispatch({
         type: "UPDATE_ITEM",
         payload: {
-          listId: Number(listId),
+          listId: getListIdFromURL(pathname)!,
           id: editing.id,
           name,
           amount,
@@ -50,7 +51,7 @@ function Form() {
       dispatch({
         type: "ADD_ITEM",
         payload: {
-          listId: Number(listId),
+          listId: getListIdFromURL(pathname)!,
           id: Date.now(),
           name,
           amount,

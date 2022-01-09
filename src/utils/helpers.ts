@@ -9,11 +9,11 @@ export function getPageTitle(lists: GroceryList[], listId?: number) {
     return "Grocerly";
   }
 
-  return lists.find((list) => list.id === listId)?.name || "Untitled List";
+  return lists?.find((list) => list.id === listId)?.name || "Untitled List";
 }
 
-export function getListIdFromURL(path: string) {
-  const [, , listId] = path.split(/\//g);
+export function getListIdFromURL(pathname: string) {
+  const [, , listId] = pathname.split(/\//g);
 
   return listId ? Number(listId) : undefined;
 }

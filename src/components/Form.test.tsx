@@ -1,11 +1,16 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import { ReactNode } from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import { GroceryContext } from "../GroceryContext";
 import Form from "./Form";
 
 const renderWithContext = (ui: ReactNode, props: any) => {
-  return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
+  return render(
+    <MemoryRouter initialEntries={["/list/123"]}>
+      <GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>
+    </MemoryRouter>
+  );
 };
 
 test("renders null if `isFormVisible` is falsy or `activeList` is null", () => {
@@ -75,7 +80,7 @@ test("returns a new grocery object with only the name", () => {
       id: 1487076708000,
       name: "bread",
       amount: "",
-      listId: 1,
+      listId: 123,
       unit: "",
       checked: false,
     },
@@ -103,7 +108,7 @@ test("all grocery inputs are submitted", () => {
       id: 1487076708000,
       name: "milk",
       amount: "100",
-      listId: 1,
+      listId: 123,
       unit: "ml",
       checked: false,
     },
@@ -144,7 +149,7 @@ test("an existing item can be updated", () => {
       id: 1,
       name: "bread",
       amount: "150",
-      listId: 1,
+      listId: 123,
       unit: "l",
       checked: false,
     },
@@ -171,7 +176,7 @@ test("when no amount is specified, the unit is not submitted", () => {
       id: 1487076708000,
       name: "milk",
       amount: "",
-      listId: 1,
+      listId: 123,
       unit: "",
       checked: false,
     },

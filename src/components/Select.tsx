@@ -1,7 +1,7 @@
 import { forwardRef, SelectHTMLAttributes, Ref } from "react";
 import cx from "classnames";
 
-function Input(
+function Select(
   { className, children, ...props }: SelectHTMLAttributes<HTMLSelectElement>,
   ref: Ref<HTMLSelectElement>
 ) {
@@ -19,4 +19,4 @@ function Input(
   );
 }
 
-export default forwardRef(Input);
+export default forwardRef(Select);
