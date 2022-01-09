@@ -1,19 +1,18 @@
 import { useContext, useRef } from "react";
 import cx from "classnames";
 
-import { GroceryContext } from "../contexts/GroceryContext";
+import { GroceryContext } from "../GroceryContext";
 import { Grocery } from "../types";
 import __ from "../utils/translate";
 import Checkbox from "./Checkbox";
-import useConfirm from "../hooks/use-confirm";
+import withConfirmation, { ConfirmFunctionType } from "./Confirmable";
 
 type ItemProps = {
   item: Grocery;
-};
+} & ConfirmFunctionType;
 
-function Item({ item }: ItemProps) {
+function Item({ item, confirm }: ItemProps) {
   const { dispatch, language } = useContext(GroceryContext);
-  const { confirm } = useConfirm();
   const timer = useRef<NodeJS.Timeout | null>(null);
   const hasFired = useRef(false);
 
@@ -25,7 +24,7 @@ function Item({ item }: ItemProps) {
     }
   }
 
-  function handlePointerDown() {
+  async function handlePointerDown() {
     timer.current = setTimeout(async () => {
       window.navigator.vibrate(100);
 
@@ -80,4 +79,4 @@ function Item({ item }: ItemProps) {
   );
 }
 
-export default Item;
+export default withConfirmation(Item);

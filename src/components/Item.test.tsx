@@ -43,13 +43,13 @@ test("an item is striked-through when checked", () => {
   expect(screen.getByRole("heading")).toHaveClass("line-through");
 });
 
-test("deletes an item when pressing for more than 500 ms", () => {
+test("deletes an item when pressing for more than 500 ms", async () => {
   window.navigator.vibrate = jest.fn();
-  window.confirm = jest.fn(() => true);
 
   const spy = jest.fn();
   const item = getItem();
-  renderWithContext(<Item item={item} />, {
+
+  renderWithContext(<Item item={item} confirm={jest.fn(() => Promise.resolve(true))} />, {
     dispatch: spy,
     language: "en",
   });
@@ -59,23 +59,21 @@ test("deletes an item when pressing for more than 500 ms", () => {
   jest.advanceTimersByTime(400);
 
   expect(spy).not.toHaveBeenCalled();
-
   fireEvent.pointerDown(screen.getByText(/milk/i));
 
   jest.advanceTimersByTime(500);
+  await Promise.resolve();
 
   expect(window.navigator.vibrate).toHaveBeenCalledWith(100);
-  expect(window.confirm).toHaveBeenCalledWith("Delete this item?");
   expect(spy).toHaveBeenCalledWith({ type: "DELETE_ITEM", payload: item });
 });
 
-test("does not delete an item if the confirmation is falsy", () => {
+test("does not delete an item if the confirmation is falsy", async () => {
   window.navigator.vibrate = jest.fn();
-  window.confirm = jest.fn(() => false);
 
   const spy = jest.fn();
   const item = getItem();
-  renderWithContext(<Item item={item} />, {
+  renderWithContext(<Item item={item} confirm={jest.fn(() => Promise.resolve(false))} />, {
     dispatch: spy,
     language: "en",
   });
@@ -83,17 +81,18 @@ test("does not delete an item if the confirmation is falsy", () => {
   fireEvent.pointerDown(screen.getByText(/milk/i));
 
   jest.advanceTimersByTime(500);
+  await Promise.resolve();
 
   expect(window.navigator.vibrate).toHaveBeenCalled();
   expect(spy).not.toHaveBeenCalled();
 });
 
 test("edits an item with a single click", () => {
-  window.confirm = jest.fn(() => false);
-
   const spy = jest.fn();
+  const confirm = jest.fn();
   const item = getItem();
-  renderWithContext(<Item item={item} />, {
+
+  renderWithContext(<Item item={item} confirm={confirm} />, {
     dispatch: spy,
   });
 
@@ -107,7 +106,7 @@ test("edits an item with a single click", () => {
 
   jest.advanceTimersByTime(400);
 
-  expect(window.confirm).not.toHaveBeenCalled();
+  expect(confirm).not.toHaveBeenCalled();
 });
 
 test("toggles an item on or off", () => {

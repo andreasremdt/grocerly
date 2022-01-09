@@ -1,16 +1,15 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ClipboardIcon, CogIcon, MenuIcon, TrashIcon } from "@heroicons/react/outline";
 
-import { GroceryContext } from "../contexts/GroceryContext";
+import { GroceryContext } from "../GroceryContext";
 import __ from "../utils/translate";
 import { getListIdFromURL } from "../utils/helpers";
-import useConfirm from "../hooks/use-confirm";
+import withConfirmation, { ConfirmFunctionType } from "./Confirmable";
 
-function AppMenu() {
+function AppMenu({ confirm }: ConfirmFunctionType) {
   const { pathname } = useLocation();
-  const { confirm } = useConfirm();
   const navigate = useNavigate();
   const { language, dispatch } = useContext(GroceryContext);
   const listId = getListIdFromURL(pathname);
@@ -92,4 +91,4 @@ function AppMenu() {
   );
 }
 
-export default AppMenu;
+export default withConfirmation(AppMenu);

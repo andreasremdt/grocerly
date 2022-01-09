@@ -5,25 +5,20 @@ import List from "./components/List";
 import Settings from "./components/Settings";
 import ListOverview from "./components/ListOverview";
 import NewListDialog from "./components/NewListDialog";
-import ConfirmDialog from "./components/ConfirmDialog";
-import GroceryContextProvider from "./contexts/GroceryContext";
-import DialogContextProvider from "./contexts/DialogContext";
+import GroceryContextProvider from "./GroceryContext";
 
 function App() {
   return (
     <GroceryContextProvider>
-      <DialogContextProvider>
-        <Header />
+      <Header />
 
-        <Routes>
-          <Route path="/" element={<ListOverview />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/list/:listId" element={<List />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<ListOverview />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/list/:listId" element={<List />} />
+      </Routes>
 
-        <NewListDialog />
-        <ConfirmDialog />
-      </DialogContextProvider>
+      <NewListDialog />
     </GroceryContextProvider>
   );
 }

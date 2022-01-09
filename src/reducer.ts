@@ -1,4 +1,4 @@
-import { GroceryState, GroceryActions } from "../types";
+import { GroceryState, GroceryActions } from "./types";
 
 function stateReducer(state: GroceryState, action: GroceryActions): GroceryState {
   switch (action.type) {

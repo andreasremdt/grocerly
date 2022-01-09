@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { GroceryContext } from "../contexts/GroceryContext";
+import { GroceryContext } from "../GroceryContext";
 import Select from "./Select";
 import __, { availableLanguages } from "../utils/translate";
 
