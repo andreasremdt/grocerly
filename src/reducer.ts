@@ -1,6 +1,6 @@
 import { GroceryState, GroceryActions } from "./types";
 
-function stateReducer(state: GroceryState, action: GroceryActions): GroceryState {
+function reducer(state: GroceryState, action: GroceryActions): GroceryState {
   switch (action.type) {
     case "ADD_ITEM":
       const existing = state.groceries.find(
@@ -94,4 +94,4 @@ function stateReducer(state: GroceryState, action: GroceryActions): GroceryState
   }
 }
 
-export default stateReducer;
+export default reducer;

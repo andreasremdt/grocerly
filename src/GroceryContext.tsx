@@ -1,6 +1,6 @@
 import { createContext, Dispatch, ReactNode, useReducer, useEffect } from "react";
 
-import stateReducer from "./reducer";
+import reducer from "./reducer";
 import { LocalStorage } from "./utils/constants";
 import { GroceryActions, GroceryState } from "./types";
 
@@ -34,7 +34,7 @@ function initState(initialState: GroceryState): GroceryState {
 }
 
 const ContextProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(stateReducer, INITIAL_STATE, initState);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE, initState);
 
   useEffect(() => {
     localStorage.setItem(LocalStorage.Groceries, JSON.stringify(state.groceries));
