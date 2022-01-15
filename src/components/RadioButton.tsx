@@ -20,7 +20,7 @@ function RadioButton({ value, checked, onChange, onClick, ...props }: RadioButto
         className="hidden peer"
         {...props}
       />
-      <span className="h-10 px-2 flex items-center justify-center font-semibold uppercase text-xs bg-gray-50 shadow-sm border border-gray-200 rounded-sm peer-checked:shadow-purple-100 peer-checked:bg-purple-50 peer-checked:text-purple-500 peer-checked:border-purple-200">
+      <span className="h-10 px-2 flex items-center justify-center font-semibold uppercase text-xs bg-gray-50 shadow-sm border border-gray-200 hover:border-gray-300 rounded-sm peer-checked:shadow-purple-100 peer-checked:bg-purple-100 peer-checked:text-purple-500 peer-checked:border-purple-200 peer-checked:hover:border-purple-300">
         {value}
       </span>
     </label>
