@@ -13,7 +13,7 @@ type StateProps = {
 function getItems(amount: number = 2): Grocery[] {
   return [
     {
-      id: Date.now(),
+      id: 1,
       name: "milk",
       amount: "1",
       unit: "l",
@@ -21,12 +21,12 @@ function getItems(amount: number = 2): Grocery[] {
       listId: 1,
     },
     {
-      id: Date.now() + 1,
+      id: 2,
       name: "bread",
       amount: "",
       unit: "",
       checked: true,
-      listId: 1,
+      listId: 2,
     },
   ].slice(0, amount);
 }
@@ -34,11 +34,11 @@ function getItems(amount: number = 2): Grocery[] {
 function getLists(amount: number = 2): GroceryList[] {
   return [
     {
-      id: Date.now(),
+      id: 1,
       name: "List #1",
     },
     {
-      id: Date.now() + 1,
+      id: 2,
       name: "List #2",
     },
   ].slice(0, amount);
@@ -193,13 +193,17 @@ test("adds a new list", () => {
 
 test("removes a list", () => {
   const lists = getLists();
+  const groceries = getItems();
 
-  const state = reducer(getState({ lists }), {
+  const state = reducer(getState({ lists, groceries }), {
     type: "DELETE_LIST",
     payload: lists[0].id,
   });
 
   expect(state.lists).toHaveLength(1);
+  expect(state.lists[0].id).toEqual(2);
+  expect(state.groceries).toHaveLength(1);
+  expect(state.groceries[0].id).toEqual(2);
 });
 
 test("clears all items from a list", () => {
@@ -211,7 +215,7 @@ test("clears all items from a list", () => {
     payload: 1,
   });
 
-  expect(state.groceries).toHaveLength(0);
+  expect(state.groceries).toHaveLength(1);
 });
 
 test("returns the default state", () => {
