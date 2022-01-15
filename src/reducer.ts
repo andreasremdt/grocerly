@@ -83,6 +83,7 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
       return {
         ...state,
         lists: state.lists.filter((list) => list.id !== action.payload),
+        groceries: state.groceries.filter((grocery) => grocery.listId !== action.payload),
       };
     case "CLEAR_LIST":
       return {
