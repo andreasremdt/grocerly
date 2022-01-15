@@ -5,7 +5,7 @@ type EmptyStateProps = {
 
 function EmptyState({ title, text }: EmptyStateProps) {
   return (
-    <div className="text-center flex items-center flex-col pt-10">
+    <div className="text-center flex items-center flex-col pt-10 px-2">
       <svg data-testid="shopping-cart-icon" className="mb-4">
         <use xlinkHref="/shopping-cart.svg#img"></use>
       </svg>
