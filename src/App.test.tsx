@@ -28,9 +28,7 @@ test("switches the language", () => {
   expect(localStorage.getItem(LocalStorage.Language)).toEqual("de");
 });
 
-test("creates, displays, and removes shopping lists", () => {
-  window.confirm = jest.fn(() => true);
-
+test("creates, displays, and removes shopping lists", async () => {
   render(
     <MemoryRouter>
       <App />
@@ -51,6 +49,13 @@ test("creates, displays, and removes shopping lists", () => {
   fireEvent.click(screen.getByRole("link"));
   fireEvent.click(screen.getByTitle(/open menu/i));
   fireEvent.click(screen.getByText(/delete list/i));
+  expect(screen.getByRole("dialog")).toHaveTextContent(/delete list/i);
+  fireEvent.click(screen.getByTitle(/submit/i));
+
+  await act(async () => {
+    await Promise.resolve();
+  });
+
   expect(screen.getByTitle(/create new list/i)).toBeInTheDocument();
   expect(screen.getByText(/start creating your first shopping/i)).toBeInTheDocument();
 });
@@ -76,9 +81,8 @@ test("toggles the form", () => {
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveFocus();
 });
 
-test("items are persisted in local storage", () => {
+test("items are persisted in local storage", async () => {
   Element.prototype.scrollTo = jest.fn();
-  window.confirm = jest.fn(() => true);
 
   render(
     <MemoryRouter>
@@ -115,15 +119,21 @@ test("items are persisted in local storage", () => {
     jest.advanceTimersByTime(500);
   });
 
+  expect(screen.getByRole("dialog")).toHaveTextContent(/delete item/i);
+  fireEvent.click(screen.getByTitle(/submit/i));
+
+  await act(async () => {
+    await Promise.resolve();
+  });
+
   expect(JSON.parse(localStorage.getItem(LocalStorage.Groceries)!).length).toEqual(1);
 
   jest.useRealTimers();
 });
 
-test("adds, updates, and removes items", () => {
+test("adds, updates, and removes items", async () => {
   Element.prototype.scrollTo = jest.fn();
   jest.useFakeTimers();
-  window.confirm = jest.fn(() => true);
 
   render(
     <MemoryRouter>
@@ -168,7 +178,13 @@ test("adds, updates, and removes items", () => {
     jest.advanceTimersByTime(500);
   });
 
-  expect(window.confirm).toHaveBeenCalled();
+  expect(screen.getByRole("dialog")).toHaveTextContent(/delete item/i);
+  fireEvent.click(screen.getByTitle(/submit/i));
+
+  await act(async () => {
+    await Promise.resolve();
+  });
+
   expect(screen.getByText(/nothing here, yet/i)).toBeInTheDocument();
   expect(Element.prototype.scrollTo).toHaveBeenCalledTimes(1);
 

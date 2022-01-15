@@ -1,5 +1,6 @@
-import { render, fireEvent, screen, cleanup } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import { ReactNode } from "react";
+import { act } from "react-dom/test-utils";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 
 import { GroceryContext } from "../GroceryContext";
@@ -47,9 +48,8 @@ test("always displays the `Settings` entry and navigates to the page", () => {
   expect(screen.getByRole("heading")).toHaveTextContent(/settings page/i);
 });
 
-test("clears all items from a list", () => {
+test("clears all items from a list", async () => {
   const spy = jest.fn();
-  window.confirm = jest.fn(() => false);
   renderWithContext(
     <AppMenu />,
     {
@@ -61,20 +61,23 @@ test("clears all items from a list", () => {
 
   fireEvent.click(screen.getByRole("button"));
   fireEvent.click(screen.getByText(/clear all items/i));
+  expect(screen.getByRole("dialog")).toHaveTextContent(/clear all items/i);
+  fireEvent.click(screen.getByTitle(/cancel/i));
   expect(spy).not.toHaveBeenCalled();
 
-  window.confirm = jest.fn(() => true);
   fireEvent.click(screen.getByRole("button"));
   fireEvent.click(screen.getByText(/clear all items/i));
+  fireEvent.click(screen.getByTitle(/submit/i));
+
+  await Promise.resolve();
+
   expect(spy).toHaveBeenCalledWith({ type: "CLEAR_LIST", payload: 123 });
   expect(screen.queryByRole("menu")).not.toBeInTheDocument();
   expect(screen.getByRole("heading")).toHaveTextContent(/list page/i);
 });
 
-test("deletes a list and navigates to the homepage", () => {
+test("deletes a list and navigates to the homepage", async () => {
   const spy = jest.fn();
-  window.confirm = jest.fn(() => false);
-  cleanup();
   renderWithContext(
     <AppMenu />,
     {
@@ -86,11 +89,18 @@ test("deletes a list and navigates to the homepage", () => {
 
   fireEvent.click(screen.getByRole("button"));
   fireEvent.click(screen.getByText(/delete list/i));
+  expect(screen.getByRole("dialog")).toHaveTextContent(/delete list/i);
+  fireEvent.click(screen.getByTitle(/cancel/i));
   expect(spy).not.toHaveBeenCalled();
 
-  window.confirm = jest.fn(() => true);
   fireEvent.click(screen.getByRole("button"));
   fireEvent.click(screen.getByText(/delete list/i));
+  fireEvent.click(screen.getByTitle(/submit/i));
+
+  await act(async () => {
+    await Promise.resolve();
+  });
+
   expect(spy).toHaveBeenCalledWith({ type: "DELETE_LIST", payload: 123 });
   expect(screen.queryByRole("menu")).not.toBeInTheDocument();
   expect(screen.getByRole("heading")).toHaveTextContent(/home page/i);
