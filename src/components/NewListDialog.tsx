@@ -31,12 +31,15 @@ function NewListDialog() {
       }
     }
 
-    document.addEventListener("keydown", handleKeyDown);
+    if (isNewListDialogVisible) {
+      document.addEventListener("keydown", handleKeyDown);
 
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [dispatch]);
+      return () => {
+        setName("");
+        document.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [dispatch, isNewListDialogVisible]);
 
   if (!isNewListDialogVisible) {
     return null;
