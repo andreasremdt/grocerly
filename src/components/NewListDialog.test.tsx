@@ -35,7 +35,7 @@ test("renders a form with a label, input, and buttons", () => {
   expect(screen.getByTitle(/cancel/i)).toBeInTheDocument();
 });
 
-test("it calls dispatch to create a new list", () => {
+test("calls dispatch to create a new list", () => {
   jest.useFakeTimers().setSystemTime(new Date("2020-01-01").getTime());
   const spy = jest.fn();
 
@@ -55,7 +55,7 @@ test("it calls dispatch to create a new list", () => {
   jest.useRealTimers();
 });
 
-test("it calls dispatch to hide the dialog", () => {
+test("calls dispatch to hide the dialog", () => {
   const spy = jest.fn();
 
   renderWithContext(<NewListDialog />, {

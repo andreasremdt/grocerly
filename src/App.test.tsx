@@ -225,3 +225,25 @@ test("initializes state with data from localStorage", () => {
   fireEvent.click(screen.getByRole("link"));
   expect(screen.getByText(/tomatoes from localStorage/i)).toBeInTheDocument();
 });
+
+test("clears the input of the `NewListDialog`", () => {
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+
+  fireEvent.click(screen.getByTitle(/create new list/i));
+  fireEvent.change(screen.getByRole("textbox"), { target: { value: "List #1" } });
+  fireEvent.keyDown(document, { key: "Escape" });
+  expect(screen.queryByTitle(/create list/i)).not.toBeInTheDocument();
+  fireEvent.keyDown(document, { key: "Escape" });
+  expect(screen.queryByTitle(/create list/i)).not.toBeInTheDocument();
+  fireEvent.click(screen.getByTitle(/create new list/i));
+  expect(screen.getByRole("textbox")).toHaveValue("");
+  fireEvent.change(screen.getByRole("textbox"), { target: { value: "List #1" } });
+  fireEvent.click(screen.getByTitle(/create list/i));
+  fireEvent.click(screen.getByTitle(/back/i));
+  fireEvent.click(screen.getByTitle(/create new list/i));
+  expect(screen.getByRole("textbox")).toHaveValue("");
+});
