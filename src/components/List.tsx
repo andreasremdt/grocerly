@@ -27,18 +27,20 @@ function List() {
   }, [groceries]);
 
   return (
-    <main ref={mainRef} className="flex-1 overflow-x-auto">
+    <>
       <Form />
 
-      {items.length > 0 ? (
-        items.map((item) => <Item key={item.id} item={item} />)
-      ) : (
-        <EmptyState
-          title={__("list.emptyState.title", language)}
-          text={__("list.emptyState.subtitle", language)}
-        />
-      )}
-    </main>
+      <main ref={mainRef} className="flex-1 overflow-x-auto">
+        {items.length > 0 ? (
+          items.map((item) => <Item key={item.id} item={item} />)
+        ) : (
+          <EmptyState
+            title={__("list.emptyState.title", language)}
+            text={__("list.emptyState.subtitle", language)}
+          />
+        )}
+      </main>
+    </>
   );
 }
 
