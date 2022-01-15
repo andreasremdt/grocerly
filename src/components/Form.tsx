@@ -98,7 +98,7 @@ function Form() {
           autoFocus
         />
 
-        <Button type="submit" disabled={name.length < 1} data-testid="submit">
+        <Button type="submit" disabled={name.length < 1} data-testid="submit" variant="secondary">
           <CheckIcon className="w-5 h-5" />
         </Button>
       </div>

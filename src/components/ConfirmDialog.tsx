@@ -25,7 +25,13 @@ function ConfirmDialog({ open, title, content, onCancel, onSubmit }: ConfirmDial
           </Dialog.Title>
           {content && <Dialog.Description className="p-4">{content}</Dialog.Description>}
           <footer className="px-4 py-2 bg-gray-50 text-right rounded-b-md border-t border-gray-200">
-            <Button type="button" className="mr-2" title="Cancel" onClick={onCancel}>
+            <Button
+              type="button"
+              variant="secondary"
+              className="mr-2"
+              title="Cancel"
+              onClick={onCancel}
+            >
               <XIcon className="w-5 h-5" />
             </Button>
             <Button title="Submit" onClick={onSubmit}>

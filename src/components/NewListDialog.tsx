@@ -72,6 +72,7 @@ function NewListDialog() {
           <Button
             type="button"
             className="mr-2"
+            variant="secondary"
             onClick={() => dispatch({ type: "TOGGLE_NEW_LIST_DIALOG" })}
             title={__("newListDialog.cancel", language)}
           >

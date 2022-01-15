@@ -3,6 +3,7 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/outline";
 
 import { GroceryContext } from "../GroceryContext";
 import Input from "./Input";
+import Button from "./Button";
 import __ from "../utils/translate";
 
 type AmountInputProps = {
@@ -47,15 +48,17 @@ function AmountInput({ value, onChange }: AmountInputProps) {
 
   return (
     <div className="relative max-w-[120px]">
-      <button
+      <Button
         type="button"
-        className="h-8 w-8 bg-gray-50 border border-gray-200 rounded-sm absolute flex items-center justify-center left-1 top-1 active:bg-purple-50 active:text-purple-500 active:border-purple-200"
+        className="px-0 w-8 absolute flex items-center justify-center left-1 top-1"
+        variant="secondary"
+        size="small"
         onClick={decrease}
         disabled={value === "" || value === "0"}
         title={__("form.decrease", language)}
       >
         <MinusIcon className="w-5 h-5" />
-      </button>
+      </Button>
       <Input
         className="text-center w-full"
         type="number"
@@ -63,14 +66,16 @@ function AmountInput({ value, onChange }: AmountInputProps) {
         value={value}
         onChange={(evt) => onChange(evt.target.value)}
       />
-      <button
+      <Button
         type="button"
-        className="h-8 w-8 bg-gray-50 border border-gray-200 rounded-sm absolute flex items-center justify-center right-1 top-1 active:bg-purple-50 active:text-purple-500 active:border-purple-200"
+        className="px-0 w-8 absolute flex items-center justify-center right-1 top-1"
+        variant="secondary"
+        size="small"
         onClick={increase}
         title={__("form.increase", language)}
       >
         <PlusIcon className="w-5 h-5" />
-      </button>
+      </Button>
     </div>
   );
 }
