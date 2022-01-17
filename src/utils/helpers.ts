@@ -17,3 +17,14 @@ export function getListIdFromURL(pathname: string) {
 
   return listId ? Number(listId) : undefined;
 }
+
+export function getSortedItems(items: Grocery[], sortByChecked: boolean): [Grocery[], Grocery[]] {
+  if (sortByChecked) {
+    const checked = items.filter((item) => item.checked);
+    const unchecked = items.filter((item) => !item.checked);
+
+    return [unchecked, checked];
+  }
+
+  return [items, []];
+}

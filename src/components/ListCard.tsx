@@ -12,7 +12,7 @@ type ListCardProps = {
 };
 
 function ListCard({ list }: ListCardProps) {
-  const { groceries, language } = useContext(GroceryContext);
+  const { groceries, settings } = useContext(GroceryContext);
   const items = getItemsByList(list.id, groceries);
 
   return (
@@ -30,7 +30,7 @@ function ListCard({ list }: ListCardProps) {
           ))}
         </ul>
       ) : (
-        <span>{__("card.empty", language)}</span>
+        <span>{__("card.empty", settings.language)}</span>
       )}
     </Link>
   );

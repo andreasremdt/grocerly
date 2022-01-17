@@ -9,7 +9,7 @@ import AppMenu from "./AppMenu";
 
 function Header() {
   const { pathname } = useLocation();
-  const { dispatch, language, lists, isFormVisible } = useContext(GroceryContext);
+  const { dispatch, settings, lists, isFormVisible } = useContext(GroceryContext);
   const listId = getListIdFromURL(pathname);
 
   return (
@@ -18,7 +18,7 @@ function Header() {
         {pathname !== "/" && (
           <Link
             to="/"
-            title={__("header.goBack", language)}
+            title={__("header.goBack", settings.language)}
             className="w-10 h-10 mr-2 -ml-2 text-white flex items-center justify-center hover:bg-white/10 active:bg-white/30 active:text-purple-700 rounded-full focus:outline-none"
           >
             <ArrowLeftIcon className="w-6 h-6" />
@@ -34,7 +34,7 @@ function Header() {
             type="button"
             className="w-10 h-10 text-white flex items-center justify-center hover:bg-white/10 active:bg-white/30 active:text-purple-700 rounded-full focus:outline-none"
             onClick={() => dispatch({ type: "TOGGLE_NEW_LIST_DIALOG" })}
-            title={__("header.createList", language)}
+            title={__("header.createList", settings.language)}
           >
             <PlusIcon className="w-6 h-6" />
           </button>
@@ -46,7 +46,7 @@ function Header() {
               type="button"
               className="w-10 h-10 mr-2 text-white flex items-center justify-center hover:bg-white/10 active:bg-white/30 active:text-purple-700 rounded-full focus:outline-none"
               onClick={() => dispatch({ type: "TOGGLE_FORM" })}
-              title={__("header.toggleForm", language)}
+              title={__("header.toggleForm", settings.language)}
             >
               {isFormVisible ? <EyeOffIcon className="w-6 h-6" /> : <EyeIcon className="w-6 h-6" />}
             </button>

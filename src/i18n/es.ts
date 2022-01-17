@@ -13,6 +13,7 @@ const translation = {
   },
   settings: {
     language: "Idioma",
+    sortLabel: 'Ordenar elementos por estado "marcado" y "no marcados"',
   },
   list: {
     check: "Marcar como hecho",
@@ -23,6 +24,8 @@ const translation = {
       title: "Nada aquí, todavía.",
       subtitle: "Comience a agregar artículos a su lista de compras arriba.",
     },
+    checkedItems: "Elementos marcados",
+    uncheckedItems: "Elementos no marcados",
   },
   card: {
     empty: "Esta lista está vacía.",

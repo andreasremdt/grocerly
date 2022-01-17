@@ -11,13 +11,13 @@ import withConfirmation, { ConfirmFunctionType } from "./Confirmable";
 function AppMenu({ confirm }: ConfirmFunctionType) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { language, dispatch } = useContext(GroceryContext);
+  const { settings, dispatch } = useContext(GroceryContext);
   const listId = getListIdFromURL(pathname);
 
   async function handleClearList() {
     const confirmed = await confirm({
-      title: __("menu.clearList", language),
-      content: __("menu.confirmClearList", language),
+      title: __("menu.clearList", settings.language),
+      content: __("menu.confirmClearList", settings.language),
     });
 
     if (confirmed) {
@@ -27,8 +27,8 @@ function AppMenu({ confirm }: ConfirmFunctionType) {
 
   async function handleDeleteList() {
     const confirmed = await confirm({
-      title: __("menu.deleteList", language),
-      content: __("menu.confirmDeleteList", language),
+      title: __("menu.deleteList", settings.language),
+      content: __("menu.confirmDeleteList", settings.language),
     });
 
     if (confirmed) {
@@ -57,7 +57,7 @@ function AppMenu({ confirm }: ConfirmFunctionType) {
             className="py-2 px-4 block hover:bg-gray-100 active:bg-gray-200 active:text-gray-900 outline-none"
           >
             <CogIcon className="w-5 h-5 mr-2" />
-            {__("menu.settings", language)}
+            {__("menu.settings", settings.language)}
           </Link>
         </DropdownMenu.Item>
         {listId && (
@@ -70,7 +70,7 @@ function AppMenu({ confirm }: ConfirmFunctionType) {
                 className="py-2 px-4 block w-full hover:bg-gray-100 active:bg-gray-200 active:text-gray-900 outline-none text-left"
               >
                 <TrashIcon className="w-5 h-5 mr-2" />
-                {__("menu.deleteList", language)}
+                {__("menu.deleteList", settings.language)}
               </button>
             </DropdownMenu.Item>
             <DropdownMenu.Item asChild className="flex">
@@ -80,7 +80,7 @@ function AppMenu({ confirm }: ConfirmFunctionType) {
                 className="py-2 px-4 block w-full hover:bg-gray-100 active:bg-gray-200 active:text-gray-900 outline-none text-left"
               >
                 <ClipboardIcon className="w-5 h-5 mr-2" />
-                {__("menu.clearList", language)}
+                {__("menu.clearList", settings.language)}
               </button>
             </DropdownMenu.Item>
           </>

@@ -20,7 +20,7 @@ function getUpdatedAmount(amount: number, factor: number, subtract: boolean = fa
 }
 
 function AmountInput({ value, onChange }: AmountInputProps) {
-  const { language } = useContext(GroceryContext);
+  const { settings } = useContext(GroceryContext);
 
   function increase() {
     const amountAsNumber = Number(value);
@@ -55,14 +55,14 @@ function AmountInput({ value, onChange }: AmountInputProps) {
         size="small"
         onClick={decrease}
         disabled={value === "" || value === "0"}
-        title={__("form.decrease", language)}
+        title={__("form.decrease", settings.language)}
       >
         <MinusIcon className="w-5 h-5" />
       </Button>
       <Input
         className="text-center w-full"
         type="number"
-        placeholder={__("form.quantity", language)}
+        placeholder={__("form.quantity", settings.language)}
         value={value}
         onChange={(evt) => onChange(evt.target.value)}
       />
@@ -72,7 +72,7 @@ function AmountInput({ value, onChange }: AmountInputProps) {
         variant="secondary"
         size="small"
         onClick={increase}
-        title={__("form.increase", language)}
+        title={__("form.increase", settings.language)}
       >
         <PlusIcon className="w-5 h-5" />
       </Button>
