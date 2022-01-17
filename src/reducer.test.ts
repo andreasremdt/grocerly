@@ -123,6 +123,15 @@ test("selects an item", () => {
   expect(state.editing).toMatchObject(items[0]);
 });
 
+test("deselects an item", () => {
+  const items = getItems();
+  const state = reducer(getState({ groceries: items, editing: items[0] }), {
+    type: "DESELECT_ITEM",
+  });
+
+  expect(state.editing).toBeNull();
+});
+
 test("updates an existing item", () => {
   const items = getItems();
   const updated = { ...items[0], name: "water", unit: "ml" };

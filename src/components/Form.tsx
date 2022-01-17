@@ -32,6 +32,17 @@ function Form() {
     }
   }, [editing]);
 
+  useEffect(() => {
+    if (isFormVisible) {
+      return () => {
+        setName("");
+        setAmount("");
+        setUnit("");
+        dispatch({ type: "DESELECT_ITEM" });
+      };
+    }
+  }, [isFormVisible, dispatch]);
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 

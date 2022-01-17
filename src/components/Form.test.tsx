@@ -17,6 +17,7 @@ test("renders null if `isFormVisible` is falsy or `activeList` is null", () => {
   renderWithContext(<Form />, {
     language: "en",
     isFormVisible: false,
+    dispatch: jest.fn(),
   });
 
   expect(screen.queryByRole("form")).not.toBeInTheDocument();
@@ -24,6 +25,7 @@ test("renders null if `isFormVisible` is falsy or `activeList` is null", () => {
   renderWithContext(<Form />, {
     language: "en",
     isFormVisible: true,
+    dispatch: jest.fn(),
   });
 
   expect(screen.queryByRole("form")).not.toBeInTheDocument();
@@ -33,6 +35,7 @@ test("renders all form elements", () => {
   renderWithContext(<Form />, {
     language: "en",
     isFormVisible: true,
+    dispatch: jest.fn(),
   });
 
   expect(screen.getByPlaceholderText(/eggs, milk/i)).toBeInTheDocument();

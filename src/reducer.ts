@@ -46,6 +46,8 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
       return { ...state, groceries: [] };
     case "SELECT_ITEM":
       return { ...state, editing: action.payload, isFormVisible: true };
+    case "DESELECT_ITEM":
+      return { ...state, editing: null };
     case "TOGGLE_CHECK_ITEM":
       return {
         ...state,
