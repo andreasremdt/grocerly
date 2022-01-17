@@ -2,10 +2,18 @@
 
 ## v3.0.0
 
-- **ADDED:** mutliple grocery lists can be created and managed
-- **ADDED:** page navigation through React Router. The native browser's back and forward buttons can now be used.
-- **REMOVED:** the color picker was replaced by a fixed theme
-- **CHANGED:** overhauled design, replaced custom CSS with TailwindCSS
-- **CHANGED:** use new icon set
-- **ADDED:** introduce global menu
-- **TECHNICAL:** tset coverage
+### Added
+
+- Create multiple shopping lists to better categorize and organize grocery shoppings
+- Lists have unique URLs that can be accessed directly
+- New global menu with context-dependent actions, like "Clear list" or "Open settings"
+
+### Removed
+
+- The color picker was removed by a fixed theme
+- Overhauled the design and added hover, focus, and active styles for some elements
+- New icon system
+
+### Changed
+
+- Improved unit and integration test coverage
