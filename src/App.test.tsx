@@ -247,3 +247,24 @@ test("clears the input of the `NewListDialog`", () => {
   fireEvent.click(screen.getByTitle(/create new list/i));
   expect(screen.getByRole("textbox")).toHaveValue("");
 });
+
+test("the currently selected item is cleared after switching lists", () => {
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+
+  fireEvent.click(screen.getByTitle(/create new list/i));
+  fireEvent.change(screen.getByRole("textbox"), { target: { value: "List #1" } });
+  fireEvent.click(screen.getByTitle(/create list/i));
+  fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
+  fireEvent.click(screen.getByTitle(/back/i));
+  fireEvent.click(screen.getByText(/list #1/i));
+  expect(screen.getByPlaceholderText(/eggs/i)).toHaveValue("");
+  fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "eggs" } });
+  fireEvent.click(screen.getByTitle(/toggle form/i));
+  expect(screen.queryByPlaceholderText(/eggs/i)).not.toBeInTheDocument();
+  fireEvent.click(screen.getByTitle(/toggle form/i));
+  expect(screen.getByPlaceholderText(/eggs/i)).toHaveValue("");
+});

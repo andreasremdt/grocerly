@@ -18,6 +18,7 @@ test("always displays the form", () => {
     groceries: [],
     language: "en",
     isFormVisible: true,
+    dispatch: jest.fn(),
   });
 
   expect(screen.getByPlaceholderText(/eggs, milk/i)).toBeInTheDocument();

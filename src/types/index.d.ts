@@ -26,6 +26,7 @@ export type GroceryActions =
   | { type: "DELETE_ITEM"; payload: Grocery }
   | { type: "TOGGLE_CHECK_ITEM"; payload: Grocery }
   | { type: "SELECT_ITEM"; payload: Grocery }
+  | { type: "DESELECT_ITEM" }
   | { type: "UPDATE_ITEM"; payload: Grocery }
   | { type: "DELETE_ALL" }
   | { type: "CHANGE_LANGUAGE"; payload: string }
