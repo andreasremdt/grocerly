@@ -13,6 +13,7 @@ const translation = {
   },
   settings: {
     language: "Sprache",
+    sortLabel: 'Gegenstände nach "Erledigt" und "Offen" sortieren',
   },
   list: {
     check: "Als erledigt markieren",
@@ -24,6 +25,8 @@ const translation = {
       title: "Diese Liste ist noch leer.",
       subtitle: "Fügen Sie Sachen über das oben stehende Formular hinzu.",
     },
+    checkedItems: "Erledigt",
+    uncheckedItems: "Offen",
   },
   card: {
     empty: "Diese Liste ist leer.",

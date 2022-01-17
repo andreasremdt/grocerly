@@ -14,7 +14,7 @@ const UNITS = ["mg", "g", "kg", "ml", "l"];
 
 function Form() {
   const { pathname } = useLocation();
-  const { editing, dispatch, language, isFormVisible } = useContext(GroceryContext);
+  const { editing, dispatch, settings, isFormVisible } = useContext(GroceryContext);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
@@ -104,7 +104,7 @@ function Form() {
           className="flex-1"
           type="text"
           value={name}
-          placeholder={__("form.name", language)}
+          placeholder={__("form.name", settings.language)}
           onChange={(evt) => setName(evt.target.value)}
           autoFocus
         />

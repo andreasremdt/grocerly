@@ -12,11 +12,16 @@ export type GroceryList = {
   name: string;
 };
 
+export type Settings = {
+  language: string;
+  sortByChecked: boolean;
+};
+
 export type GroceryState = {
   lists: GroceryList[];
   groceries: Grocery[];
   editing: Grocery | null;
-  language: string;
+  settings: Settings;
   isFormVisible: boolean;
   isNewListDialogVisible: boolean;
 };
@@ -30,6 +35,7 @@ export type GroceryActions =
   | { type: "UPDATE_ITEM"; payload: Grocery }
   | { type: "DELETE_ALL" }
   | { type: "CHANGE_LANGUAGE"; payload: string }
+  | { type: "CHANGE_SORTING"; payload: boolean }
   | { type: "TOGGLE_FORM" }
   | { type: "TOGGLE_NEW_LIST_DIALOG" }
   | { type: "ADD_LIST"; payload: GroceryList }

@@ -62,7 +62,18 @@ function reducer(state: GroceryState, action: GroceryActions): GroceryState {
     case "CHANGE_LANGUAGE":
       return {
         ...state,
-        language: action.payload,
+        settings: {
+          ...state.settings,
+          language: action.payload,
+        },
+      };
+    case "CHANGE_SORTING":
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          sortByChecked: action.payload,
+        },
       };
     case "TOGGLE_FORM":
       return {

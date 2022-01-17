@@ -9,7 +9,10 @@ type GroceryContextState = GroceryState & {
 };
 
 const INITIAL_STATE: GroceryState = {
-  language: "en",
+  settings: {
+    language: "en",
+    sortByChecked: true,
+  },
   groceries: [],
   editing: null,
   isFormVisible: true,
@@ -20,14 +23,14 @@ const INITIAL_STATE: GroceryState = {
 function initState(initialState: GroceryState): GroceryState {
   const groceries = localStorage.getItem(LocalStorage.Groceries);
   const lists = localStorage.getItem(LocalStorage.Lists);
-  const language = localStorage.getItem(LocalStorage.Language);
+  const settings = localStorage.getItem(LocalStorage.Settings);
   const isFormVisible = localStorage.getItem(LocalStorage.FormVisible);
 
   return {
     editing: null,
-    groceries: groceries ? JSON.parse(groceries) : [],
-    lists: lists ? JSON.parse(lists) : [],
-    language: language || initialState.language,
+    groceries: groceries ? JSON.parse(groceries) : INITIAL_STATE.groceries,
+    lists: lists ? JSON.parse(lists) : INITIAL_STATE.lists,
+    settings: settings ? JSON.parse(settings) : INITIAL_STATE.settings,
     isFormVisible: isFormVisible === "true" || isFormVisible === null,
     isNewListDialogVisible: false,
   };
@@ -45,10 +48,10 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
   }, [state.isFormVisible]);
 
   useEffect(() => {
-    localStorage.setItem(LocalStorage.Language, state.language);
+    localStorage.setItem(LocalStorage.Settings, JSON.stringify(state.settings));
 
-    document.head.lang = state.language;
-  }, [state.language]);
+    document.head.lang = state.settings.language;
+  }, [state.settings]);
 
   useEffect(() => {
     localStorage.setItem(LocalStorage.Lists, JSON.stringify(state.lists));
