@@ -1,11 +1,11 @@
 import reducer from "./reducer";
-import { Grocery, GroceryList } from "./types";
+import { Grocery, GroceryList, Settings } from "./types";
 
 type StateProps = {
   lists?: GroceryList[];
   groceries?: Grocery[];
   editing?: Grocery | null;
-  language?: string;
+  settings?: Settings;
   isFormVisible?: boolean;
   isNewListDialogVisible?: boolean;
 };
@@ -47,7 +47,7 @@ function getLists(amount: number = 2): GroceryList[] {
 function getState({
   groceries = [],
   editing = null,
-  language = "en",
+  settings = { language: "en", sortByChecked: true },
   isFormVisible = false,
   isNewListDialogVisible = false,
   lists = [],
@@ -55,7 +55,7 @@ function getState({
   return {
     editing,
     groceries,
-    language,
+    settings,
     isFormVisible,
     isNewListDialogVisible,
     lists,
@@ -153,7 +153,13 @@ test("updates an existing item", () => {
 test("changes the language", () => {
   const state = reducer(getState(), { type: "CHANGE_LANGUAGE", payload: "de" });
 
-  expect(state.language).toEqual("de");
+  expect(state.settings.language).toEqual("de");
+});
+
+test("changes the item sort order", () => {
+  const state = reducer(getState(), { type: "CHANGE_SORTING", payload: false });
+
+  expect(state.settings.sortByChecked).toEqual(false);
 });
 
 test("toggles the form", () => {
