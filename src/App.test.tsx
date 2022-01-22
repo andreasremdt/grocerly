@@ -17,7 +17,9 @@ test("switches the language", () => {
     </MemoryRouter>
   );
 
-  expect(localStorage.getItem(LocalStorage.Language)).toEqual("en");
+  expect(JSON.parse(localStorage.getItem(LocalStorage.Settings))).toMatchObject(
+    expect.objectContaining({ language: "en" })
+  );
   expect(screen.getByText(/nothing here, yet/i)).toBeInTheDocument();
   fireEvent.click(screen.getByTitle(/open menu/i));
   fireEvent.click(screen.getByText(/settings/i));
@@ -25,7 +27,9 @@ test("switches the language", () => {
   fireEvent.click(screen.getByTitle(/zurück/i));
   expect(screen.getByText(/keine einkaufslisten vorhanden/i)).toBeInTheDocument();
   expect(screen.queryByText(/nothing here, yet/i)).not.toBeInTheDocument();
-  expect(localStorage.getItem(LocalStorage.Language)).toEqual("de");
+  expect(JSON.parse(localStorage.getItem(LocalStorage.Settings))).toMatchObject(
+    expect.objectContaining({ language: "de" })
+  );
 });
 
 test("creates, displays, and removes shopping lists", async () => {
@@ -155,10 +159,7 @@ test("adds, updates, and removes items", async () => {
   expect(screen.getByPlaceholderText(/qt/i)).toHaveValue(null);
   expect(screen.queryByLabelText(/ml/i)).not.toBeChecked();
   expect(Element.prototype.scrollTo).toHaveBeenCalledTimes(1);
-  fireEvent.click(screen.getByRole("checkbox"));
-  expect(screen.getAllByRole("heading")[1]).toHaveClass("line-through");
-  fireEvent.click(screen.getByRole("checkbox"));
-  expect(screen.getAllByRole("heading")[1]).not.toHaveClass("line-through");
+
   fireEvent.pointerDown(screen.getByText(/milk/i));
 
   jest.advanceTimersByTime(100);
@@ -189,6 +190,120 @@ test("adds, updates, and removes items", async () => {
   expect(Element.prototype.scrollTo).toHaveBeenCalledTimes(1);
 
   jest.useRealTimers();
+});
+
+test("sorts items by checked status if enabled in settings", () => {
+  Element.prototype.scrollTo = jest.fn();
+
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+
+  fireEvent.click(screen.getByTitle(/create new list/i));
+  fireEvent.click(screen.getByTitle(/create list/i));
+  fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
+  fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "100" } });
+  fireEvent.click(screen.getByLabelText(/ml/i));
+  fireEvent.click(screen.getByTestId("submit"));
+
+  fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "tomatoes" } });
+  fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "2" } });
+  fireEvent.click(screen.getByTestId("submit"));
+
+  fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "eggs" } });
+  fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "10" } });
+  fireEvent.click(screen.getByTestId("submit"));
+
+  expect(screen.queryByText(/open/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/done/i)).not.toBeInTheDocument();
+  fireEvent.click(screen.getAllByRole("checkbox")[0]);
+
+  expect(screen.getByText(/open \(2\)/i)).toBeInTheDocument();
+  expect(screen.getByText(/done \(1\)/i)).toBeInTheDocument();
+  expect(screen.getAllByTestId("item")[0]).toHaveTextContent(/tomatoes/i);
+  expect(screen.getAllByTestId("item")[1]).toHaveTextContent(/eggs/i);
+  expect(screen.getAllByTestId("item")[2]).toHaveTextContent(/milk/i);
+  expect(screen.getByText(/tomatoes/i)).not.toHaveClass("line-through");
+  expect(screen.getByText(/eggs/i)).not.toHaveClass("line-through");
+  expect(screen.getByText(/milk/i)).toHaveClass("line-through");
+
+  fireEvent.click(screen.getAllByRole("checkbox")[0]);
+
+  expect(screen.getByText(/open \(1\)/i)).toBeInTheDocument();
+  expect(screen.getByText(/done \(2\)/i)).toBeInTheDocument();
+  expect(screen.getAllByTestId("item")[0]).toHaveTextContent(/eggs/i);
+  expect(screen.getAllByTestId("item")[1]).toHaveTextContent(/milk/i);
+  expect(screen.getAllByTestId("item")[2]).toHaveTextContent(/tomatoes/i);
+
+  fireEvent.click(screen.getAllByRole("checkbox")[0]);
+
+  expect(screen.queryByText(/open/i)).not.toBeInTheDocument();
+  expect(screen.getByText(/done \(3\)/i)).toBeInTheDocument();
+
+  expect(screen.getAllByTestId("item")[0]).toHaveTextContent(/milk/i);
+  expect(screen.getAllByTestId("item")[1]).toHaveTextContent(/tomatoes/i);
+  expect(screen.getAllByTestId("item")[2]).toHaveTextContent(/eggs/i);
+
+  fireEvent.click(screen.getAllByRole("checkbox")[2]);
+
+  expect(screen.getByText(/eggs/i)).not.toHaveClass("line-through");
+  expect(screen.getByText(/open \(1\)/i)).toBeInTheDocument();
+  expect(screen.getByText(/done \(2\)/i)).toBeInTheDocument();
+  expect(screen.getAllByTestId("item")[0]).toHaveTextContent(/eggs/i);
+});
+
+test("doesn't sort items by checked status if disabled in settings", () => {
+  Element.prototype.scrollTo = jest.fn();
+
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+
+  fireEvent.click(screen.getByTitle(/open menu/i));
+  fireEvent.click(screen.getByText(/settings/i));
+  expect(screen.getByLabelText(/sort items/i)).toBeInTheDocument();
+  expect(screen.getByLabelText(/sort items/i)).toBeChecked();
+  fireEvent.click(screen.getByRole("checkbox"));
+  expect(screen.getByLabelText(/sort items/i)).not.toBeChecked();
+  fireEvent.click(screen.getByTitle(/back/i));
+
+  fireEvent.click(screen.getByTitle(/create new list/i));
+  fireEvent.click(screen.getByTitle(/create list/i));
+
+  fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
+  fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "100" } });
+  fireEvent.click(screen.getByLabelText(/ml/i));
+  fireEvent.click(screen.getByTestId("submit"));
+
+  fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "tomatoes" } });
+  fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "2" } });
+  fireEvent.click(screen.getByTestId("submit"));
+
+  fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "eggs" } });
+  fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "10" } });
+  fireEvent.click(screen.getByTestId("submit"));
+
+  expect(screen.queryByText(/open/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/done/i)).not.toBeInTheDocument();
+  fireEvent.click(screen.getAllByRole("checkbox")[0]);
+
+  expect(screen.queryByText(/open/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/done/i)).not.toBeInTheDocument();
+
+  expect(screen.getAllByTestId("item")[0]).toHaveTextContent(/milk/i);
+  expect(screen.getAllByTestId("item")[1]).toHaveTextContent(/tomatoes/i);
+  expect(screen.getAllByTestId("item")[2]).toHaveTextContent(/eggs/i);
+  expect(screen.getByText(/milk/i)).toHaveClass("line-through");
+  expect(screen.getByText(/tomatoes/i)).not.toHaveClass("line-through");
+  expect(screen.getByText(/eggs/i)).not.toHaveClass("line-through");
+
+  fireEvent.click(screen.getAllByRole("checkbox")[0]);
+
+  expect(screen.getByText(/milk/i)).not.toHaveClass("line-through");
 });
 
 test("initializes state with data from localStorage", () => {
