@@ -10,7 +10,7 @@ const variants: { [key: string]: string } = {
 
 const sizes: { [key: string]: string } = {
   small: "h-8",
-  normal: "h-10",
+  normal: "h-10 px-4",
 };
 
 type ButtonProps = {
@@ -32,7 +32,7 @@ function Button(
       {...props}
       ref={ref}
       className={cx(
-        "rounded-sm px-4 outline-none shadow-sm border font-semibold uppercase text-xs cursor-pointer disabled:opacity-60 disabled:pointer-events-none",
+        "rounded-sm outline-none shadow-sm border font-semibold uppercase text-xs cursor-pointer disabled:opacity-60 disabled:pointer-events-none",
         variants[variant],
         sizes[size],
         className
