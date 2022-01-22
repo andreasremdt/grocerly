@@ -50,7 +50,7 @@ function AmountInput({ value, onChange }: AmountInputProps) {
     <div className="relative max-w-[120px]">
       <Button
         type="button"
-        className="px-0 w-8 absolute flex items-center justify-center left-1 top-1"
+        className="w-8 absolute flex items-center justify-center left-1 top-1"
         variant="secondary"
         size="small"
         onClick={decrease}
@@ -68,7 +68,7 @@ function AmountInput({ value, onChange }: AmountInputProps) {
       />
       <Button
         type="button"
-        className="px-0 w-8 absolute flex items-center justify-center right-1 top-1"
+        className="w-8 absolute flex items-center justify-center right-1 top-1"
         variant="secondary"
         size="small"
         onClick={increase}
