@@ -1,5 +1,19 @@
 # Changelog
 
+## v3.1.0
+
+### Added
+
+- Items are now sorted by the open / done status. This feature can be toggled off through the settings page
+
+### Fixed
+
+- Icons were not displayed in the amount input controls
+
+### Changed
+
+- Update README.md to remove unnecessary information
+
 ## v3.0.0
 
 ### Added
