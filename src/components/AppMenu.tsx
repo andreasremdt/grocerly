@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import cx from "classnames";
 import { ClipboardIcon, CogIcon, MenuIcon, TrashIcon } from "@heroicons/react/outline";
 
 import { GroceryContext } from "../GroceryContext";
@@ -11,6 +12,7 @@ import withConfirmation, { ConfirmFunctionType } from "./Confirmable";
 function AppMenu({ confirm }: ConfirmFunctionType) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const { language, dispatch } = useContext(GroceryContext);
   const listId = getListIdFromURL(pathname);
 
@@ -38,10 +40,15 @@ function AppMenu({ confirm }: ConfirmFunctionType) {
   }
 
   return (
-    <DropdownMenu.Root modal={false}>
+    <DropdownMenu.Root open={open} onOpenChange={() => setOpen(!open)}>
       <DropdownMenu.Trigger
         title="Open menu"
-        className="w-10 h-10 -mr-2 text-white flex items-center justify-center hover:bg-white/10 active:bg-white/30 active:text-purple-700 rounded-full focus:outline-none"
+        className={cx(
+          "w-10 h-10 -mr-2 text-white flex items-center justify-center hover:bg-white/10 rounded-full focus:outline-none active:bg-white/30 active:text-purple-700",
+          {
+            "bg-white/10": open,
+          }
+        )}
       >
         <MenuIcon className="w-6 h-6" />
       </DropdownMenu.Trigger>
