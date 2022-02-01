@@ -20,7 +20,7 @@ test("displays the app menu", () => {
   expect(screen.getByTitle(/open menu/i)).toBeInTheDocument();
 });
 
-test("navigates from the list page to the homepage", () => {
+test("navigates to the homepage if no history entries exist", () => {
   render(
     <Header />,
     { lists: [{ id: 123, name: "List #1" }] },
@@ -30,7 +30,22 @@ test("navigates from the list page to the homepage", () => {
   expect(screen.getByText(/list page/i)).toBeInTheDocument();
   fireEvent.click(screen.getByTitle(/back/i));
   expect(screen.getByText(/home page/i)).toBeInTheDocument();
-  expect(screen.queryByText(/back/i)).not.toBeInTheDocument();
+});
+
+test("navigates back if history entries exist", () => {
+  window.history.pushState({}, "1");
+
+  render(
+    <Header />,
+    { lists: [{ id: 123, name: "List #1" }] },
+    { initialEntries: ["/", "/list/123", "/settings"], withRoutes: true }
+  );
+
+  expect(screen.getByText(/settings page/i)).toBeInTheDocument();
+  fireEvent.click(screen.getByTitle(/back/i));
+  expect(screen.getByText(/list page/i)).toBeInTheDocument();
+  fireEvent.click(screen.getByTitle(/back/i));
+  expect(screen.getByText(/home page/i)).toBeInTheDocument();
 });
 
 test("calls dispatch to toggle the form", () => {
