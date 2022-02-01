@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.1.0
+
+### Fixed
+
+- The menu button doesn't re-open the menu when pressed while the menu is visible
+
 ## v3.0.0
 
 ### Added
