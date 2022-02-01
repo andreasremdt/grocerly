@@ -9,6 +9,7 @@
 ### Fixed
 
 - Icons were not displayed in the amount input controls
+- The menu button doesn't re-open the menu when pressed while the menu is visible
 
 ### Changed
 
