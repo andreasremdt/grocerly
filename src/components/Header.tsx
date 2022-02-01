@@ -1,6 +1,6 @@
 import { ArrowLeftIcon, EyeIcon, EyeOffIcon, PlusIcon } from "@heroicons/react/outline";
-import { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useContext, MouseEvent } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { GroceryContext } from "../GroceryContext";
 import { getListIdFromURL, getPageTitle } from "../utils/helpers";
@@ -8,9 +8,17 @@ import __ from "../utils/translate";
 import AppMenu from "./AppMenu";
 
 function Header() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { dispatch, settings, lists, isFormVisible } = useContext(GroceryContext);
   const listId = getListIdFromURL(pathname);
+
+  function handleClick(evt: MouseEvent) {
+    if (window.history.length > 1) {
+      evt.preventDefault();
+      navigate(-1);
+    }
+  }
 
   return (
     <header className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md relative z-20">
@@ -18,6 +26,7 @@ function Header() {
         {pathname !== "/" && (
           <Link
             to="/"
+            onClick={handleClick}
             title={__("header.goBack", settings.language)}
             className="w-10 h-10 mr-2 -ml-2 text-white flex items-center justify-center hover:bg-white/10 active:bg-white/30 active:text-purple-700 rounded-full focus:outline-none"
           >
