@@ -10,7 +10,7 @@ function Input(
       {...props}
       ref={ref}
       className={cx(
-        "h-10 border border-gray-200 bg-white rounded-sm px-2 outline-none focus:border-purple-200 shadow-sm focus:shadow-purple-100 focus:bg-purple-50 focus:text-purple-500",
+        "h-10 border border-gray-200 bg-white rounded-sm px-2 outline-none focus:border-indigo-200 shadow-sm focus:shadow-indigo-100 focus:bg-indigo-50 focus:text-indigo-500",
         className
       )}
     />
