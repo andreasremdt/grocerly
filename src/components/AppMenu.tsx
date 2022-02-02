@@ -44,7 +44,7 @@ function AppMenu({ confirm }: ConfirmFunctionType) {
       <DropdownMenu.Trigger
         title="Open menu"
         className={cx(
-          "w-10 h-10 -mr-2 text-white flex items-center justify-center hover:bg-white/10 rounded-full focus:outline-none active:bg-white/30 active:text-purple-700",
+          "w-10 h-10 -mr-2 text-white flex items-center justify-center hover:bg-white/10 rounded-full focus:outline-none active:bg-white/30 active:text-indigo-700",
           {
             "bg-white/10": open,
           }
