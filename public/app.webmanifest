@@ -24,5 +24,31 @@
   "scope": "./",
   "display": "standalone",
   "theme_color": "#6366f1",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "screenshots": [
+    {
+      "src": "screenshots/empty-list-view.png",
+      "sizes": "800x1600",
+      "type": "image/png",
+      "label": "Start creating your first list on the home screen."
+    },
+    {
+      "src": "screenshots/list-view.png",
+      "sizes": "800x1600",
+      "type": "image/png",
+      "label": "The home screen lets you manage as many shopping lists as you like."
+    },
+    {
+      "src": "screenshots/form-list.png",
+      "sizes": "800x1600",
+      "type": "image/png",
+      "label": "Create as many grocery items as you want per shopping list."
+    },
+    {
+      "src": "screenshots/items-checked-unchecked.png",
+      "sizes": "800x1600",
+      "type": "image/png",
+      "label": "Check/uncheck items in your shopping list to keep track of your progress."
+    }
+  ]
 }
