@@ -34,7 +34,7 @@ function Header() {
           </Link>
         )}
 
-        <h1 className="mr-auto uppercase tracking-wider font-semibold text-xs">
+        <h1 className="mr-auto uppercase tracking-wider font-semibold text-xs select-none">
           {getPageTitle(lists, listId)}
         </h1>
 

@@ -51,7 +51,7 @@ function Item({ item, confirm }: ItemProps) {
   }
 
   return (
-    <article data-testid="item" className="bg-white border-y border-gray-200 -mb-px">
+    <article data-testid="item" className="bg-white border-y border-gray-200 -mb-px select-none">
       <div className="max-w-xl mx-auto px-2 flex items-center">
         <button
           type="button"

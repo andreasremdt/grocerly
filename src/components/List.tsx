@@ -35,7 +35,7 @@ function List() {
         {uncheckedItems.length > 0 && (
           <>
             {checkedItems.length > 0 && (
-              <h4 className="max-w-xl mx-auto px-2 uppercase text-xs py-2 tracking-widest">
+              <h4 className="max-w-xl mx-auto px-2 uppercase text-xs py-2 tracking-widest select-none">
                 {__("list.uncheckedItems", settings.language)} ({uncheckedItems.length})
               </h4>
             )}
