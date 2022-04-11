@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, act } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 
 import App from "./App";
@@ -21,10 +22,10 @@ test("switches the language", () => {
     expect.objectContaining({ language: "en" })
   );
   expect(screen.getByText(/nothing here, yet/i)).toBeInTheDocument();
-  fireEvent.click(screen.getByTitle(/open menu/i));
-  fireEvent.click(screen.getByText(/settings/i));
+  userEvent.click(screen.getByTitle(/open menu/i));
+  userEvent.click(screen.getByText(/settings/i));
   fireEvent.change(screen.getByTestId("language-select"), { target: { value: "de" } });
-  fireEvent.click(screen.getByTitle(/zurück/i));
+  userEvent.click(screen.getByTitle(/zurück/i));
   expect(screen.getByText(/keine einkaufslisten vorhanden/i)).toBeInTheDocument();
   expect(screen.queryByText(/nothing here, yet/i)).not.toBeInTheDocument();
   expect(JSON.parse(localStorage.getItem(LocalStorage.Settings))).toMatchObject(
@@ -40,21 +41,21 @@ test("creates, displays, and removes shopping lists", async () => {
   );
 
   expect(screen.getByTitle(/create new list/i)).toBeInTheDocument();
-  fireEvent.click(screen.getByTitle(/create new list/i));
+  userEvent.click(screen.getByTitle(/create new list/i));
   expect(screen.getByText(/provide a name for this grocery list:/i)).toBeInTheDocument();
   fireEvent.change(screen.getByRole("textbox"), { target: { value: "List #1" } });
-  fireEvent.click(screen.getByTitle(/create list/i));
+  userEvent.click(screen.getByTitle(/create list/i));
   expect(screen.getByText(/nothing here, yet/i)).toBeInTheDocument();
   expect(screen.getByRole("spinbutton")).toBeInTheDocument();
   expect(screen.getByRole("banner")).toHaveTextContent(/list #1/i);
-  fireEvent.click(screen.getByTitle(/back/i));
+  userEvent.click(screen.getByTitle(/back/i));
   expect(screen.getByText(/list #1/i)).toBeInTheDocument();
   expect(screen.getByText(/this list is empty/i)).toBeInTheDocument();
-  fireEvent.click(screen.getByRole("link"));
-  fireEvent.click(screen.getByTitle(/open menu/i));
-  fireEvent.click(screen.getByText(/delete list/i));
+  userEvent.click(screen.getByRole("link"));
+  userEvent.click(screen.getByTitle(/open menu/i));
+  userEvent.click(screen.getByText(/delete list/i));
   expect(screen.getByRole("dialog")).toHaveTextContent(/delete list/i);
-  fireEvent.click(screen.getByTitle(/submit/i));
+  userEvent.click(screen.getByTitle(/submit/i));
 
   await act(async () => {
     await Promise.resolve();
@@ -263,33 +264,33 @@ test("doesn't sort items by checked status if disabled in settings", () => {
     </MemoryRouter>
   );
 
-  fireEvent.click(screen.getByTitle(/open menu/i));
-  fireEvent.click(screen.getByText(/settings/i));
+  userEvent.click(screen.getByTitle(/open menu/i));
+  userEvent.click(screen.getByText(/settings/i));
   expect(screen.getByLabelText(/sort items/i)).toBeInTheDocument();
   expect(screen.getByLabelText(/sort items/i)).toBeChecked();
-  fireEvent.click(screen.getByRole("checkbox"));
+  userEvent.click(screen.getByRole("checkbox"));
   expect(screen.getByLabelText(/sort items/i)).not.toBeChecked();
-  fireEvent.click(screen.getByTitle(/back/i));
+  userEvent.click(screen.getByTitle(/back/i));
 
-  fireEvent.click(screen.getByTitle(/create new list/i));
-  fireEvent.click(screen.getByTitle(/create list/i));
+  userEvent.click(screen.getByTitle(/create new list/i));
+  userEvent.click(screen.getByTitle(/create list/i));
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
   fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "100" } });
-  fireEvent.click(screen.getByLabelText(/ml/i));
-  fireEvent.click(screen.getByTestId("submit"));
+  userEvent.click(screen.getByLabelText(/ml/i));
+  userEvent.click(screen.getByTestId("submit"));
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "tomatoes" } });
   fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "2" } });
-  fireEvent.click(screen.getByTestId("submit"));
+  userEvent.click(screen.getByTestId("submit"));
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "eggs" } });
   fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: "10" } });
-  fireEvent.click(screen.getByTestId("submit"));
+  userEvent.click(screen.getByTestId("submit"));
 
   expect(screen.queryByText(/open/i)).not.toBeInTheDocument();
   expect(screen.queryByText(/done/i)).not.toBeInTheDocument();
-  fireEvent.click(screen.getAllByRole("checkbox")[0]);
+  userEvent.click(screen.getAllByRole("checkbox")[0]);
 
   expect(screen.queryByText(/open/i)).not.toBeInTheDocument();
   expect(screen.queryByText(/done/i)).not.toBeInTheDocument();
@@ -301,7 +302,7 @@ test("doesn't sort items by checked status if disabled in settings", () => {
   expect(screen.getByText(/tomatoes/i)).not.toHaveClass("line-through");
   expect(screen.getByText(/eggs/i)).not.toHaveClass("line-through");
 
-  fireEvent.click(screen.getAllByRole("checkbox")[0]);
+  userEvent.click(screen.getAllByRole("checkbox")[0]);
 
   expect(screen.getByText(/milk/i)).not.toHaveClass("line-through");
 });
