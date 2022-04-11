@@ -1,5 +1,6 @@
 import { ReactNode, Dispatch } from "react";
 import { render, cleanup } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 
 import { GroceryContext } from "./GroceryContext";
@@ -47,4 +48,5 @@ function renderWithContext(
 }
 
 export * from "@testing-library/react";
+export { userEvent };
 export { renderWithContext as render };
