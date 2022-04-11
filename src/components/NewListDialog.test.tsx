@@ -1,32 +1,12 @@
-import { render, fireEvent, screen, cleanup } from "@testing-library/react";
-import { ReactNode } from "react";
-import { MemoryRouter, Routes, Route } from "react-router-dom";
-
-import { GroceryContext } from "../GroceryContext";
-
+import { render, fireEvent, screen } from "../test-utils";
 import NewListDialog from "./NewListDialog";
 
-const renderWithContext = (ui: ReactNode, props: any, initialEntries: string[] = ["/"]) => {
-  return render(
-    <MemoryRouter initialEntries={initialEntries}>
-      <GroceryContext.Provider value={{ ...props }}>
-        {ui}
-        <Routes>
-          <Route path="/" element={<h1>Home page</h1>} />
-          <Route path="/list/:listId" element={<h1>List page</h1>} />
-        </Routes>
-      </GroceryContext.Provider>
-    </MemoryRouter>
-  );
-};
-
 test("renders a form with a label, input, and buttons", () => {
-  renderWithContext(<NewListDialog />, { language: "en", isNewListDialogVisible: false });
+  render(<NewListDialog />, { isNewListDialogVisible: false });
 
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 
-  cleanup();
-  renderWithContext(<NewListDialog />, { language: "en", isNewListDialogVisible: true });
+  render(<NewListDialog />, { isNewListDialogVisible: true }, { clean: true });
 
   expect(screen.getByRole("dialog")).toBeInTheDocument();
   expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -39,8 +19,7 @@ test("calls dispatch to create a new list", () => {
   jest.useFakeTimers().setSystemTime(new Date("2020-01-01").getTime());
   const spy = jest.fn();
 
-  renderWithContext(<NewListDialog />, {
-    language: "en",
+  render(<NewListDialog />, {
     dispatch: spy,
     isNewListDialogVisible: true,
   });
@@ -58,8 +37,7 @@ test("calls dispatch to create a new list", () => {
 test("calls dispatch to hide the dialog", () => {
   const spy = jest.fn();
 
-  renderWithContext(<NewListDialog />, {
-    language: "en",
+  render(<NewListDialog />, {
     dispatch: spy,
     isNewListDialogVisible: true,
   });

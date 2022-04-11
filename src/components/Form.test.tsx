@@ -1,41 +1,23 @@
-import { render, fireEvent, screen } from "@testing-library/react";
-import { ReactNode } from "react";
-import { MemoryRouter } from "react-router-dom";
-
-import { GroceryContext } from "../GroceryContext";
+import { render, fireEvent, screen } from "../test-utils";
 import Form from "./Form";
 
-const renderWithContext = (ui: ReactNode, props: any) => {
-  return render(
-    <MemoryRouter initialEntries={["/list/123"]}>
-      <GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>
-    </MemoryRouter>
-  );
-};
-
 test("renders null if `isFormVisible` is falsy or `activeList` is null", () => {
-  renderWithContext(<Form />, {
-    language: "en",
+  render(<Form />, {
     isFormVisible: false,
-    dispatch: jest.fn(),
   });
 
   expect(screen.queryByRole("form")).not.toBeInTheDocument();
 
-  renderWithContext(<Form />, {
-    language: "en",
+  render(<Form />, {
     isFormVisible: true,
-    dispatch: jest.fn(),
   });
 
   expect(screen.queryByRole("form")).not.toBeInTheDocument();
 });
 
 test("renders all form elements", () => {
-  renderWithContext(<Form />, {
-    language: "en",
+  render(<Form />, {
     isFormVisible: true,
-    dispatch: jest.fn(),
   });
 
   expect(screen.getByPlaceholderText(/eggs, milk/i)).toBeInTheDocument();
@@ -48,9 +30,7 @@ test("renders all form elements", () => {
 
 test("the submit button is disabled if no name is provided", () => {
   const spy = jest.fn();
-  renderWithContext(<Form />, {
-    dispatch: spy,
-    language: "en",
+  render(<Form />, {
     isFormVisible: true,
   });
 
@@ -64,10 +44,9 @@ test("returns a new grocery object with only the name", () => {
   jest.spyOn(Date, "now").mockImplementation(() => 1487076708000);
 
   const spy = jest.fn();
-  renderWithContext(<Form />, {
-    dispatch: spy,
-    language: "en",
+  render(<Form />, {
     isFormVisible: true,
+    dispatch: spy,
   });
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "bread" } });
@@ -79,14 +58,12 @@ test("returns a new grocery object with only the name", () => {
   expect(screen.getByTestId("submit")).toHaveAttribute("disabled");
   expect(spy).toHaveBeenCalledWith({
     type: "ADD_ITEM",
-    payload: {
+    payload: expect.objectContaining({
       id: 1487076708000,
       name: "bread",
       amount: "",
-      listId: 123,
       unit: "",
-      checked: false,
-    },
+    }),
   });
 });
 
@@ -94,11 +71,14 @@ test("all grocery inputs are submitted", () => {
   jest.spyOn(Date, "now").mockImplementation(() => 1487076708000);
 
   const spy = jest.fn();
-  renderWithContext(<Form />, {
-    dispatch: spy,
-    language: "en",
-    isFormVisible: true,
-  });
+  render(
+    <Form />,
+    {
+      isFormVisible: true,
+      dispatch: spy,
+    },
+    { initialEntries: ["/list/1"] }
+  );
 
   fireEvent.change(screen.getByPlaceholderText(/eggs/i), { target: { value: "milk" } });
   fireEvent.change(screen.getByPlaceholderText(/qt/i), { target: { value: 100 } });
@@ -111,7 +91,7 @@ test("all grocery inputs are submitted", () => {
       id: 1487076708000,
       name: "milk",
       amount: "100",
-      listId: 123,
+      listId: 1,
       unit: "ml",
       checked: false,
     },
@@ -128,15 +108,19 @@ test("an existing item can be updated", () => {
     name: "milk",
     amount: "100",
     unit: "l",
+    listId: 1,
     checked: false,
   };
   const spy = jest.fn();
-  renderWithContext(<Form />, {
-    editing,
-    dispatch: spy,
-    language: "en",
-    isFormVisible: true,
-  });
+  render(
+    <Form />,
+    {
+      editing,
+      isFormVisible: true,
+      dispatch: spy,
+    },
+    { initialEntries: ["/list/1"] }
+  );
 
   expect(screen.getByPlaceholderText(/eggs/i)).toHaveValue("milk");
   expect(screen.getByPlaceholderText(/qt/i)).toHaveValue(100);
@@ -148,14 +132,14 @@ test("an existing item can be updated", () => {
 
   expect(spy).toHaveBeenCalledWith({
     type: "UPDATE_ITEM",
-    payload: {
+    payload: expect.objectContaining({
       id: 1,
       name: "bread",
       amount: "150",
-      listId: 123,
+      listId: 1,
       unit: "l",
       checked: false,
-    },
+    }),
   });
 });
 
@@ -163,9 +147,8 @@ test("when no amount is specified, the unit is not submitted", () => {
   jest.spyOn(Date, "now").mockImplementation(() => 1487076708000);
 
   const spy = jest.fn();
-  renderWithContext(<Form />, {
+  render(<Form />, {
     dispatch: spy,
-    language: "en",
     isFormVisible: true,
   });
 
@@ -175,13 +158,11 @@ test("when no amount is specified, the unit is not submitted", () => {
 
   expect(spy).toHaveBeenCalledWith({
     type: "ADD_ITEM",
-    payload: {
+    payload: expect.objectContaining({
       id: 1487076708000,
       name: "milk",
       amount: "",
-      listId: 123,
       unit: "",
-      checked: false,
-    },
+    }),
   });
 });

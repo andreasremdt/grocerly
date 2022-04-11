@@ -1,7 +1,4 @@
-import { render, fireEvent, screen } from "@testing-library/react";
-import { ReactNode } from "react";
-
-import { GroceryContext } from "../GroceryContext";
+import { render, fireEvent, screen } from "../test-utils";
 import Item from "./Item";
 
 const getItem = () => ({
@@ -12,10 +9,6 @@ const getItem = () => ({
   checked: false,
   listId: 123,
 });
-
-const renderWithContext = (ui: ReactNode, props: any) => {
-  return render(<GroceryContext.Provider value={{ ...props }}>{ui}</GroceryContext.Provider>);
-};
 
 beforeAll(() => {
   jest.useFakeTimers();
@@ -34,11 +27,11 @@ test("displays the correct item data", () => {
 });
 
 test("an item is striked-through when checked", () => {
-  const { rerender } = render(<Item item={getItem()} />);
+  render(<Item item={getItem()} />);
 
   expect(screen.getByRole("heading")).not.toHaveClass("line-through");
 
-  rerender(<Item item={{ ...getItem(), checked: true }} />);
+  render(<Item item={{ ...getItem(), checked: true }} />, {}, { clean: true });
 
   expect(screen.getByRole("heading")).toHaveClass("line-through");
 });
@@ -49,10 +42,7 @@ test("deletes an item when pressing for more than 500 ms", async () => {
   const spy = jest.fn();
   const item = getItem();
 
-  renderWithContext(<Item item={item} confirm={jest.fn(() => Promise.resolve(true))} />, {
-    dispatch: spy,
-    language: "en",
-  });
+  render(<Item item={item} confirm={jest.fn(() => Promise.resolve(true))} />, { dispatch: spy });
 
   fireEvent.pointerDown(screen.getByText(/milk/i));
 
@@ -73,10 +63,7 @@ test("does not delete an item if the confirmation is falsy", async () => {
 
   const spy = jest.fn();
   const item = getItem();
-  renderWithContext(<Item item={item} confirm={jest.fn(() => Promise.resolve(false))} />, {
-    dispatch: spy,
-    language: "en",
-  });
+  render(<Item item={item} confirm={jest.fn(() => Promise.resolve(false))} />, { dispatch: spy });
 
   fireEvent.pointerDown(screen.getByText(/milk/i));
 
@@ -92,9 +79,7 @@ test("edits an item with a single click", () => {
   const confirm = jest.fn();
   const item = getItem();
 
-  renderWithContext(<Item item={item} confirm={confirm} />, {
-    dispatch: spy,
-  });
+  render(<Item item={item} confirm={confirm} />, { dispatch: spy });
 
   fireEvent.pointerDown(screen.getByText(/milk/i));
 
@@ -112,9 +97,7 @@ test("edits an item with a single click", () => {
 test("toggles an item on or off", () => {
   const spy = jest.fn();
   const item = getItem();
-  renderWithContext(<Item item={item} />, {
-    dispatch: spy,
-  });
+  render(<Item item={item} />, { dispatch: spy });
 
   fireEvent.click(screen.getByRole("checkbox"));
 

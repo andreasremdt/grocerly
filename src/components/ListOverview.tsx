@@ -7,7 +7,7 @@ import EmptyState from "./EmptyState";
 import __ from "../utils/translate";
 
 function ListOverview() {
-  const { lists, language } = useContext(GroceryContext);
+  const { lists, settings } = useContext(GroceryContext);
 
   return (
     <main
@@ -19,8 +19,8 @@ function ListOverview() {
         lists.map((list) => <ListCard key={list.id} list={list} />)
       ) : (
         <EmptyState
-          title={__("card.emptyState.title", language)}
-          text={__("card.emptyState.subtitle", language)}
+          title={__("card.emptyState.title", settings.language)}
+          text={__("card.emptyState.subtitle", settings.language)}
         />
       )}
     </main>

@@ -1,6 +1,6 @@
 {
   "name": "grocerly",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "author": {
     "name": "Andreas Remdt",
     "email": "me@andreasremdt.com",
@@ -47,7 +47,9 @@
   },
   "jest": {
     "coveragePathIgnorePatterns": [
-      "src/index.ts"
+      "src/index.ts",
+      "src/service-worker.ts",
+      "src/serviceWorkerRegistration.ts"
     ]
   },
   "browserslist": {

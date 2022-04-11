@@ -13,6 +13,7 @@ const translation = {
   },
   settings: {
     language: "Language",
+    sortLabel: 'Sort items by "done" and "open" status',
   },
   list: {
     check: "Mark as done",
@@ -23,6 +24,8 @@ const translation = {
       title: "Nothing here, yet.",
       subtitle: "Start adding items to your shopping list via the form above.",
     },
+    checkedItems: "Done",
+    uncheckedItems: "Open",
   },
   card: {
     empty: "This list is empty.",

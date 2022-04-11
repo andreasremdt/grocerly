@@ -9,7 +9,7 @@ import __ from "../utils/translate";
 
 function NewListDialog() {
   const navigate = useNavigate();
-  const { dispatch, isNewListDialogVisible, language } = useContext(GroceryContext);
+  const { dispatch, isNewListDialogVisible, settings } = useContext(GroceryContext);
   const [name, setName] = useState("");
 
   function handleSubmit(event: SyntheticEvent) {
@@ -19,7 +19,7 @@ function NewListDialog() {
 
     dispatch({
       type: "ADD_LIST",
-      payload: { id, name: name || __("newListDialog.placeholder", language) },
+      payload: { id, name: name || __("newListDialog.placeholder", settings.language) },
     });
     navigate(`/list/${id}`);
   }
@@ -56,7 +56,7 @@ function NewListDialog() {
       >
         <div>
           <label htmlFor="name" className="block">
-            {__("newListDialog.label", language)}
+            {__("newListDialog.label", settings.language)}
           </label>
           <Input
             type="text"
@@ -65,7 +65,7 @@ function NewListDialog() {
             value={name}
             onChange={(event) => setName(event.target.value)}
             className="w-full my-2"
-            placeholder={__("newListDialog.placeholder", language)}
+            placeholder={__("newListDialog.placeholder", settings.language)}
           />
         </div>
         <footer className="text-right">
@@ -74,11 +74,11 @@ function NewListDialog() {
             className="mr-2"
             variant="secondary"
             onClick={() => dispatch({ type: "TOGGLE_NEW_LIST_DIALOG" })}
-            title={__("newListDialog.cancel", language)}
+            title={__("newListDialog.cancel", settings.language)}
           >
             <XIcon className="w-5 h-5" />
           </Button>
-          <Button type="submit" title={__("newListDialog.submit", language)}>
+          <Button type="submit" title={__("newListDialog.submit", settings.language)}>
             <CheckIcon className="w-5 h-5" />
           </Button>
         </footer>

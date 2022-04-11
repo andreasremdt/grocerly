@@ -12,7 +12,7 @@ type ItemProps = {
 } & ConfirmFunctionType;
 
 function Item({ item, confirm }: ItemProps) {
-  const { dispatch, language } = useContext(GroceryContext);
+  const { dispatch, settings } = useContext(GroceryContext);
   const timer = useRef<NodeJS.Timeout | null>(null);
   const hasFired = useRef(false);
 
@@ -29,8 +29,8 @@ function Item({ item, confirm }: ItemProps) {
       window.navigator.vibrate(100);
 
       const confirmed = await confirm({
-        title: __("list.deleteItem", language),
-        content: __("list.confirmDeleteItem", language),
+        title: __("list.deleteItem", settings.language),
+        content: __("list.confirmDeleteItem", settings.language),
       });
 
       if (confirmed) {
@@ -51,7 +51,7 @@ function Item({ item, confirm }: ItemProps) {
   }
 
   return (
-    <article data-testid="item" className="bg-white border-b border-gray-200">
+    <article data-testid="item" className="bg-white border-y border-gray-200 -mb-px select-none">
       <div className="max-w-xl mx-auto px-2 flex items-center">
         <button
           type="button"
@@ -72,7 +72,7 @@ function Item({ item, confirm }: ItemProps) {
         <Checkbox
           checked={item.checked}
           onChange={() => dispatch({ type: "TOGGLE_CHECK_ITEM", payload: item })}
-          aria-label={__(item.checked ? "list.uncheck" : "list.check", language)}
+          aria-label={__(item.checked ? "list.uncheck" : "list.check", settings.language)}
         />
       </div>
     </article>
