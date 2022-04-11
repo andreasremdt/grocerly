@@ -5,15 +5,19 @@
 ### Added
 
 - Items are now sorted by the open / done status. This feature can be toggled off through the settings page
+- Offline support
 
 ### Fixed
 
 - Icons were not displayed in the amount input controls
 - The menu button doesn't re-open the menu when pressed while the menu is visible
+- Navigating back from settings opened the wrong page
 
 ### Changed
 
 - Update README.md to remove unnecessary information
+- Improved PWA experience with better icons, screenshots and app behavior
+- Changed theme color
 
 ## v3.0.0
 
